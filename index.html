@@ -262,6 +262,23 @@ footer a{color:var(--accent-hi)}
 .gbadge-lg{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;flex:none;box-shadow:0 4px 10px rgba(10,26,51,.12)}
 .gbadge-lg svg{width:21px;height:21px}
 .who{display:inline-block;font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--accent);margin-bottom:8px}
+.srch{display:flex;gap:10px}
+.srch input{flex:1;min-width:0}
+.msg{font-size:13.5px;color:var(--on-navy-muted)}
+.results{display:grid;gap:8px}
+.res{display:block;width:100%;text-align:left;border:1px solid rgba(169,188,214,.3);background:rgba(255,255,255,.06);color:var(--on-navy);border-radius:12px;padding:12px 14px;cursor:pointer;font:500 14px var(--body);transition:background .18s,border-color .18s}
+.res:hover{background:rgba(255,255,255,.12)}
+.res.on{border-color:var(--accent-hi);background:rgba(62,224,200,.14)}
+.res b{display:block;font-weight:700;font-size:15px}
+.res span{display:block;color:var(--on-navy-muted);font-size:13px;margin-top:2px}
+.res.maps{text-decoration:none;text-align:center;font-weight:700;color:var(--accent-hi)}
+.linkbox details.manual{background:transparent;border:1px solid rgba(169,188,214,.28);color:var(--on-navy);padding:0 14px}
+.linkbox details.manual summary{font-size:14px;min-height:46px}
+.linkbox details.manual summary::after{color:var(--accent-hi)}
+.sel{font-size:14px;color:var(--on-navy)!important}
+.sel b{color:var(--accent-hi)}
+.sel em{font-style:normal;color:var(--on-navy-muted)}
+.dis{opacity:.45;pointer-events:none}
 /* tech waves behind the phone */
 .waves{position:absolute;left:50%;top:58%;width:900px;height:900px;transform:translate(-50%,-50%);z-index:0;pointer-events:none;-webkit-mask-image:radial-gradient(circle,#000 0,#000 22%,transparent 62%);mask-image:radial-gradient(circle,#000 0,#000 22%,transparent 62%)}
 .waves svg{width:100%;height:100%;max-width:none;display:block}
@@ -286,9 +303,9 @@ footer{padding-bottom:130px}
 @media (min-width:720px){.nav{display:flex}.hdr .btn-primary{display:inline-flex}}
 @media (min-width:900px){.hero{padding-block:140px 90px}}
 </style>
-
 </head>
 <body>
+
 <header class="hdr">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Tap Tracker">
@@ -402,13 +419,26 @@ footer{padding-bottom:130px}
         <h3 data-i18n="link_title"></h3>
         <p data-i18n="link_desc"></p>
         <div class="field">
-          <label for="placeId" data-i18n="link_label"></label>
-          <input id="placeId" type="text" value="ChIJN1t_tDeuEmsRUsoyG83frY4" autocomplete="off" spellcheck="false" autocapitalize="off">
+          <label for="bizQ" data-i18n="link_label"></label>
+          <div class="srch">
+            <input id="bizQ" type="text" autocomplete="off" spellcheck="false" data-i18n-ph="link_ph">
+            <button class="btn btn-primary btn-sm" type="button" id="bizGo" style="background:var(--accent-hi);color:#04201C;min-height:48px" data-i18n="link_go"></button>
+          </div>
         </div>
+        <p class="msg" id="searchMsg" aria-live="polite" hidden></p>
+        <div class="results" id="results" hidden></div>
+        <details class="manual" id="manual">
+          <summary data-i18n="link_manual"></summary>
+          <div class="field" style="padding-bottom:14px">
+            <label for="placeId" data-i18n="link_pid"></label>
+            <input id="placeId" type="text" value="ChIJN1t_tDeuEmsRUsoyG83frY4" autocomplete="off" spellcheck="false" autocapitalize="off">
+          </div>
+        </details>
+        <p class="sel"><span data-i18n="link_sel"></span> <b id="selName"></b><em id="selAddr"></em></p>
         <div class="out">
           <small data-i18n="link_out"></small>
           <code id="linkOut"></code>
-          <button class="btn btn-primary btn-sm" type="button" id="copyLink" style="justify-self:start;background:var(--accent-hi);color:#04201C" data-i18n="copy"></button>
+          <a class="btn btn-primary" id="openRev" target="_blank" rel="noopener" style="background:var(--accent-hi);color:#04201C;justify-self:stretch" href="#"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z"/></svg><span data-i18n="link_open"></span></a>
         </div>
         <p data-i18n="link_note"></p>
       </div>
@@ -590,10 +620,13 @@ var PACKAGES=[
   {id:"scale",cards:50,price:349}
 ];
 var CONTACT={whatsapp:"",email:""};
+/* URL of the Cloud Run search service (ends in /search). Empty = search shows a fallback. */
+var SEARCH_URL="https://tap-tracker-search-sjzbrxsr5a-uc.a.run.app/search";
+var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
-who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Calc",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Calculator",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
+link_maps:"Find it on Google Maps",link_nokey:"Live search turns on when our Google key is added. For now, find your business on Google Maps and paste its Place ID below, or use the example.",link_err:"Search is unavailable right now. Paste a Place ID below instead.",link_none:"No results. Try adding the city.",link_searching:"Searching Google…",link_open:"Open review window",link_example:"Example business",link_sel:"Selected:",link_pid:"Google Place ID",link_manual:"I already have a Place ID",link_go:"Search",link_ph:"Example: Chili's San Antonio",who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Calc",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Calculator",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
 cta_order_short:"Order",cta_order:"Order your cards",cta_how:"See how it works",
 hero_eyebrow:"NFC Google review cards",
 hero_h1:"Every customer is a <em>5-star review</em> waiting to happen.",
@@ -608,9 +641,9 @@ s1_t:"We find your Google Place ID",s1_d:"This is the code Google gives your bus
 s2_t:"We program the card",s2_d:"We save your direct review link inside each NFC card and test it on iPhone and Android before it ships.",
 s3_t:"Place the cards where customers pause",s3_d:"Counter, checkout, front desk, tables or waiting area.",
 s4_t:"Customer taps, review opens",s4_d:"Their phone opens your Google review box in about a second. They pick the stars, write a few words, done.",
-link_title:"See the link we program",link_desc:"Paste a Google Place ID to preview the exact review link that goes onto your card.",
-link_label:"Google Place ID",link_out:"Your card opens",copy:"Copy",copied:"Copied",
-link_note:"The ID above is a public example. Yours is unique to your business.",
+link_title:"Find your business and try your card",link_desc:"Type your business name. Add the city if you have several locations. Pick yours from the list, then open your Google review window, exactly what your customers see after one tap.",
+link_label:"Business name",link_out:"Your card opens",copy:"Copy",copied:"Copied",
+link_note:"This is the screen your customers land on after one tap. We program the card with this exact link.",
 calc_eyebrow:"The math",calc_title:"How many reviews are you leaving on the table?",calc_sub:"Move the sliders to match your business. This is an estimate, not a promise.",
 c_guests:"Customers per day",c_tap:"Customers who tap the card",c_fin:"Tappers who finish a review",c_now:"Reviews you get today, per month",
 c_note:"Taps and completion rates change with where the card sits and how your team introduces it.",
@@ -647,7 +680,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 foot_tag:"NFC review cards and marketing services for any business."
 },
 es:{
-who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Calc",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Calculadora",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
+link_maps:"Búscalo en Google Maps",link_nokey:"La búsqueda en vivo se activa cuando agreguemos nuestra llave de Google. Por ahora, encuentra tu negocio en Google Maps y pega su Place ID abajo, o usa el ejemplo.",link_err:"La búsqueda no está disponible ahora. Pega un Place ID abajo.",link_none:"Sin resultados. Prueba agregando la ciudad.",link_searching:"Buscando en Google…",link_open:"Abrir ventana de reseña",link_example:"Negocio de ejemplo",link_sel:"Seleccionado:",link_pid:"Place ID de Google",link_manual:"Ya tengo un Place ID",link_go:"Buscar",link_ph:"Ejemplo: Chili's San Antonio",who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Calc",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Calculadora",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
 cta_order_short:"Pedir",cta_order:"Pedir mis tarjetas",cta_how:"Ver cómo funciona",
 hero_eyebrow:"Tarjetas NFC para reseñas de Google",
 hero_h1:"Cada cliente es una <em>reseña de 5 estrellas</em> esperando a suceder.",
@@ -662,9 +695,9 @@ s1_t:"Encontramos tu Place ID de Google",s1_d:"Es el código que Google le da a 
 s2_t:"Programamos la tarjeta",s2_d:"Guardamos tu link directo de reseña dentro de cada tarjeta NFC y la probamos en iPhone y Android antes de enviarla.",
 s3_t:"Coloca las tarjetas donde el cliente hace una pausa",s3_d:"Mostrador, caja, recepción, mesas o sala de espera.",
 s4_t:"El cliente toca y se abre la reseña",s4_d:"Su teléfono abre tu ventana de reseña de Google en cerca de un segundo. Elige las estrellas, escribe unas palabras y listo.",
-link_title:"Mira el link que programamos",link_desc:"Pega un Place ID de Google y ve el link exacto de reseña que va en tu tarjeta.",
-link_label:"Place ID de Google",link_out:"Tu tarjeta abre",copy:"Copiar",copied:"Copiado",
-link_note:"El ID de arriba es un ejemplo público. El tuyo es único para tu negocio.",
+link_title:"Encuentra tu negocio y prueba tu tarjeta",link_desc:"Escribe el nombre de tu negocio. Agrega la ciudad si tienes varias ubicaciones. Elige el tuyo de la lista y abre tu ventana de reseñas de Google, justo lo que verán tus clientes después de un toque.",
+link_label:"Nombre del negocio",link_out:"Tu tarjeta abre",copy:"Copiar",copied:"Copiado",
+link_note:"Esta es la pantalla a la que llegan tus clientes después de un toque. Programamos la tarjeta con este link exacto.",
 calc_eyebrow:"Los números",calc_title:"¿Cuántas reseñas estás dejando en la mesa?",calc_sub:"Mueve los controles para ajustarlos a tu negocio. Es un estimado, no una promesa.",
 c_guests:"Clientes por día",c_tap:"Clientes que tocan la tarjeta",c_fin:"De esos, los que terminan la reseña",c_now:"Reseñas que recibes hoy, por mes",
 c_note:"Los porcentajes cambian según dónde pongas la tarjeta y cómo la presente tu equipo.",
@@ -721,6 +754,7 @@ function applyLang(){
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
   renderPkgs();renderDash(false);calc(true);
+  if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
 function setLang(l){
@@ -729,10 +763,67 @@ function setLang(l){
   applyLang();
 }
 
-/* place id link */
+/* business search + review link */
+var selIsExample=true;
+function setPlace(id,name,addr,isEx){
+  selIsExample=!!isEx;
+  var url="https://search.google.com/local/writereview?placeid="+encodeURIComponent(id);
+  $("#linkOut").textContent=url;
+  var o=$("#openRev");o.href=url;o.classList.remove("dis");o.removeAttribute("aria-disabled");
+  $("#selName").textContent=isEx?t("link_example"):name;
+  $("#selAddr").textContent=addr?(" · "+addr):"";
+}
 function link(){
   var v=$("#placeId").value.trim();
-  $("#linkOut").textContent="https://search.google.com/local/writereview?placeid="+(v||"YOUR_PLACE_ID");
+  if(!v){
+    $("#linkOut").textContent="-";var o=$("#openRev");o.href="#";o.classList.add("dis");o.setAttribute("aria-disabled","true");
+    $("#selName").textContent="-";$("#selAddr").textContent="";return;
+  }
+  setPlace(v,"Place ID "+v.slice(0,12)+"…","",v===EX_ID);
+}
+function msg(text){var m=$("#searchMsg");if(text){m.textContent=text;m.hidden=false}else{m.hidden=true}}
+function clearResults(){var r=$("#results");r.innerHTML="";r.hidden=true}
+function renderResults(list){
+  var r=$("#results");r.innerHTML="";
+  list.forEach(function(pl){
+    var name=(pl.displayName&&pl.displayName.text)||"",addr=pl.formattedAddress||"";
+    var b=document.createElement("button");b.type="button";b.className="res";
+    var n=document.createElement("b");n.textContent=name;
+    var d=document.createElement("span");d.textContent=addr;
+    b.appendChild(n);b.appendChild(d);
+    b.addEventListener("click",function(){
+      $$(".res").forEach(function(x){x.classList.remove("on")});b.classList.add("on");
+      $("#placeId").value=pl.id;
+      setPlace(pl.id,name,addr,false);
+    });
+    r.appendChild(b);
+  });
+  r.hidden=false;
+}
+function searchBiz(){
+  var q=$("#bizQ").value.trim();
+  if(!q)return;
+  clearResults();
+  if(!SEARCH_URL){
+    msg(t("link_nokey"));
+    var r=$("#results"),a=document.createElement("a");
+    a.className="res maps";a.target="_blank";a.rel="noopener";
+    a.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+    a.textContent=t("link_maps");r.appendChild(a);r.hidden=false;
+    $("#manual").open=true;
+    return;
+  }
+  msg(t("link_searching"));
+  fetch(SEARCH_URL+"?q="+encodeURIComponent(q)+"&lang="+encodeURIComponent(lang),{
+  }).then(function(res){
+    return res.json().then(function(j){if(!res.ok)throw new Error("api");return j});
+  }).then(function(j){
+    var list=(j&&j.places)||[];
+    if(!list.length){msg(t("link_none"));return}
+    msg("");renderResults(list);
+  }).catch(function(){
+    msg(t("link_err"));$("#manual").open=true;
+  });
 }
 function copyText(text,btn,doneKey,keyOrig){
   function done(){btn.textContent=t(doneKey);setTimeout(function(){btn.textContent=t(keyOrig)},1600)}
@@ -847,8 +938,8 @@ document.addEventListener("DOMContentLoaded",function(){
 
   $$(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-lang"))})});
   $("#placeId").addEventListener("input",link);
-  var cl=$("#copyLink");cl._sel=$("#linkOut");
-  cl.addEventListener("click",function(){copyText($("#linkOut").textContent,cl,"copied","copy")});
+  $("#bizGo").addEventListener("click",searchBiz);
+  $("#bizQ").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();searchBiz()}});
   ["gDay","tapR","finR","nowR"].forEach(function(id){$("#"+id).addEventListener("input",function(){calc(false)})});
   $$(".seg button").forEach(function(b){b.addEventListener("click",function(){tab=b.getAttribute("data-tab");renderDash(true)})});
 
@@ -887,6 +978,7 @@ document.addEventListener("DOMContentLoaded",function(){
   link();applyLang();
 });
 </script>
+
 
 </body>
 </html>
