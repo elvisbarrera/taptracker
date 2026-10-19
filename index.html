@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Tap Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Manrope:wght@700;800&family=Sora:wght@700;800&family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: mobile-first single column. Deep navy hero with a looping NFC tap scene, light working sections (steps, calculator, dashboard, pricing). Trust comes from navy + teal + Google-review gold. */
+:root{
+  --bg:#F3F7FC; --surface:#FFFFFF; --ink:#0B1B33; --muted:#4F6179; --line:#DAE3EF;
+  --navy:#0A1A33; --glass:rgba(10,26,51,.76); --navy-2:#12305A; --on-navy:#F2F7FF; --on-navy-muted:#A9BCD6;
+  --accent:#0B7F76; --accent-hi:#3EE0C8; --on-accent:#FFFFFF; --gold:#F5B301;
+  --soft:#E7F4F2; --hdr:#FFFFFF; --shadow:0 10px 30px rgba(10,26,51,.10);
+  --display:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#07111F; --surface:#0E1D33; --ink:#EAF1FB; --muted:#9DB0C8; --line:#1E3453;
+  --accent:#3EE0C8; --on-accent:#04201C; --soft:#0F2B2F; --hdr:#0A1829; --shadow:0 10px 30px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#07111F; --surface:#0E1D33; --ink:#EAF1FB; --muted:#9DB0C8; --line:#1E3453;
+  --accent:#3EE0C8; --on-accent:#04201C; --soft:#0F2B2F; --hdr:#0A1829; --shadow:0 10px 30px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.sec-title{font-size:clamp(28px,7vw,44px);font-weight:800;margin-top:10px}
+.sec-sub{color:var(--muted);margin-top:14px;max-width:60ch}
+:focus-visible{outline:3px solid var(--accent-hi);outline-offset:3px;border-radius:6px}
+
+/* header + dock */
+.hdr{position:fixed;z-index:50;top:calc(env(safe-area-inset-top,0px) + 10px);left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));max-width:1080px;margin:0 auto;border-radius:22px;background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(169,188,214,.22);box-shadow:0 12px 32px rgba(3,10,24,.35),inset 0 1px 0 rgba(255,255,255,.08);color:var(--on-navy)}
+.hdr .wrap{display:flex;align-items:center;gap:12px;height:58px;padding-left:18px;padding-right:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;color:var(--on-navy)}
+.logo{height:26px;width:auto;display:block;overflow:visible}
+.logo .w{stroke:var(--accent-hi)}
+.brand .word{font:800 11px var(--display);letter-spacing:.34em;text-transform:uppercase;color:var(--on-navy-muted);padding-top:3px}
+.nav{display:none;gap:4px;font-size:14px;font-weight:500}
+.nav a{text-decoration:none;color:var(--on-navy-muted);padding:8px 13px;border-radius:999px;transition:color .18s,background .18s}
+.nav a:hover,.nav a.on{color:var(--on-navy);background:rgba(255,255,255,.09)}
+.lang{display:inline-flex;border:1px solid rgba(169,188,214,.28);border-radius:999px;padding:3px;background:rgba(255,255,255,.05)}
+.lang button{border:0;background:transparent;color:var(--on-navy-muted);font:700 12px var(--body);padding:6px 11px;border-radius:999px;cursor:pointer;min-height:30px;transition:background .18s,color .18s}
+.lang button[aria-pressed="true"]{background:var(--accent-hi);color:#04201C}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:0 20px;min-height:48px;font:700 15px var(--body);text-decoration:none;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,127,118,.35)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-ghost:hover{transform:translateY(-2px)}
+.btn-sm{min-height:38px;padding:0 14px;font-size:13px;border-radius:10px}
+.hdr .btn-primary{display:none;background:var(--accent-hi);color:#04201C}
+
+.dock{position:fixed;z-index:55;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:min(calc(100% - 24px),430px);display:grid;grid-template-columns:1fr 1fr 78px 1fr 1fr;align-items:end;padding:8px;border-radius:32px;background:var(--glass);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);border:1px solid rgba(169,188,214,.26);box-shadow:0 20px 44px rgba(3,10,24,.5),inset 0 1px 0 rgba(255,255,255,.12);transform:translateX(-50%);animation:dockIn .8s .25s cubic-bezier(.2,.9,.2,1) both}
+.dk{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;text-decoration:none;color:var(--on-navy-muted);font:700 10.5px/1 var(--body);letter-spacing:.02em;padding:8px 2px 9px;border-radius:20px;min-height:56px;-webkit-tap-highlight-color:transparent;transition:color .2s,transform .2s,background .2s}
+.dk svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.dk:active{transform:scale(.9)}
+.dk.on{color:var(--accent-hi);background:rgba(62,224,200,.1)}
+.dk.on svg{transform:translateY(-2px)}
+.dk-order{margin-top:-34px;padding:0 0 6px;min-height:0;color:var(--accent-hi);background:none!important}
+.orb{position:relative;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;color:#04201C;background:linear-gradient(145deg,#7BF3DF,#1FC4AE);box-shadow:0 12px 26px rgba(31,196,174,.5),0 0 0 6px #0A1A33;transition:transform .2s}
+.orb svg{width:28px;height:28px;stroke-width:2}
+.orb::before{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--accent-hi);animation:pulse 2.6s ease-out infinite}
+.dk-order:active .orb{transform:scale(.92)}
+@keyframes dockIn{from{transform:translate(-50%,140%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+@keyframes pulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.6);opacity:0}}
+
+/* hero */
+.hero{position:relative;background:radial-gradient(700px 520px at 82% 58%,rgba(62,224,200,.2),transparent 65%),linear-gradient(100deg,#050F20 0%,#0A1A33 32%,#133E73 70%,#2672AA 100%);color:var(--on-navy);padding-block:40px 56px;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+.hero .wrap{display:grid;gap:36px}
+.hero .eyebrow{color:var(--accent-hi)}
+.hero h1{font-size:clamp(36px,10.5vw,64px);font-weight:800;margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--accent-hi);background:linear-gradient(transparent 82%,rgba(62,224,200,.28) 82%)}
+.hero .lead{color:var(--on-navy-muted);font-size:17px;margin-top:18px;max-width:52ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .btn-primary{background:var(--accent-hi);color:#04201C}
+.hero .btn-primary:hover{box-shadow:0 8px 24px rgba(62,224,200,.35)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;padding:0;list-style:none}
+.chips li{font-size:13px;color:var(--on-navy);border:1px solid rgba(169,188,214,.3);border-radius:999px;padding:6px 12px;background:rgba(255,255,255,.04)}
+.chips li::before{content:"✓";color:var(--accent-hi);margin-right:6px;font-weight:700}
+
+.scene{position:relative;width:100%;max-width:340px;height:400px;margin:0 auto}
+.phone{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:196px;height:336px;border-radius:32px;background:#050C18;border:2px solid #2A4468;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.notch{width:60px;height:8px;border-radius:6px;background:#1B2D48;margin:2px auto 8px}
+.screen{position:relative;height:calc(100% - 22px);border-radius:22px;background:#F3F7FC;overflow:hidden}
+.map{position:absolute;inset:0;background:linear-gradient(135deg,#DCEBE8 0 35%,#E8EFF7 35% 60%,#D9E6F4 60%);}
+.map::after{content:"";position:absolute;left:-10%;top:42%;width:120%;height:10px;background:#fff;transform:rotate(-14deg);box-shadow:0 60px 0 #fff}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;padding:16px 12px 18px;text-align:center;color:#0B1B33;box-shadow:0 -8px 24px rgba(0,0,0,.15);animation:sheetUp 7s ease-in-out infinite}
+.sheet .g{width:26px;height:26px;margin:0 auto 8px;display:grid;place-items:center}
+.sheet .g svg{width:24px;height:24px}
+.sheet p{font-size:12px;font-weight:700}
+.sheet small{display:block;font-size:10px;color:#51627A;margin-top:2px}
+.stars{display:flex;justify-content:center;gap:4px;margin:12px 0}
+.stars i{font-style:normal;font-size:24px;line-height:1;color:#C5D0DE;animation:star 7s ease-in-out infinite;animation-delay:calc(var(--i)*.14s)}
+.sheet .post{display:inline-block;font-size:11px;font-weight:700;background:#1A73E8;color:#fff;border-radius:999px;padding:7px 22px}
+.nfc-card{position:absolute;left:50%;top:0;width:210px;height:132px;margin-left:-105px;border-radius:16px;background:linear-gradient(135deg,#16407A,#0A1A33 70%);border:1px solid rgba(62,224,200,.5);box-shadow:0 18px 40px rgba(0,0,0,.4);padding:14px;color:var(--on-navy);z-index:3;animation:cardMove 7s ease-in-out infinite;transform:rotate(-8deg)}
+.nfc-card b{font:800 22px var(--display);color:var(--accent-hi);letter-spacing:-.04em}
+.nfc-card span{position:absolute;left:14px;bottom:12px;font:800 12px var(--display);color:var(--on-navy);letter-spacing:.01em}
+.nfc-card .gbadge{position:absolute;right:13px;top:12px;width:32px;height:32px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.nfc-card .gbadge svg{width:19px;height:19px}
+.nfc-card .cs{position:absolute;left:14px;bottom:34px;text-decoration:none;color:var(--gold);font-size:13px;letter-spacing:2px}
+.nfc-card .cb{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:7px;color:var(--on-navy)}
+.nfc-card .logo{height:19px;width:auto}
+.nfc-card .cb em{font:800 7.5px var(--display);letter-spacing:.32em;font-style:normal;color:var(--on-navy-muted);padding-top:2px}
+.ripple{position:absolute;left:50%;top:210px;width:120px;height:120px;margin-left:-60px;border-radius:50%;border:2px solid var(--accent-hi);opacity:0;z-index:2;animation:ripple 7s ease-out infinite}
+.ripple.r2{animation-delay:.3s}
+@keyframes cardMove{0%,10%{transform:translateY(0) rotate(-8deg)}26%,64%{transform:translateY(128px) rotate(-3deg)}82%,100%{transform:translateY(0) rotate(-8deg)}}
+@keyframes ripple{0%,26%{transform:scale(.3);opacity:0}30%{opacity:.9}46%{transform:scale(2.1);opacity:0}100%{transform:scale(2.1);opacity:0}}
+@keyframes sheetUp{0%,32%{transform:translateY(105%)}42%,86%{transform:translateY(0)}96%,100%{transform:translateY(105%)}}
+@keyframes star{0%,46%{color:#C5D0DE;transform:scale(1)}54%{color:var(--gold);transform:scale(1.35)}60%,88%{color:var(--gold);transform:scale(1)}96%,100%{color:#C5D0DE}}
+
+/* problem */
+.problem .box{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;box-shadow:var(--shadow);display:grid;gap:18px}
+.problem .miss{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.problem .miss .star-row{color:var(--gold);font-size:22px;letter-spacing:3px}
+.problem .miss span:last-child{color:var(--muted);font-size:14px}
+
+/* steps */
+.steps{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:14px;counter-reset:s}
+.steps li{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 20px 20px 72px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:12px;background:var(--navy);color:var(--accent-hi);display:grid;place-items:center;font:800 17px var(--display)}
+.steps h3{font-size:19px;font-weight:700}
+.steps p{color:var(--muted);margin-top:6px;font-size:15px}
+.linkbox{margin-top:26px;background:linear-gradient(160deg,var(--navy),#0F2A52);color:var(--on-navy);border-radius:20px;padding:24px 20px;display:grid;gap:12px}
+.linkbox h3{font-size:22px;font-weight:700}
+.linkbox p{color:var(--on-navy-muted);font-size:14px}
+.field label,.lbl{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.linkbox label{color:var(--on-navy)}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:500 16px var(--body);padding:10px 14px}
+.linkbox input{background:rgba(255,255,255,.07);border-color:rgba(169,188,214,.35);color:var(--on-navy);font-family:var(--mono);font-size:14px}
+input::placeholder{color:var(--muted);opacity:.8}
+.out{display:grid;gap:8px;background:rgba(0,0,0,.28);border:1px dashed rgba(62,224,200,.5);border-radius:12px;padding:12px 14px}
+.out small{color:var(--accent-hi);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.out code{font-family:var(--mono);font-size:13px;word-break:break-all;color:var(--on-navy)}
+
+/* calculator */
+.calc{display:grid;gap:22px;margin-top:28px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 20px;box-shadow:var(--shadow)}
+.slider{margin-bottom:22px}
+.slider:last-child{margin-bottom:0}
+.slider .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;font-weight:700}
+.slider output{font-family:var(--mono);font-size:15px;color:var(--accent)}
+input[type=range]{width:100%;margin:12px 0 0;accent-color:var(--accent);height:28px}
+.result{background:linear-gradient(160deg,var(--navy),#0F2A52);color:var(--on-navy);border-radius:20px;padding:24px 20px;display:grid;gap:18px;align-content:start}
+.big{font-family:var(--display);font-weight:800;font-size:clamp(52px,16vw,84px);line-height:1;letter-spacing:-.04em;color:var(--accent-hi);font-variant-numeric:tabular-nums}
+.result .cap{color:var(--on-navy-muted);font-size:14px;margin-top:4px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mini div{background:rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
+.mini b{display:block;font:800 22px var(--display);font-variant-numeric:tabular-nums}
+.mini span{font-size:12px;color:var(--on-navy-muted)}
+.note{font-size:12.5px;color:var(--muted);margin-top:16px}
+.result .note{color:var(--on-navy-muted);margin-top:0}
+
+/* dashboard */
+.dash{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.dash-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--muted);font:700 13px var(--body);padding:9px 14px;border-radius:9px;cursor:pointer;min-height:38px}
+.seg button[aria-selected="true"]{background:var(--navy);color:var(--on-navy)}
+.tag{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:5px 10px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.kpis div{background:var(--surface);padding:14px 12px}
+.kpis small{display:block;font-size:11.5px;color:var(--muted);line-height:1.25}
+.kpis b{display:block;font:800 clamp(20px,6vw,28px) var(--display);margin-top:4px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.bars{padding:18px;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:64px 1fr 40px;align-items:center;gap:10px;font-size:13.5px}
+.row .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{height:18px;border-radius:9px;background:var(--bg);overflow:hidden}
+.fill{height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--accent),var(--accent-hi));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.row.top .fill{background:linear-gradient(90deg,#E39F00,var(--gold))}
+.row .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* pricing */
+.pkgs{display:grid;gap:14px;margin-top:28px}
+.pkg{position:relative;display:block;cursor:pointer}
+.pkg input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.pkg .card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:22px 20px;display:grid;gap:10px;transition:border-color .18s,transform .18s,box-shadow .18s}
+.pkg:hover .card{transform:translateY(-3px)}
+.pkg input:checked + .card{border-color:var(--accent);box-shadow:0 0 0 4px rgba(62,224,200,.22),var(--shadow)}
+.pkg input:focus-visible + .card{outline:3px solid var(--accent-hi);outline-offset:3px}
+.pkg h3{font-size:22px;font-weight:800}
+.price{font:800 40px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price small{font:500 13px var(--body);color:var(--muted);letter-spacing:0}
+.pkg ul{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:6px;font-size:14.5px;color:var(--muted)}
+.pkg li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:8px}
+.badge{position:absolute;top:-11px;right:16px;background:var(--gold);color:#1B1400;font:800 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;z-index:2}
+.order{margin-top:22px;display:grid;gap:14px}
+.two{display:grid;gap:14px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;cursor:pointer}
+.check input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+.summary{margin-top:6px;display:grid;gap:12px;background:var(--soft);border:1.5px solid var(--accent);border-radius:16px;padding:18px}
+.summary pre{margin:0;white-space:pre-wrap;word-break:break-word;font:500 13px/1.6 var(--mono);color:var(--ink)}
+.summary .acts{display:flex;flex-wrap:wrap;gap:10px}
+.trustline{display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:14px;color:var(--muted)}
+.trustline svg{flex:none;width:24px;height:24px;color:var(--accent)}
+
+/* services */
+.svc{display:grid;gap:12px;margin-top:26px}
+.svc div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.svc h3{font-size:18px;font-weight:700}
+.svc p{color:var(--muted);font-size:14.5px;margin-top:6px}
+.svc-link{margin-top:22px}
+
+/* faq */
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 18px}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:14px;min-height:52px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:500 24px var(--mono);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);padding-bottom:16px;font-size:15px}
+.faq-list{margin-top:26px}
+
+footer{background:var(--navy);color:var(--on-navy-muted);padding-block:34px 44px;font-size:14px}
+footer .wrap{display:grid;gap:10px}
+footer b{color:var(--on-navy);font-family:var(--display);font-size:18px}
+footer a{color:var(--accent-hi)}
+
+@media (min-width:720px){
+  .nav{display:flex}
+  .hdr .btn-primary{display:inline-flex}
+  .pkgs{grid-template-columns:repeat(3,1fr)}
+  .two{grid-template-columns:1fr 1fr}
+  .svc{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .calc{grid-template-columns:1.1fr .9fr}
+  .row{grid-template-columns:90px 1fr 48px}
+}
+@media (min-width:900px){
+  section{padding-block:84px}
+  .hero{padding-block:70px 90px}
+  .hero .wrap{grid-template-columns:1.1fr .9fr;align-items:center;gap:50px}
+  .scene{max-width:380px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .sheet{transform:none}
+  .stars i{color:var(--gold)}
+  .nfc-card{transform:translateY(100px) rotate(-3deg)}
+}
+
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mail-line{font-family:var(--mono);font-size:13px;color:var(--on-navy-muted);margin-top:12px}
+.gbadge-lg{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;flex:none;box-shadow:0 4px 10px rgba(10,26,51,.12)}
+.gbadge-lg svg{width:21px;height:21px}
+.who{display:inline-block;font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--accent);margin-bottom:8px}
+/* tech waves behind the phone */
+.waves{position:absolute;left:50%;top:58%;width:900px;height:900px;transform:translate(-50%,-50%);z-index:0;pointer-events:none;-webkit-mask-image:radial-gradient(circle,#000 0,#000 22%,transparent 62%);mask-image:radial-gradient(circle,#000 0,#000 22%,transparent 62%)}
+.waves svg{width:100%;height:100%;max-width:none;display:block}
+.rg{opacity:.12;animation:rg 6s ease-in-out infinite;animation-delay:var(--d)}
+.nd{opacity:.2;animation:rg 4s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes rg{0%,100%{opacity:.1}45%{opacity:.6}}
+.phone{z-index:1}
+@media (prefers-reduced-motion:reduce){.rg{opacity:.3}.nd{opacity:.6}}
+
+/* font picker (temporary, for choosing the heading font) */
+.fontpick{position:fixed;z-index:54;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 106px);display:grid;justify-items:end;gap:8px}
+.fp-btn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(169,188,214,.3);background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:var(--on-navy);font:800 16px var(--display);cursor:pointer;box-shadow:0 10px 24px rgba(3,10,24,.4)}
+.fp-list{display:grid;gap:4px;padding:8px;border-radius:20px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(169,188,214,.28);box-shadow:0 16px 36px rgba(3,10,24,.45)}
+.fp-list small{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-navy-muted);padding:4px 10px}
+.fp-list button{border:0;background:transparent;color:var(--on-navy);font-size:17px;font-weight:800;text-align:left;padding:9px 14px;border-radius:12px;min-height:42px;cursor:pointer;min-width:190px}
+.fp-list button[aria-pressed="true"]{background:var(--accent-hi);color:#04201C}
+
+/* overrides for floating header and dock */
+section{scroll-margin-top:86px}
+.hero{padding-block:104px 56px}
+footer{padding-bottom:130px}
+@media (min-width:720px){.nav{display:flex}.hdr .btn-primary{display:inline-flex}}
+@media (min-width:900px){.hero{padding-block:140px 90px}}
+</style>
+
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Tap Tracker">
+      <svg class="logo" viewBox="0 0 222 80" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 8H56M32 8V72H148"/>
+        <path d="M64 72L92 8L120 72M73 52H111"/>
+        <path d="M148 72V8H168A20 20 0 0 1 168 48H148"/>
+        <path class="w" stroke-width="6" d="M201 18a14 14 0 0 1 0 20M210 11a23 23 0 0 1 0 34"/>
+      </svg>
+      <span class="word">Tracker</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#how" data-i18n="nav_how"></a>
+      <a href="#calc" data-i18n="nav_calc"></a>
+      <a href="#demo" data-i18n="nav_demo"></a>
+      <a href="#pricing" data-i18n="nav_price"></a>
+      <a href="#services" data-i18n="nav_more"></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <a class="btn btn-primary btn-sm" href="#pricing" data-i18n="cta_order_short"></a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" data-i18n="hero_eyebrow"></p>
+        <h1 data-i18n-html="hero_h1"></h1>
+        <p class="lead" data-i18n="hero_lead"></p>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="ctaMail" href="mailto:?subject=Tap%20Tracker"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 8l8 6 8-6"/></svg><span data-i18n="cta_email"></span></a>
+          <a class="btn btn-ghost" href="#how" data-i18n="cta_how"></a>
+        </div>
+        <p class="mail-line" id="heroMail" hidden></p>
+        <ul class="chips">
+          <li data-i18n="chip1"></li>
+          <li data-i18n="chip2"></li>
+          <li data-i18n="chip3"></li>
+        </ul>
+      </div>
+      <div class="scene" aria-hidden="true">
+        <div class="waves" aria-hidden="true">
+          <svg viewBox="0 0 900 900" fill="none">
+            <defs><pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="rgba(169,188,214,.45)"/></pattern></defs>
+            <rect width="900" height="900" fill="url(#dots)"/>
+            <g stroke="#3EE0C8" stroke-width="1.6">
+              <circle class="rg" style="--d:0s" cx="450" cy="450" r="70"/>
+              <circle class="rg" style="--d:.5s" cx="450" cy="450" r="125"/>
+              <circle class="rg" style="--d:1s" cx="450" cy="450" r="180" stroke-dasharray="3 9"/>
+              <circle class="rg" style="--d:1.5s" cx="450" cy="450" r="235"/>
+              <circle class="rg" style="--d:2s" cx="450" cy="450" r="290" stroke-dasharray="3 9"/>
+              <circle class="rg" style="--d:2.5s" cx="450" cy="450" r="345"/>
+              <circle class="rg" style="--d:3s" cx="450" cy="450" r="400" stroke-dasharray="3 9"/>
+            </g>
+            <g fill="#3EE0C8"><circle class="nd" style="--d:.4s" cx="620" cy="330" r="4"/><circle class="nd" style="--d:1.4s" cx="250" cy="560" r="4"/><circle class="nd" style="--d:2.2s" cx="700" cy="560" r="4"/><circle class="nd" style="--d:3s" cx="300" cy="230" r="3"/></g>
+          </svg>
+        </div>
+        <div class="ripple"></div><div class="ripple r2"></div>
+        <div class="nfc-card">
+          <div class="cb"><svg class="logo" viewBox="0 0 222 80" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 8H56M32 8V72H148"/>
+            <path d="M64 72L92 8L120 72M73 52H111"/>
+            <path d="M148 72V8H168A20 20 0 0 1 168 48H148"/>
+            <path class="w" stroke-width="6" d="M201 18a14 14 0 0 1 0 20M210 11a23 23 0 0 1 0 34"/>
+          </svg><em>TRACKER</em></div>
+          <i class="gbadge"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></i><u class="cs">★★★★★</u><span data-i18n="card_tap"></span>
+        </div>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <div class="map"></div>
+            <div class="sheet">
+              <div class="g"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div>
+              <p data-i18n="sheet_title"></p>
+              <small data-i18n="sheet_sub"></small>
+              <div class="stars"><i style="--i:0">★</i><i style="--i:1">★</i><i style="--i:2">★</i><i style="--i:3">★</i><i style="--i:4">★</i></div>
+              <span class="post" data-i18n="sheet_post"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="problem">
+    <div class="wrap">
+      <div class="box">
+        <p class="eyebrow" data-i18n="prob_eyebrow"></p>
+        <h2 class="sec-title" style="margin-top:0" data-i18n="prob_title"></h2>
+        <p class="sec-sub" style="margin-top:0" data-i18n="prob_body"></p>
+        <div class="miss"><span class="gbadge-lg" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span class="star-row" aria-hidden="true">★★★★★</span><span data-i18n="prob_miss"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top:8px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="how_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="how_title"></h2>
+      <ol class="steps">
+        <li><span class="who" data-i18n="who_we"></span><h3 data-i18n="s1_t"></h3><p data-i18n="s1_d"></p></li>
+        <li><span class="who" data-i18n="who_we"></span><h3 data-i18n="s2_t"></h3><p data-i18n="s2_d"></p></li>
+        <li><span class="who" data-i18n="who_you"></span><h3 data-i18n="s3_t"></h3><p data-i18n="s3_d"></p></li>
+        <li><span class="who" data-i18n="who_cust"></span><h3 data-i18n="s4_t"></h3><p data-i18n="s4_d"></p></li>
+      </ol>
+      <div class="linkbox">
+        <h3 data-i18n="link_title"></h3>
+        <p data-i18n="link_desc"></p>
+        <div class="field">
+          <label for="placeId" data-i18n="link_label"></label>
+          <input id="placeId" type="text" value="ChIJN1t_tDeuEmsRUsoyG83frY4" autocomplete="off" spellcheck="false" autocapitalize="off">
+        </div>
+        <div class="out">
+          <small data-i18n="link_out"></small>
+          <code id="linkOut"></code>
+          <button class="btn btn-primary btn-sm" type="button" id="copyLink" style="justify-self:start;background:var(--accent-hi);color:#04201C" data-i18n="copy"></button>
+        </div>
+        <p data-i18n="link_note"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="calc" style="padding-top:24px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="calc_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="calc_title"></h2>
+      <p class="sec-sub" data-i18n="calc_sub"></p>
+      <div class="calc">
+        <div class="panel">
+          <div class="slider">
+            <div class="top"><label for="gDay" data-i18n="c_guests"></label><output id="gDayO"></output></div>
+            <input id="gDay" type="range" min="20" max="1000" step="10" value="180">
+          </div>
+          <div class="slider">
+            <div class="top"><label for="tapR" data-i18n="c_tap"></label><output id="tapRO"></output></div>
+            <input id="tapR" type="range" min="1" max="15" step="1" value="4">
+          </div>
+          <div class="slider">
+            <div class="top"><label for="finR" data-i18n="c_fin"></label><output id="finRO"></output></div>
+            <input id="finR" type="range" min="10" max="90" step="5" value="45">
+          </div>
+          <div class="slider">
+            <div class="top"><label for="nowR" data-i18n="c_now"></label><output id="nowRO"></output></div>
+            <input id="nowR" type="range" min="0" max="200" step="1" value="15">
+          </div>
+          <p class="note" data-i18n="c_note"></p>
+        </div>
+        <div class="result" aria-live="polite">
+          <div>
+            <div class="big" id="bigNum">0</div>
+            <p class="cap" data-i18n="r_cap"></p>
+          </div>
+          <div class="mini">
+            <div><b id="perYear">0</b><span data-i18n="r_year"></span></div>
+            <div><b id="ba">0</b><span data-i18n="r_ba"></span></div>
+          </div>
+          <p class="note" data-i18n="r_note"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" style="padding-top:24px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="dash_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="dash_title"></h2>
+      <p class="sec-sub" data-i18n="dash_sub"></p>
+      <div class="dash">
+        <div class="dash-top">
+          <div class="seg" role="tablist" aria-label="View">
+            <button type="button" role="tab" data-tab="day" aria-selected="true" data-i18n="tab_day"></button>
+            <button type="button" role="tab" data-tab="server" aria-selected="false" data-i18n="tab_server"></button>
+            <button type="button" role="tab" data-tab="shift" aria-selected="false" data-i18n="tab_shift"></button>
+          </div>
+          <span class="tag" data-i18n="sample"></span>
+        </div>
+        <div class="kpis">
+          <div><small data-i18n="k_total"></small><b id="kTotal">0</b></div>
+          <div><small data-i18n="k_avg"></small><b id="kAvg">0</b></div>
+          <div><small id="kTopL"></small><b id="kTop">-</b></div>
+        </div>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="padding-top:24px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="p_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="p_title"></h2>
+      <p class="sec-sub" data-i18n="p_sub"></p>
+
+      <form id="orderForm" novalidate>
+        <div class="pkgs" role="radiogroup" aria-label="Package" id="pkgs"></div>
+
+        <div class="order">
+          <div class="two">
+            <div class="field"><label for="fBiz" data-i18n="f_biz"></label><input id="fBiz" type="text" required autocomplete="organization"></div>
+            <div class="field"><label for="fPlace" data-i18n="f_place"></label><input id="fPlace" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" data-i18n-ph="f_place_ph"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="fName" data-i18n="f_name"></label><input id="fName" type="text" required autocomplete="name"></div>
+            <div class="field"><label for="fPhone" data-i18n="f_phone"></label><input id="fPhone" type="tel" required autocomplete="tel"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="fEmail" data-i18n="f_email"></label><input id="fEmail" type="email" autocomplete="email"></div>
+            <div class="field"><label for="fLoc" data-i18n="f_loc"></label>
+              <select id="fLoc"><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+          </div>
+          <label class="check"><input type="checkbox" id="fDash"><span data-i18n="f_dash"></span></label>
+          <p id="formErr" class="note" style="color:#C0392B;font-weight:700" hidden></p>
+          <button class="btn btn-primary" type="submit" data-i18n="f_submit"></button>
+
+          <div class="summary" id="summary" hidden>
+            <h3 style="font-size:18px" data-i18n="sum_title"></h3>
+            <pre id="sumText"></pre>
+            <div class="acts">
+              <button class="btn btn-primary btn-sm" type="button" id="copySum" data-i18n="sum_copy"></button>
+              <a class="btn btn-ghost btn-sm" id="waBtn" target="_blank" rel="noopener" hidden>WhatsApp</a>
+              <span id="mailShow" class="note" style="margin:0;align-self:center" hidden></span>
+            </div>
+            <p class="note" style="margin:0" data-i18n="sum_note"></p>
+          </div>
+        </div>
+      </form>
+
+      <div class="trustline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        <p data-i18n="p_trust"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="padding-top:24px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="m_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="m_title"></h2>
+      <p class="sec-sub" data-i18n="m_sub"></p>
+      <div class="svc">
+        <div><h3 data-i18n="m1_t"></h3><p data-i18n="m1_d"></p></div>
+        <div><h3 data-i18n="m2_t"></h3><p data-i18n="m2_d"></p></div>
+        <div><h3 data-i18n="m3_t"></h3><p data-i18n="m3_d"></p></div>
+        <div><h3 data-i18n="m4_t"></h3><p data-i18n="m4_d"></p></div>
+      </div>
+      <p class="svc-link"><a class="btn btn-ghost" style="color:var(--accent)" href="https://covercountmedia.com" target="_blank" rel="noopener" data-i18n="m_link"></a></p>
+    </div>
+  </section>
+
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="faq_eyebrow"></p>
+      <h2 class="sec-title" data-i18n="faq_title"></h2>
+      <div class="faq-list">
+        <details><summary data-i18n="q1"></summary><p data-i18n="a1"></p></details>
+        <details><summary data-i18n="q2"></summary><p data-i18n="a2"></p></details>
+        <details><summary data-i18n="q3"></summary><p data-i18n="a3"></p></details>
+        <details><summary data-i18n="q4"></summary><p data-i18n="a4"></p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Tap Tracker</b>
+    <span data-i18n="foot_tag"></span>
+    <span>© 2026 · <a href="https://covercountmedia.com" target="_blank" rel="noopener">CoverCountMedia</a></span>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Quick navigation">
+  <a class="dk" data-sec href="#how"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg><span data-i18n="dock_how"></span></a>
+  <a class="dk" data-sec href="#calc"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3.5"/><path d="M8.5 7.5h7M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg><span data-i18n="dock_calc"></span></a>
+  <a class="dk dk-order" href="#pricing"><span class="orb"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M8.5 10.3c1.2 1 1.2 2.4 0 3.4M12 8.8c2.3 1.9 2.3 4.5 0 6.4"/></svg></span><span data-i18n="dock_order" style="margin-top:6px"></span></a>
+  <a class="dk" data-sec href="#demo"><svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg><span data-i18n="dock_demo"></span></a>
+  <a class="dk" data-sec href="#services"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><span data-i18n="dock_more"></span></a>
+</nav>
+
+<div class="fontpick">
+  <div class="fp-list" id="fpList" hidden>
+    <small>Heading font</small>
+    <button type="button" data-font="jakarta" style="font-family:'Plus Jakarta Sans',sans-serif" aria-pressed="true">1 · Jakarta</button>
+    <button type="button" data-font="manrope" style="font-family:'Manrope',sans-serif" aria-pressed="false">2 · Manrope</button>
+    <button type="button" data-font="sora" style="font-family:'Sora',sans-serif" aria-pressed="false">3 · Sora</button>
+    <button type="button" data-font="red" style="font-family:'Red Hat Display',sans-serif" aria-pressed="false">4 · Red Hat</button>
+  </div>
+  <button class="fp-btn" type="button" id="fpBtn" aria-expanded="false" aria-controls="fpList" aria-label="Heading font">Aa</button>
+</div>
+
+<script>
+/* ---- Editable settings: prices (USD) and contact. Empty contact fields hide those buttons. ---- */
+var PACKAGES=[
+  {id:"starter",cards:10,price:99},
+  {id:"growth",cards:25,price:199,popular:true},
+  {id:"scale",cards:50,price:349}
+];
+var CONTACT={whatsapp:"",email:""};
+
+var I={
+en:{
+who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Calc",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Calculator",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
+cta_order_short:"Order",cta_order:"Order your cards",cta_how:"See how it works",
+hero_eyebrow:"NFC Google review cards",
+hero_h1:"Every customer is a <em>5-star review</em> waiting to happen.",
+hero_lead:"Your customers loved the experience. They just don't stop to write about it. Tap Tracker puts a card at your counter, table or front desk: one tap opens your Google review box. No app, no searching, no typing your name.",
+chip1:"For any type of business",chip2:"No app for your customers",chip3:"Linked to your Google Business profile",
+card_tap:"Review us on Google",sheet_title:"Rate your visit",sheet_sub:"Public review",sheet_post:"Post",
+prob_eyebrow:"The problem",prob_title:"Right now, good reviews are walking out the door.",
+prob_body:"A happy customer has to find your business on Google, tap Write a review and sign in, all after they have already left. Most never do. Every skipped review is one less reason for the next customer to choose you.",
+prob_miss:"Happy customers who never review you on Google",
+how_eyebrow:"The process",how_title:"From your Google listing to your customers in four steps",
+s1_t:"We find your Google Place ID",s1_d:"This is the code Google gives your business listing. You send us your business name and address, we do the rest.",
+s2_t:"We program the card",s2_d:"We save your direct review link inside each NFC card and test it on iPhone and Android before it ships.",
+s3_t:"Place the cards where customers pause",s3_d:"Counter, checkout, front desk, tables or waiting area.",
+s4_t:"Customer taps, review opens",s4_d:"Their phone opens your Google review box in about a second. They pick the stars, write a few words, done.",
+link_title:"See the link we program",link_desc:"Paste a Google Place ID to preview the exact review link that goes onto your card.",
+link_label:"Google Place ID",link_out:"Your card opens",copy:"Copy",copied:"Copied",
+link_note:"The ID above is a public example. Yours is unique to your business.",
+calc_eyebrow:"The math",calc_title:"How many reviews are you leaving on the table?",calc_sub:"Move the sliders to match your business. This is an estimate, not a promise.",
+c_guests:"Customers per day",c_tap:"Customers who tap the card",c_fin:"Tappers who finish a review",c_now:"Reviews you get today, per month",
+c_note:"Taps and completion rates change with where the card sits and how your team introduces it.",
+r_cap:"extra reviews per month",r_year:"extra reviews per year",r_ba:"reviews per month, now → with cards",
+r_note:"Estimate based on the numbers you entered.",
+dash_eyebrow:"Tap tracking",dash_title:"Know which days, team members and spots bring the taps",
+dash_sub:"Every tap is counted so you can see what works and coach your team. The numbers below are sample data.",
+tab_day:"By day",tab_server:"By team member",tab_shift:"By spot",sample:"Sample data",
+k_total:"Taps this week",k_avg:"Average per row",kt_day:"Top day",kt_server:"Top team member",kt_shift:"Top spot",
+p_eyebrow:"Pricing",p_title:"Pick your cards",p_sub:"Programming with your Place ID is included. Prices are per order.",
+pk_starter:"Starter",pk_growth:"Growth",pk_scale:"Scale",
+pk_cards:"cards",pk_pop:"Most popular",
+pk_starter_d:"One location or a single counter",pk_growth_d:"A busy shop, clinic, salon or restaurant",pk_scale_d:"Large spaces or several locations",
+pk_f1:"Programmed with your Place ID",pk_f2:"Tested on iPhone and Android",pk_f3:"Multi-location ready",
+f_biz:"Business name",f_place:"Google Place ID (if you have it)",f_place_ph:"We can find it for you",
+f_name:"Your name",f_phone:"Phone",f_email:"Email",f_loc:"Locations",
+f_dash:"I also want the tap-tracking dashboard (taps by day, team member and spot)",
+f_submit:"Request my order",
+f_err:"Please fill in business name, your name and phone.",
+sum_title:"Your order request",sum_copy:"Copy request",sum_note:"Nothing has been sent yet. Copy this request and send it to us.",
+sum_pkg:"Package",sum_total:"Estimated total",sum_biz:"Business",sum_place:"Place ID",sum_contact:"Contact",sum_loc:"Locations",sum_dash:"Tap dashboard",yes:"Yes",no:"No",tbd:"Please find it for me",
+p_trust:"We never gate or reward reviews. Google's policies forbid it, and it keeps your rating honest.",
+m_eyebrow:"More from us",m_title:"More ways we help you get found",m_sub:"Tap Tracker is our flagship product. We are a marketing agency for any type of business: restaurants, salons, clinics, gyms, auto shops, retail and more.",
+m1_t:"Photo and video",m1_d:"Food, space and team content that makes people want to book.",
+m2_t:"Websites and redesigns",m2_d:"Fast, clear sites built to turn visitors into customers.",
+m3_t:"SEO",m3_d:"Show up when people search for what you serve, near you.",
+m4_t:"Inventory",m4_d:"Simple systems to track stock and cut waste.",
+m_link:"Visit CoverCountMedia.com",
+faq_eyebrow:"Questions",faq_title:"Quick answers",
+q1:"Does the customer need to install anything?",a1:"No. Modern iPhone and Android phones read NFC cards on their own. The customer taps and the review page opens.",
+q2:"What do you need from me?",a2:"Your business name and address so we can find your Google Place ID, and the number of cards you want. We handle the programming.",
+q3:"Can I use the cards at more than one location?",a3:"Each location has its own Place ID, so each location gets its own programmed cards. Tell us how many locations when you order.",
+q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohibit rewards or filtering reviews. Tap Tracker makes leaving an honest review easy, nothing more.",
+foot_tag:"NFC review cards and marketing services for any business."
+},
+es:{
+who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Calc",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Calculadora",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
+cta_order_short:"Pedir",cta_order:"Pedir mis tarjetas",cta_how:"Ver cómo funciona",
+hero_eyebrow:"Tarjetas NFC para reseñas de Google",
+hero_h1:"Cada cliente es una <em>reseña de 5 estrellas</em> esperando a suceder.",
+hero_lead:"A tus clientes les encantó la experiencia. Solo que no se detienen a escribirlo. Tap Tracker pone una tarjeta en tu mostrador, mesa o recepción: un toque abre tu ventana de reseña de Google. Sin app, sin buscar, sin escribir tu nombre.",
+chip1:"Para cualquier tipo de negocio",chip2:"Sin app para tus clientes",chip3:"Conectada a tu perfil de Google Business",
+card_tap:"Califícanos en Google",sheet_title:"Califica tu visita",sheet_sub:"Reseña pública",sheet_post:"Publicar",
+prob_eyebrow:"El problema",prob_title:"Ahora mismo, las buenas reseñas se van por la puerta.",
+prob_body:"Un cliente feliz tiene que buscar tu negocio en Google, tocar Escribir una reseña e iniciar sesión, todo cuando ya se fue. La mayoría nunca lo hace. Cada reseña que no llega es una razón menos para que el próximo cliente te elija.",
+prob_miss:"Clientes felices que nunca te reseñan en Google",
+how_eyebrow:"El proceso",how_title:"De tu perfil de Google a tus clientes en cuatro pasos",
+s1_t:"Encontramos tu Place ID de Google",s1_d:"Es el código que Google le da a tu negocio. Tú nos envías el nombre y la dirección, nosotros hacemos el resto.",
+s2_t:"Programamos la tarjeta",s2_d:"Guardamos tu link directo de reseña dentro de cada tarjeta NFC y la probamos en iPhone y Android antes de enviarla.",
+s3_t:"Coloca las tarjetas donde el cliente hace una pausa",s3_d:"Mostrador, caja, recepción, mesas o sala de espera.",
+s4_t:"El cliente toca y se abre la reseña",s4_d:"Su teléfono abre tu ventana de reseña de Google en cerca de un segundo. Elige las estrellas, escribe unas palabras y listo.",
+link_title:"Mira el link que programamos",link_desc:"Pega un Place ID de Google y ve el link exacto de reseña que va en tu tarjeta.",
+link_label:"Place ID de Google",link_out:"Tu tarjeta abre",copy:"Copiar",copied:"Copiado",
+link_note:"El ID de arriba es un ejemplo público. El tuyo es único para tu negocio.",
+calc_eyebrow:"Los números",calc_title:"¿Cuántas reseñas estás dejando en la mesa?",calc_sub:"Mueve los controles para ajustarlos a tu negocio. Es un estimado, no una promesa.",
+c_guests:"Clientes por día",c_tap:"Clientes que tocan la tarjeta",c_fin:"De esos, los que terminan la reseña",c_now:"Reseñas que recibes hoy, por mes",
+c_note:"Los porcentajes cambian según dónde pongas la tarjeta y cómo la presente tu equipo.",
+r_cap:"reseñas extra por mes",r_year:"reseñas extra por año",r_ba:"reseñas por mes, ahora → con tarjetas",
+r_note:"Estimado con los números que ingresaste.",
+dash_eyebrow:"Seguimiento de taps",dash_title:"Sabe qué días, personas del equipo y lugares traen los taps",
+dash_sub:"Cada toque se cuenta para que veas qué funciona y entrenes a tu equipo. Los números de abajo son datos de ejemplo.",
+tab_day:"Por día",tab_server:"Por persona",tab_shift:"Por lugar",sample:"Datos de ejemplo",
+k_total:"Taps esta semana",k_avg:"Promedio por fila",kt_day:"Mejor día",kt_server:"Mejor persona",kt_shift:"Mejor lugar",
+p_eyebrow:"Precios",p_title:"Elige tus tarjetas",p_sub:"La programación con tu Place ID está incluida. Los precios son por pedido.",
+pk_starter:"Starter",pk_growth:"Growth",pk_scale:"Scale",
+pk_cards:"tarjetas",pk_pop:"Más popular",
+pk_starter_d:"Una ubicación o un solo mostrador",pk_growth_d:"Una tienda, clínica, salón o restaurante con movimiento",pk_scale_d:"Espacios grandes o varias ubicaciones",
+pk_f1:"Programadas con tu Place ID",pk_f2:"Probadas en iPhone y Android",pk_f3:"Listo para varias ubicaciones",
+f_biz:"Nombre del negocio",f_place:"Place ID de Google (si lo tienes)",f_place_ph:"Nosotros lo buscamos por ti",
+f_name:"Tu nombre",f_phone:"Teléfono",f_email:"Correo",f_loc:"Ubicaciones",
+f_dash:"También quiero el dashboard de taps (taps por día, persona y lugar)",
+f_submit:"Solicitar mi pedido",
+f_err:"Completa el nombre del negocio, tu nombre y tu teléfono.",
+sum_title:"Tu solicitud de pedido",sum_copy:"Copiar solicitud",sum_note:"Todavía no se ha enviado nada. Copia esta solicitud y envíanosla.",
+sum_pkg:"Paquete",sum_total:"Total estimado",sum_biz:"Negocio",sum_place:"Place ID",sum_contact:"Contacto",sum_loc:"Ubicaciones",sum_dash:"Dashboard de taps",yes:"Sí",no:"No",tbd:"Búsquenlo por mí",
+p_trust:"Nunca filtramos ni premiamos reseñas. Las políticas de Google lo prohíben y así tu calificación se mantiene honesta.",
+m_eyebrow:"Más de nosotros",m_title:"Más formas de ayudarte a que te encuentren",m_sub:"Tap Tracker es nuestro producto principal. Somos una agencia de marketing para cualquier tipo de negocio: restaurantes, salones, clínicas, gimnasios, talleres, tiendas y más.",
+m1_t:"Foto y video",m1_d:"Contenido de comida, espacio y equipo que da ganas de reservar.",
+m2_t:"Sitios web y rediseños",m2_d:"Sitios rápidos y claros que convierten visitas en clientes.",
+m3_t:"SEO",m3_d:"Aparece cuando la gente busca lo que sirves, cerca de ti.",
+m4_t:"Inventario",m4_d:"Sistemas simples para controlar el stock y reducir el desperdicio.",
+m_link:"Visitar CoverCountMedia.com",
+faq_eyebrow:"Preguntas",faq_title:"Respuestas rápidas",
+q1:"¿El cliente tiene que instalar algo?",a1:"No. Los iPhone y Android modernos leen tarjetas NFC por sí solos. El cliente toca y se abre la página de reseña.",
+q2:"¿Qué necesitan de mí?",a2:"El nombre y la dirección de tu negocio para encontrar tu Place ID de Google, y cuántas tarjetas quieres. Nosotros hacemos la programación.",
+q3:"¿Puedo usar las tarjetas en más de una ubicación?",a3:"Cada ubicación tiene su propio Place ID, así que cada una recibe tarjetas programadas para ella. Dinos cuántas ubicaciones tienes al pedir.",
+q4:"¿Puedo ofrecer algo a cambio de una reseña?",a4:"No. Las políticas de Google prohíben premiar o filtrar reseñas. Tap Tracker solo hace fácil dejar una reseña honesta.",
+foot_tag:"Tarjetas NFC de reseñas y servicios de marketing para cualquier negocio."
+}};
+
+var DASH={
+  day:{en:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],es:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],v:[38,41,52,47,96,128,84]},
+  server:{en:["Ana","Marco","Sofia","Luis","Camila"],es:["Ana","Marco","Sofía","Luis","Camila"],v:[96,81,70,48,31]},
+  shift:{en:["Counter","Checkout","Entrance","Waiting area"],es:["Mostrador","Caja","Entrada","Sala de espera"],v:[112,86,52,34]}
+};
+
+var lang="en",tab="day",pkg="growth",lastSummary="";
+function $(s){return document.querySelector(s)}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function t(k){return (I[lang]&&I[lang][k])||I.en[k]||k}
+function nf(n){return Math.round(n).toLocaleString(lang==="es"?"es-US":"en-US")}
+function money(n){return "$"+nf(n)}
+
+function applyLang(){
+  document.documentElement.lang=lang;
+  $$("[data-i18n]").forEach(function(e){e.textContent=t(e.getAttribute("data-i18n"))});
+  $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
+  $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
+  $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
+  renderPkgs();renderDash(false);calc(true);
+  if(!$("#summary").hidden)buildSummary();
+}
+function setLang(l){
+  lang=l;
+  try{localStorage.setItem("tt-lang",l)}catch(e){}
+  applyLang();
+}
+
+/* place id link */
+function link(){
+  var v=$("#placeId").value.trim();
+  $("#linkOut").textContent="https://search.google.com/local/writereview?placeid="+(v||"YOUR_PLACE_ID");
+}
+function copyText(text,btn,doneKey,keyOrig){
+  function done(){btn.textContent=t(doneKey);setTimeout(function(){btn.textContent=t(keyOrig)},1600)}
+  function fallback(el){
+    try{var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r)}catch(e){}
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done,function(){fallback(btn._sel);})
+  }else{fallback(btn._sel)}
+}
+
+/* calculator */
+var shown={big:0,year:0,after:0};
+function tween(el,key,to,fmt){
+  var from=shown[key],start=null,dur=450;
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){shown[key]=to;el.textContent=fmt(to);return}
+  function step(ts){
+    if(start===null)start=ts;
+    var p=Math.min(1,(ts-start)/dur),e=1-Math.pow(1-p,3);
+    el.textContent=fmt(from+(to-from)*e);
+    if(p<1)requestAnimationFrame(step);else shown[key]=to;
+  }
+  requestAnimationFrame(step);
+}
+function calc(instant){
+  var g=+$("#gDay").value,tp=+$("#tapR").value,fn=+$("#finR").value,now=+$("#nowR").value;
+  $("#gDayO").textContent=nf(g);
+  $("#tapRO").textContent=tp+"%";
+  $("#finRO").textContent=fn+"%";
+  $("#nowRO").textContent=nf(now);
+  var extra=g*30*(tp/100)*(fn/100);
+  if(instant){
+    shown.big=extra;shown.year=extra*12;shown.after=now+extra;
+    $("#bigNum").textContent="+"+nf(extra);
+    $("#perYear").textContent=nf(extra*12);
+    $("#ba").textContent=nf(now)+" → "+nf(now+extra);
+    return;
+  }
+  tween($("#bigNum"),"big",extra,function(v){return "+"+nf(v)});
+  tween($("#perYear"),"year",extra*12,nf);
+  tween($("#ba"),"after",now+extra,function(v){return nf(now)+" → "+nf(v)});
+}
+
+/* dashboard */
+function renderDash(animate){
+  var d=DASH[tab],labels=d[lang],v=d.v,max=Math.max.apply(null,v),total=v.reduce(function(a,b){return a+b},0);
+  var topI=v.indexOf(max);
+  $("#kTotal").textContent=nf(total);
+  $("#kAvg").textContent=nf(total/v.length);
+  $("#kTopL").textContent=t("kt_"+tab);
+  $("#kTop").textContent=labels[topI];
+  var box=$("#bars");box.innerHTML="";
+  var fills=[];
+  v.forEach(function(n,i){
+    var r=document.createElement("div");r.className="row"+(i===topI?" top":"");
+    var nm=document.createElement("span");nm.className="nm";nm.textContent=labels[i];
+    var tr=document.createElement("div");tr.className="track";
+    var f=document.createElement("div");f.className="fill";tr.appendChild(f);
+    var val=document.createElement("span");val.className="v";val.textContent=n;
+    r.appendChild(nm);r.appendChild(tr);r.appendChild(val);box.appendChild(r);
+    fills.push([f,n/max*100]);
+  });
+  requestAnimationFrame(function(){requestAnimationFrame(function(){fills.forEach(function(x){x[0].style.width=x[1]+"%"})})});
+  $$(".seg button").forEach(function(b){b.setAttribute("aria-selected",b.getAttribute("data-tab")===tab?"true":"false")});
+}
+
+/* packages */
+function renderPkgs(){
+  var box=$("#pkgs");box.innerHTML="";
+  PACKAGES.forEach(function(p){
+    var lab=document.createElement("label");lab.className="pkg";
+    if(p.popular){var b=document.createElement("span");b.className="badge";b.textContent=t("pk_pop");lab.appendChild(b)}
+    var inp=document.createElement("input");inp.type="radio";inp.name="pkg";inp.value=p.id;inp.checked=(p.id===pkg);
+    inp.addEventListener("change",function(){pkg=p.id;if(!$("#summary").hidden)buildSummary()});
+    var card=document.createElement("div");card.className="card";
+    var h=document.createElement("h3");h.textContent=t("pk_"+p.id);
+    var d=document.createElement("p");d.style.cssText="color:var(--muted);font-size:14.5px";d.textContent=t("pk_"+p.id+"_d");
+    var pr=document.createElement("div");pr.className="price";pr.textContent=money(p.price)+" ";
+    var sm=document.createElement("small");sm.textContent="· "+p.cards+" "+t("pk_cards");pr.appendChild(sm);
+    var ul=document.createElement("ul");
+    var feats=["pk_f1","pk_f2"];if(p.id==="scale")feats.push("pk_f3");
+    feats.forEach(function(k){var li=document.createElement("li");li.textContent=t(k);ul.appendChild(li)});
+    card.appendChild(h);card.appendChild(d);card.appendChild(pr);card.appendChild(ul);
+    lab.appendChild(inp);lab.appendChild(card);box.appendChild(lab);
+  });
+}
+function selPkg(){return PACKAGES.filter(function(p){return p.id===pkg})[0]}
+function buildSummary(){
+  var p=selPkg();
+  var lines=[
+    t("sum_pkg")+": "+t("pk_"+p.id)+" ("+p.cards+" "+t("pk_cards")+")",
+    t("sum_total")+": "+money(p.price),
+    t("sum_biz")+": "+$("#fBiz").value.trim(),
+    t("sum_place")+": "+($("#fPlace").value.trim()||t("tbd")),
+    t("sum_loc")+": "+$("#fLoc").value,
+    t("sum_dash")+": "+($("#fDash").checked?t("yes"):t("no")),
+    t("sum_contact")+": "+$("#fName").value.trim()+", "+$("#fPhone").value.trim()+($("#fEmail").value.trim()?", "+$("#fEmail").value.trim():"")
+  ];
+  lastSummary=lines.join("\n");
+  $("#sumText").textContent=lastSummary;
+  var wa=$("#waBtn"),mail=$("#mailShow");
+  var num=(CONTACT.whatsapp||"").replace(/\D/g,"");
+  if(num){wa.hidden=false;wa.href="https://wa.me/"+num+"?text="+encodeURIComponent("Tap Tracker\n"+lastSummary)}else{wa.hidden=true}
+  if(CONTACT.email){mail.hidden=false;mail.textContent=CONTACT.email}else{mail.hidden=true}
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  var saved=null;
+  try{saved=localStorage.getItem("tt-lang")}catch(e){}
+  if(saved==="es"||saved==="en")lang=saved;
+  else if((navigator.language||"").toLowerCase().indexOf("es")===0)lang="es";
+
+  $$(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-lang"))})});
+  $("#placeId").addEventListener("input",link);
+  var cl=$("#copyLink");cl._sel=$("#linkOut");
+  cl.addEventListener("click",function(){copyText($("#linkOut").textContent,cl,"copied","copy")});
+  ["gDay","tapR","finR","nowR"].forEach(function(id){$("#"+id).addEventListener("input",function(){calc(false)})});
+  $$(".seg button").forEach(function(b){b.addEventListener("click",function(){tab=b.getAttribute("data-tab");renderDash(true)})});
+
+  $("#orderForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var ok=$("#fBiz").value.trim()&&$("#fName").value.trim()&&$("#fPhone").value.trim();
+    var err=$("#formErr");
+    if(!ok){err.textContent=t("f_err");err.hidden=false;return}
+    err.hidden=true;buildSummary();
+    var s=$("#summary");s.hidden=false;
+    s.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+  var cs=$("#copySum");cs._sel=$("#sumText");
+  cs.addEventListener("click",function(){copyText(lastSummary,cs,"copied","sum_copy")});
+
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id;$$(".dk[data-sec],.nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)})}})},{rootMargin:"-45% 0px -50% 0px"});
+    ["how","calc","demo","pricing","services"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }
+  var FONTS={jakarta:'"Plus Jakarta Sans"',manrope:'"Manrope"',sora:'"Sora"',red:'"Red Hat Display"'};
+  function setFont(k){
+    if(!FONTS[k])k="jakarta";
+    document.documentElement.style.setProperty("--display",FONTS[k]+',system-ui,-apple-system,"Segoe UI",sans-serif');
+    $$("#fpList button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-font")===k?"true":"false")});
+    try{localStorage.setItem("tt-font",k)}catch(e){}
+  }
+  var sf=null;try{sf=localStorage.getItem("tt-font")}catch(e){}
+  setFont(sf);
+  $("#fpBtn").addEventListener("click",function(){
+    var l=$("#fpList"),open=l.hidden;l.hidden=!open;$("#fpBtn").setAttribute("aria-expanded",open?"true":"false");
+  });
+  $$("#fpList button").forEach(function(b){b.addEventListener("click",function(){setFont(b.getAttribute("data-font"))})});
+  var cm=$("#ctaMail");
+  cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
+  if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
+  link();applyLang();
+});
+</script>
+
+</body>
+</html>
