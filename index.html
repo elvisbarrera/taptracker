@@ -424,6 +424,7 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
 #kLast{white-space:nowrap;font-size:clamp(18px,5.4vw,28px)}
 @media (max-width:899px){.pipe{height:56px}@keyframes pdrop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(46px);opacity:0}}}
 .sh-body .sh-row{flex:none}
+#try{scroll-margin-top:86px}
 </style>
 </head>
 <body>
@@ -441,7 +442,7 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#how" data-i18n="nav_how"></a>
-      <a href="#calc" data-i18n="nav_calc"></a>
+      <a href="#try" data-i18n="nav_calc"></a>
       <a href="#demo" data-i18n="nav_demo"></a>
       <a href="#pricing" data-i18n="nav_price"></a>
       <a href="#services" data-i18n="nav_more"></a>
@@ -537,7 +538,7 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
         <li><span class="who" data-i18n="who_you"></span><h3 data-i18n="s3_t"></h3><p data-i18n="s3_d"></p></li>
         <li><span class="who" data-i18n="who_cust"></span><h3 data-i18n="s4_t"></h3><p data-i18n="s4_d"></p></li>
       </ol>
-      <div class="linkbox">
+      <div class="linkbox" id="try">
         <h3 data-i18n="link_title"></h3>
         <p data-i18n="link_desc"></p>
         <div class="field">
@@ -567,45 +568,6 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
     </div>
   </section>
 
-  <section id="calc" style="padding-top:24px">
-    <div class="wrap">
-      <p class="eyebrow" data-i18n="calc_eyebrow"></p>
-      <h2 class="sec-title" data-i18n="calc_title"></h2>
-      <p class="sec-sub" data-i18n="calc_sub"></p>
-      <div class="calc">
-        <div class="panel">
-          <div class="slider">
-            <div class="top"><label for="gDay" data-i18n="c_guests"></label><output id="gDayO"></output></div>
-            <input id="gDay" type="range" min="20" max="1000" step="10" value="180">
-          </div>
-          <div class="slider">
-            <div class="top"><label for="tapR" data-i18n="c_tap"></label><output id="tapRO"></output></div>
-            <input id="tapR" type="range" min="1" max="15" step="1" value="4">
-          </div>
-          <div class="slider">
-            <div class="top"><label for="finR" data-i18n="c_fin"></label><output id="finRO"></output></div>
-            <input id="finR" type="range" min="10" max="90" step="5" value="45">
-          </div>
-          <div class="slider">
-            <div class="top"><label for="nowR" data-i18n="c_now"></label><output id="nowRO"></output></div>
-            <input id="nowR" type="range" min="0" max="200" step="1" value="15">
-          </div>
-          <p class="note" data-i18n="c_note"></p>
-        </div>
-        <div class="result" aria-live="polite">
-          <div>
-            <div class="big" id="bigNum">0</div>
-            <p class="cap" data-i18n="r_cap"></p>
-          </div>
-          <div class="mini">
-            <div><b id="perYear">0</b><span data-i18n="r_year"></span></div>
-            <div><b id="ba">0</b><span data-i18n="r_ba"></span></div>
-          </div>
-          <p class="note" data-i18n="r_note"></p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="demo" class="dsec">
     <div class="wrap">
@@ -738,7 +700,7 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
 
 <nav class="dock" aria-label="Quick navigation">
   <a class="dk" data-sec href="#how"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg><span data-i18n="dock_how"></span></a>
-  <a class="dk" data-sec href="#calc"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3.5"/><path d="M8.5 7.5h7M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg><span data-i18n="dock_calc"></span></a>
+  <a class="dk" data-sec href="#try"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span data-i18n="dock_calc"></span></a>
   <a class="dk dk-order" href="#pricing"><span class="orb"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M8.5 10.3c1.2 1 1.2 2.4 0 3.4M12 8.8c2.3 1.9 2.3 4.5 0 6.4"/></svg></span><span data-i18n="dock_order"></span></a>
   <a class="dk" data-sec href="#demo"><svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg><span data-i18n="dock_demo"></span></a>
   <a class="dk" data-sec href="#services"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><span data-i18n="dock_more"></span></a>
@@ -785,7 +747,7 @@ pr_custom:"Custom stand",pr_custom_d:"Your size, your shape, your design. Same N
 each:"each",forw:"for",quote:"Price on quote",quote_s:"Quoted",qty:"Quantity",
 hint:"Add {n} more: {p} for {price}.",tot:"Estimated total",tot_plus:"+ custom stands, quoted separately",
 f_err_items:"Add at least one card or stand.",sum_items:"Items",
-link_maps:"Find it on Google Maps",link_nokey:"Live search turns on when our Google key is added. For now, find your business on Google Maps and paste its Place ID below, or use the example.",link_err:"Search is unavailable right now. Paste a Place ID below instead.",link_none:"No results. Try adding the city.",link_searching:"Searching Google…",link_open:"Open review window",link_example:"Example business",link_sel:"Selected:",link_pid:"Google Place ID",link_manual:"I already have a Place ID",link_go:"Search",link_ph:"Example: Chili's San Antonio",who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Calc",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Calculator",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
+link_maps:"Find it on Google Maps",link_nokey:"Live search turns on when our Google key is added. For now, find your business on Google Maps and paste its Place ID below, or use the example.",link_err:"Search is unavailable right now. Paste a Place ID below instead.",link_none:"No results. Try adding the city.",link_searching:"Searching Google…",link_open:"Open review window",link_example:"Example business",link_sel:"Selected:",link_pid:"Google Place ID",link_manual:"I already have a Place ID",link_go:"Search",link_ph:"Example: Chili's San Antonio",who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Try",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Try it",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
 cta_order_short:"Order",cta_order:"Order your cards",cta_how:"See how it works",
 hero_eyebrow:"NFC Google review cards",
 hero_h1:"Every customer is a <em>5-star review</em> waiting to happen.",
@@ -849,7 +811,7 @@ pr_custom:"Soporte a medida",pr_custom_d:"Tu tamaño, tu forma, tu diseño. La m
 each:"c/u",forw:"por",quote:"Precio a cotizar",quote_s:"A cotizar",qty:"Cantidad",
 hint:"Agrega {n} más: {p} por {price}.",tot:"Total estimado",tot_plus:"+ soportes a medida, se cotizan aparte",
 f_err_items:"Agrega al menos una tarjeta o soporte.",sum_items:"Productos",
-link_maps:"Búscalo en Google Maps",link_nokey:"La búsqueda en vivo se activa cuando agreguemos nuestra llave de Google. Por ahora, encuentra tu negocio en Google Maps y pega su Place ID abajo, o usa el ejemplo.",link_err:"La búsqueda no está disponible ahora. Pega un Place ID abajo.",link_none:"Sin resultados. Prueba agregando la ciudad.",link_searching:"Buscando en Google…",link_open:"Abrir ventana de reseña",link_example:"Negocio de ejemplo",link_sel:"Seleccionado:",link_pid:"Place ID de Google",link_manual:"Ya tengo un Place ID",link_go:"Buscar",link_ph:"Ejemplo: Chili's San Antonio",who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Calc",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Calculadora",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
+link_maps:"Búscalo en Google Maps",link_nokey:"La búsqueda en vivo se activa cuando agreguemos nuestra llave de Google. Por ahora, encuentra tu negocio en Google Maps y pega su Place ID abajo, o usa el ejemplo.",link_err:"La búsqueda no está disponible ahora. Pega un Place ID abajo.",link_none:"Sin resultados. Prueba agregando la ciudad.",link_searching:"Buscando en Google…",link_open:"Abrir ventana de reseña",link_example:"Negocio de ejemplo",link_sel:"Seleccionado:",link_pid:"Place ID de Google",link_manual:"Ya tengo un Place ID",link_go:"Buscar",link_ph:"Ejemplo: Chili's San Antonio",who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Probar",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Pruébalo",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
 cta_order_short:"Pedir",cta_order:"Pedir mis tarjetas",cta_how:"Ver cómo funciona",
 hero_eyebrow:"Tarjetas NFC para reseñas de Google",
 hero_h1:"Cada cliente es una <em>reseña de 5 estrellas</em> esperando a suceder.",
@@ -919,7 +881,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
-  renderProds();renderSheet();renderDash(false);calc(true);
+  renderProds();renderSheet();renderDash(false);
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
@@ -999,38 +961,6 @@ function copyText(text,btn,doneKey,keyOrig){
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(text).then(done,function(){fallback(btn._sel);})
   }else{fallback(btn._sel)}
-}
-
-/* calculator */
-var shown={big:0,year:0,after:0};
-function tween(el,key,to,fmt){
-  var from=shown[key],start=null,dur=450;
-  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){shown[key]=to;el.textContent=fmt(to);return}
-  function step(ts){
-    if(start===null)start=ts;
-    var p=Math.min(1,(ts-start)/dur),e=1-Math.pow(1-p,3);
-    el.textContent=fmt(from+(to-from)*e);
-    if(p<1)requestAnimationFrame(step);else shown[key]=to;
-  }
-  requestAnimationFrame(step);
-}
-function calc(instant){
-  var g=+$("#gDay").value,tp=+$("#tapR").value,fn=+$("#finR").value,now=+$("#nowR").value;
-  $("#gDayO").textContent=nf(g);
-  $("#tapRO").textContent=tp+"%";
-  $("#finRO").textContent=fn+"%";
-  $("#nowRO").textContent=nf(now);
-  var extra=g*30*(tp/100)*(fn/100);
-  if(instant){
-    shown.big=extra;shown.year=extra*12;shown.after=now+extra;
-    $("#bigNum").textContent="+"+nf(extra);
-    $("#perYear").textContent=nf(extra*12);
-    $("#ba").textContent=nf(now)+" → "+nf(now+extra);
-    return;
-  }
-  tween($("#bigNum"),"big",extra,function(v){return "+"+nf(v)});
-  tween($("#perYear"),"year",extra*12,nf);
-  tween($("#ba"),"after",now+extra,function(v){return nf(now)+" → "+nf(v)});
 }
 
 /* dashboard: sheet rows feed the leaderboard */
@@ -1205,7 +1135,6 @@ document.addEventListener("DOMContentLoaded",function(){
   $("#placeId").addEventListener("input",link);
   $("#bizGo").addEventListener("click",searchBiz);
   $("#bizQ").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();searchBiz()}});
-  ["gDay","tapR","finR","nowR"].forEach(function(id){$("#"+id).addEventListener("input",function(){calc(false)})});
   $$(".seg button").forEach(function(b){b.addEventListener("click",function(){tab=b.getAttribute("data-tab");renderDash(true)})});
 
   $("#orderForm").addEventListener("submit",function(e){
@@ -1223,7 +1152,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   if("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id;$$(".dk[data-sec],.nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)})}})},{rootMargin:"-45% 0px -50% 0px"});
-    ["how","calc","demo","pricing","services"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+    ["how","try","demo","pricing","services"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
   }
   var FONTS={jakarta:'"Plus Jakarta Sans"',manrope:'"Manrope"',sora:'"Sora"',red:'"Red Hat Display"'};
   function setFont(k){
