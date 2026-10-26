@@ -311,6 +311,119 @@ footer{padding-bottom:130px}
 .orb svg{width:23px;height:23px;stroke-width:1.9;display:block}
 footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
 .fontpick{bottom:calc(env(safe-area-inset-bottom,0px) + 92px)}
+
+/* dashboard v2: sheet -> dashboard */
+.dsec{background:radial-gradient(640px 420px at 85% 20%,rgba(62,224,200,.14),transparent 70%),linear-gradient(180deg,#07142A,#0A1A33 45%,#0D2547);color:var(--on-navy);padding-block:72px;margin-top:32px}
+.dsec .eyebrow{color:var(--accent-hi)}
+.dsec .sec-sub{color:var(--on-navy-muted)}
+.flow{display:grid;margin-top:32px}
+.sheetp{background:#fff;color:#1F2937;border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.sh-top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #E3E8EF}
+.sh-ico{flex:none;width:32px;height:32px;border-radius:8px;background:#1E8E3E;display:grid;place-items:center}
+.sh-ico svg{width:20px;height:20px}
+.sh-top b{display:block;font:700 14px/1.2 var(--body);color:#111827}
+.sh-top small{font-size:11.5px;color:#5F6B7A}
+.live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font:700 11.5px var(--body);color:#137333;background:#E6F4EA;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.live i{width:7px;height:7px;border-radius:50%;background:#1E8E3E;animation:livep 1.8s ease-out infinite}
+@keyframes livep{0%{box-shadow:0 0 0 0 rgba(30,142,62,.55)}100%{box-shadow:0 0 0 8px rgba(30,142,62,0)}}
+.sh-grid{font:500 13px var(--body);font-variant-numeric:tabular-nums}
+.sh-row{display:grid;grid-template-columns:40px 78px 1fr 1fr;border-bottom:1px solid #E3E8EF;height:38px;align-items:stretch}
+.sh-row>span{display:flex;align-items:center;gap:7px;padding:0 9px;border-right:1px solid #E3E8EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sh-row>span:last-child{border-right:0}
+.sh-row>span:first-child{justify-content:center;background:#F8F9FA;color:#5F6B7A;font-size:11px;padding:0}
+.sh-head{height:30px}
+.sh-head>span{background:#F1F3F4;font-weight:700;color:#3C4043;font-size:11.5px}
+.sh-body{height:152px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.sh-row .av{flex:none;width:20px;height:20px;border-radius:50%;color:#fff;font:700 10px/20px var(--body);text-align:center;font-style:normal}
+.sh-row.new{animation:rowIn 1.6s cubic-bezier(.16,1,.3,1)}
+@keyframes rowIn{0%{background:#CEEAD6;transform:translateY(10px);opacity:0}20%{opacity:1;transform:none;background:#CEEAD6}100%{background:#fff}}
+.pipe{position:relative;height:72px;display:flex;align-items:center;justify-content:center}
+.pipe::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(rgba(62,224,200,.9),rgba(62,224,200,.2))}
+.plbl{position:relative;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-hi);background:#0B1E3B;border:1px solid rgba(62,224,200,.35);padding:6px 11px;border-radius:999px}
+.pdot{position:absolute;left:50%;top:0;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--accent-hi);box-shadow:0 0 14px var(--accent-hi);opacity:0;z-index:1}
+.pipe.go .pdot{animation:pdrop .8s cubic-bezier(.45,0,.55,1)}
+@keyframes pdrop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(62px);opacity:0}}
+.dsec .dash{margin-top:0;border:0;box-shadow:0 24px 50px rgba(0,0,0,.35);color:var(--ink)}
+.dash-top{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.dash-top .seg{grid-column:1/-1;justify-self:start}
+.dash-h{display:inline-flex;align-items:center;gap:8px;font:800 16px var(--display)}
+.dash-h svg{width:20px;height:20px;color:var(--accent)}
+.row{position:relative;grid-template-columns:104px 1fr 44px}
+.row .nm{display:flex;align-items:center;gap:8px}
+.row .av{flex:none;width:26px;height:26px;border-radius:50%;color:#fff;font:700 11px/26px var(--body);text-align:center;font-style:normal}
+.row .nm span{overflow:hidden;text-overflow:ellipsis}
+.row .crown{flex:none;font:800 9px var(--mono);letter-spacing:.06em;color:#1B1400;background:var(--gold);border-radius:999px;padding:2px 6px}
+.row.bump .v{animation:bumpv .9s ease-out}
+@keyframes bumpv{0%{color:var(--accent);transform:scale(1.35)}100%{transform:none}}
+.plus{position:absolute;right:-2px;top:-14px;font:800 12px var(--mono);color:var(--accent);opacity:0;pointer-events:none}
+.row.bump .plus{animation:plusUp 1s ease-out}
+@keyframes plusUp{0%{opacity:0;transform:translateY(6px)}25%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+.fill{transition:width .9s cubic-bezier(.16,1,.3,1)}
+.sync-pts{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:18px}
+.sync-pts li{display:flex;gap:14px;align-items:flex-start}
+.sync-pts svg{flex:none;width:24px;height:24px;color:var(--accent-hi);margin-top:1px}
+.sync-pts p{color:var(--on-navy-muted);font-size:15px;max-width:44ch}
+.sync-pts b{color:var(--on-navy)}
+.flow.play .sh-row{animation:rowReveal 1s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(var(--d,0)*90ms)}
+@keyframes rowReveal{from{transform:translateY(8px);background:#E6F4EA}to{transform:none;background:#fff}}
+@media (min-width:900px){
+  .flow{grid-template-columns:1fr 96px 1fr;align-items:center}
+  .pipe{height:auto;align-self:stretch}
+  .pipe::before{left:0;right:0;top:50%;bottom:auto;width:auto;height:2px;margin:-1px 0 0;background:linear-gradient(90deg,rgba(62,224,200,.9),rgba(62,224,200,.2))}
+  .pdot{left:0;top:50%;margin:-5px 0 0}
+  @keyframes pdrop{0%{transform:translateX(0);opacity:1}100%{transform:translateX(86px);opacity:0}}
+  .plbl{writing-mode:vertical-rl;transform:rotate(180deg);padding:11px 6px}
+  .sync-pts{grid-template-columns:repeat(3,1fr);gap:28px}
+}
+/* pricing v2: cards + stands */
+.prods{display:grid;gap:14px;margin-top:28px}
+.prod{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:18px;display:grid;grid-template-columns:96px 1fr;gap:6px 16px;align-items:start;transition:border-color .2s,box-shadow .2s}
+.prod.has{border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,224,200,.18)}
+.pv{grid-row:span 1;height:96px;border-radius:12px;background:var(--bg);display:grid;place-items:center;overflow:hidden}
+.prod h3{font-size:19px;font-weight:800}
+.prod .d{color:var(--muted);font-size:14px;margin-top:4px}
+.tiers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tier{font:700 13px var(--body);padding:5px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.tier.best{background:var(--soft);border-color:transparent;color:var(--accent)}
+.qrow{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:10px}
+.step{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.step button{width:44px;height:44px;border:0;background:transparent;font:700 20px/1 var(--body);color:var(--ink);cursor:pointer}
+.step button:disabled{color:var(--line);cursor:default}
+.step output{min-width:34px;text-align:center;font:800 17px var(--display);font-variant-numeric:tabular-nums}
+.sub{font:800 20px var(--display);font-variant-numeric:tabular-nums;text-align:right}
+.sub.q{font:700 14px var(--body);color:var(--muted)}
+.hint{grid-column:1/-1;font-size:13px;color:var(--accent);font-weight:700}
+.totalbar{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--navy);color:var(--on-navy);border-radius:14px;padding:16px 18px;margin-top:14px}
+.totalbar small{display:block;color:var(--on-navy-muted);font-size:13px}
+.totalbar small:first-child{color:var(--on-navy);font-weight:700;font-size:14px}
+.totalbar b{font:800 30px var(--display);font-variant-numeric:tabular-nums;color:var(--accent-hi)}
+.mc{position:relative;width:66px;height:42px;border-radius:6px;background:linear-gradient(135deg,#16407A,#0A1A33 70%);border:1px solid rgba(62,224,200,.55);box-shadow:0 6px 14px rgba(10,26,51,.28)}
+.mc::before{content:"TAP";position:absolute;left:6px;top:5px;font:800 9px var(--display);color:#fff;letter-spacing:-.02em}
+.mc::after{content:"★★★★★";position:absolute;left:6px;bottom:4px;font-size:6.5px;letter-spacing:1px;color:var(--gold)}
+.pv-card .mc{transform:rotate(-9deg)}
+.pv-stand .st{display:flex;flex-direction:column;align-items:center}
+.pv-stand .plate{width:62px;height:66px;border-radius:7px 7px 3px 3px;background:linear-gradient(160deg,rgba(190,220,240,.55),rgba(150,190,220,.25));border:1px solid rgba(120,160,200,.55);display:grid;place-items:center;transform:perspective(160px) rotateX(10deg)}
+.pv-stand .mc{width:50px;height:32px}
+.pv-stand .mc::before{font-size:7px}.pv-stand .mc::after{font-size:5px}
+.pv-stand .base{width:76px;height:9px;border-radius:4px;background:linear-gradient(#D5E3F0,#9DB4CA);margin-top:-1px}
+.pv-custom .cs{position:relative;width:62px;height:54px;border:2px dashed var(--accent);border-radius:12px 22px 12px 22px;display:grid;place-items:center}
+.pv-custom .cs::before{content:"W";position:absolute;top:-17px;left:50%;transform:translateX(-50%);font:700 10px var(--mono);color:var(--accent)}
+.pv-custom .cs::after{content:"H";position:absolute;right:-15px;top:50%;transform:translateY(-50%);font:700 10px var(--mono);color:var(--accent)}
+.pv-custom .mc{width:34px;height:22px;border-radius:4px}
+.pv-custom .mc::before,.pv-custom .mc::after{display:none}
+@media (min-width:900px){
+  .prods{grid-template-columns:repeat(3,1fr)}
+  .prod{grid-template-columns:1fr}
+  .pv{height:120px}
+}
+@media (prefers-reduced-motion: reduce){
+  .sh-row.new,.flow.play .sh-row,.row.bump .v,.row.bump .plus,.pipe.go .pdot,.live i{animation:none}
+  .fill{transition:none}
+}
+@media (min-width:900px){.sh-body{height:228px}}
+#kLast{white-space:nowrap;font-size:clamp(18px,5.4vw,28px)}
+@media (max-width:899px){.pipe{height:56px}@keyframes pdrop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(46px);opacity:0}}}
+.sh-body .sh-row{flex:none}
 </style>
 </head>
 <body>
@@ -494,27 +607,47 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
     </div>
   </section>
 
-  <section id="demo" style="padding-top:24px">
+  <section id="demo" class="dsec">
     <div class="wrap">
       <p class="eyebrow" data-i18n="dash_eyebrow"></p>
       <h2 class="sec-title" data-i18n="dash_title"></h2>
       <p class="sec-sub" data-i18n="dash_sub"></p>
-      <div class="dash">
-        <div class="dash-top">
-          <div class="seg" role="tablist" aria-label="View">
-            <button type="button" role="tab" data-tab="day" aria-selected="true" data-i18n="tab_day"></button>
-            <button type="button" role="tab" data-tab="server" aria-selected="false" data-i18n="tab_server"></button>
-            <button type="button" role="tab" data-tab="shift" aria-selected="false" data-i18n="tab_shift"></button>
+      <div class="flow" id="flow">
+        <div class="sheetp">
+          <div class="sh-top">
+            <span class="sh-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M5 9.5h14M5 14.5h14M10.5 9.5V20"/></svg></span>
+            <div><b data-i18n="sh_name"></b><small>Google Sheets</small></div>
+            <span class="live"><i></i><span data-i18n="sh_live"></span></span>
           </div>
-          <span class="tag" data-i18n="sample"></span>
+          <div class="sh-grid" role="table" aria-label="Tap log">
+            <div class="sh-row sh-head" role="row"><span></span><span data-i18n="sh_c1"></span><span data-i18n="sh_c2"></span><span data-i18n="sh_c3"></span></div>
+            <div class="sh-body" id="shBody"></div>
+          </div>
         </div>
-        <div class="kpis">
-          <div><small data-i18n="k_total"></small><b id="kTotal">0</b></div>
-          <div><small data-i18n="k_avg"></small><b id="kAvg">0</b></div>
-          <div><small id="kTopL"></small><b id="kTop">-</b></div>
+        <div class="pipe" id="pipe" aria-hidden="true"><span class="pdot"></span><span class="plbl" data-i18n="pipe"></span></div>
+        <div class="dash">
+          <div class="dash-top">
+            <b class="dash-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg><span data-i18n="dash_h"></span></b>
+            <span class="tag" data-i18n="sample"></span>
+            <div class="seg" role="tablist" aria-label="View">
+              <button type="button" role="tab" data-tab="server" aria-selected="true" data-i18n="tab_server"></button>
+              <button type="button" role="tab" data-tab="day" aria-selected="false" data-i18n="tab_day"></button>
+              <button type="button" role="tab" data-tab="shift" aria-selected="false" data-i18n="tab_shift"></button>
+            </div>
+          </div>
+          <div class="kpis">
+            <div><small data-i18n="k_total"></small><b id="kTotal">0</b></div>
+            <div><small id="kTopL"></small><b id="kTop">-</b></div>
+            <div><small data-i18n="k_last"></small><b id="kLast">-</b></div>
+          </div>
+          <div class="bars" id="bars"></div>
         </div>
-        <div class="bars" id="bars"></div>
       </div>
+      <ul class="sync-pts">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg><p data-i18n-html="sync1"></p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg><p data-i18n-html="sync2"></p></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg><p data-i18n-html="sync3"></p></li>
+      </ul>
     </div>
   </section>
 
@@ -525,7 +658,8 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
       <p class="sec-sub" data-i18n="p_sub"></p>
 
       <form id="orderForm" novalidate>
-        <div class="pkgs" role="radiogroup" aria-label="Package" id="pkgs"></div>
+        <div class="prods" id="prods"></div>
+        <div class="totalbar" aria-live="polite"><div><small data-i18n="tot"></small><small id="totPlus" data-i18n="tot_plus" hidden></small></div><b id="totNum">$0</b></div>
 
         <div class="order">
           <div class="two">
@@ -623,10 +757,11 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
 
 <script>
 /* ---- Editable settings: prices (USD) and contact. Empty contact fields hide those buttons. ---- */
-var PACKAGES=[
-  {id:"starter",cards:10,price:99},
-  {id:"growth",cards:25,price:199,popular:true},
-  {id:"scale",cards:50,price:349}
+/* unit = single price; pack = pack size, packPrice = price for the pack; quote = priced on request */
+var PRODUCTS=[
+  {id:"card",unit:20,pack:5,packPrice:50,start:5},
+  {id:"stand",unit:40,pack:2,packPrice:60,start:0},
+  {id:"custom",quote:true,start:0}
 ];
 var CONTACT={whatsapp:"",email:""};
 /* URL of the Cloud Run search service (ends in /search). Empty = search shows a fallback. */
@@ -635,6 +770,21 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+dash_eyebrow:"Tap tracking",dash_title:"See who on your team brings in the reviews",
+dash_sub:"Every tap lands as a new row in your Google Sheet: the time, the team member and the spot. We turn that sheet into your dashboard, so you know who to thank and who to coach. Sample data.",
+tab_day:"By day",tab_server:"By team member",tab_shift:"By spot",sample:"Sample data",
+k_total:"Taps this week",k_avg:"Average per row",k_last:"Last tap",kt_day:"Top day",kt_server:"Top team member",kt_shift:"Top spot",
+sh_name:"Tap log",sh_live:"Synced",sh_c1:"Time",sh_c2:"Team member",sh_c3:"Spot",pipe:"Sheet → Dashboard",dash_h:"Tap dashboard",crown:"TOP",
+sync1:"<b>Synced with Google Sheets.</b> Every tap is a row in a sheet you own. Open it, filter it, download it.",
+sync2:"<b>One card per person or spot.</b> Each tap carries a name, so the credit goes to the right person.",
+sync3:"<b>A dashboard built from your sheet.</b> Taps by team member, by day and by spot, updated as they come in.",
+p_eyebrow:"Pricing",p_title:"Cards and stands",p_sub:"Every piece has the same NFC chip inside, programmed with your Place ID and tested on iPhone and Android.",
+pr_card:"NFC review card",pr_card_d:"Pocket size. For tables, counters and your team's hands.",
+pr_stand:"NFC mini stand",pr_stand_d:"Stands on the counter, checkout or front desk, where every customer sees it.",
+pr_custom:"Custom stand",pr_custom_d:"Your size, your shape, your design. Same NFC technology inside.",
+each:"each",forw:"for",quote:"Price on quote",quote_s:"Quoted",qty:"Quantity",
+hint:"Add {n} more: {p} for {price}.",tot:"Estimated total",tot_plus:"+ custom stands, quoted separately",
+f_err_items:"Add at least one card or stand.",sum_items:"Items",
 link_maps:"Find it on Google Maps",link_nokey:"Live search turns on when our Google key is added. For now, find your business on Google Maps and paste its Place ID below, or use the example.",link_err:"Search is unavailable right now. Paste a Place ID below instead.",link_none:"No results. Try adding the city.",link_searching:"Searching Google…",link_open:"Open review window",link_example:"Example business",link_sel:"Selected:",link_pid:"Google Place ID",link_manual:"I already have a Place ID",link_go:"Search",link_ph:"Example: Chili's San Antonio",who_cust:"Your customer",who_you:"You do it",who_we:"We do it",cta_email:"Contact us by email",dock_how:"How",dock_calc:"Calc",dock_order:"Order",dock_demo:"Data",dock_more:"More",nav_how:"How it works",nav_calc:"Calculator",nav_demo:"Dashboard",nav_price:"Pricing",nav_more:"Services",
 cta_order_short:"Order",cta_order:"Order your cards",cta_how:"See how it works",
 hero_eyebrow:"NFC Google review cards",
@@ -658,11 +808,6 @@ c_guests:"Customers per day",c_tap:"Customers who tap the card",c_fin:"Tappers w
 c_note:"Taps and completion rates change with where the card sits and how your team introduces it.",
 r_cap:"extra reviews per month",r_year:"extra reviews per year",r_ba:"reviews per month, now → with cards",
 r_note:"Estimate based on the numbers you entered.",
-dash_eyebrow:"Tap tracking",dash_title:"Know which days, team members and spots bring the taps",
-dash_sub:"Every tap is counted so you can see what works and coach your team. The numbers below are sample data.",
-tab_day:"By day",tab_server:"By team member",tab_shift:"By spot",sample:"Sample data",
-k_total:"Taps this week",k_avg:"Average per row",kt_day:"Top day",kt_server:"Top team member",kt_shift:"Top spot",
-p_eyebrow:"Pricing",p_title:"Pick your cards",p_sub:"Programming with your Place ID is included. Prices are per order.",
 pk_starter:"Starter",pk_growth:"Growth",pk_scale:"Scale",
 pk_cards:"cards",pk_pop:"Most popular",
 pk_starter_d:"One location or a single counter",pk_growth_d:"A busy shop, clinic, salon or restaurant",pk_scale_d:"Large spaces or several locations",
@@ -689,6 +834,21 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 foot_tag:"NFC review cards and marketing services for any business."
 },
 es:{
+dash_eyebrow:"Seguimiento de taps",dash_title:"Mira quién de tu equipo trae las reseñas",
+dash_sub:"Cada tap llega como una fila nueva en tu Google Sheet: la hora, la persona del equipo y el lugar. Con esa hoja armamos tu dashboard, para que sepas a quién felicitar y a quién entrenar. Datos de ejemplo.",
+tab_day:"Por día",tab_server:"Por persona",tab_shift:"Por lugar",sample:"Datos de ejemplo",
+k_total:"Taps esta semana",k_avg:"Promedio por fila",k_last:"Último tap",kt_day:"Mejor día",kt_server:"Mejor persona",kt_shift:"Mejor lugar",
+sh_name:"Registro de taps",sh_live:"Sincronizado",sh_c1:"Hora",sh_c2:"Persona",sh_c3:"Lugar",pipe:"Hoja → Dashboard",dash_h:"Dashboard de taps",crown:"TOP",
+sync1:"<b>Sincronizado con Google Sheets.</b> Cada tap es una fila en una hoja que es tuya. Ábrela, fíltrala, descárgala.",
+sync2:"<b>Una tarjeta por persona o lugar.</b> Cada tap lleva un nombre, así el crédito va a quien le toca.",
+sync3:"<b>Un dashboard hecho con tu hoja.</b> Taps por persona, por día y por lugar, al momento en que llegan.",
+p_eyebrow:"Precios",p_title:"Tarjetas y soportes",p_sub:"Cada pieza lleva el mismo chip NFC por dentro, programado con tu Place ID y probado en iPhone y Android.",
+pr_card:"Tarjeta NFC de reseñas",pr_card_d:"Tamaño bolsillo. Para mesas, mostradores y para que tu equipo la lleve.",
+pr_stand:"Mini soporte NFC",pr_stand_d:"Se para en el mostrador, la caja o la recepción, donde todos lo ven.",
+pr_custom:"Soporte a medida",pr_custom_d:"Tu tamaño, tu forma, tu diseño. La misma tecnología NFC por dentro.",
+each:"c/u",forw:"por",quote:"Precio a cotizar",quote_s:"A cotizar",qty:"Cantidad",
+hint:"Agrega {n} más: {p} por {price}.",tot:"Total estimado",tot_plus:"+ soportes a medida, se cotizan aparte",
+f_err_items:"Agrega al menos una tarjeta o soporte.",sum_items:"Productos",
 link_maps:"Búscalo en Google Maps",link_nokey:"La búsqueda en vivo se activa cuando agreguemos nuestra llave de Google. Por ahora, encuentra tu negocio en Google Maps y pega su Place ID abajo, o usa el ejemplo.",link_err:"La búsqueda no está disponible ahora. Pega un Place ID abajo.",link_none:"Sin resultados. Prueba agregando la ciudad.",link_searching:"Buscando en Google…",link_open:"Abrir ventana de reseña",link_example:"Negocio de ejemplo",link_sel:"Seleccionado:",link_pid:"Place ID de Google",link_manual:"Ya tengo un Place ID",link_go:"Buscar",link_ph:"Ejemplo: Chili's San Antonio",who_cust:"Tu cliente",who_you:"Lo haces tú",who_we:"Lo hacemos nosotros",cta_email:"Escríbenos por correo",dock_how:"Cómo",dock_calc:"Calc",dock_order:"Pedir",dock_demo:"Datos",dock_more:"Más",nav_how:"Cómo funciona",nav_calc:"Calculadora",nav_demo:"Dashboard",nav_price:"Precios",nav_more:"Servicios",
 cta_order_short:"Pedir",cta_order:"Pedir mis tarjetas",cta_how:"Ver cómo funciona",
 hero_eyebrow:"Tarjetas NFC para reseñas de Google",
@@ -712,11 +872,6 @@ c_guests:"Clientes por día",c_tap:"Clientes que tocan la tarjeta",c_fin:"De eso
 c_note:"Los porcentajes cambian según dónde pongas la tarjeta y cómo la presente tu equipo.",
 r_cap:"reseñas extra por mes",r_year:"reseñas extra por año",r_ba:"reseñas por mes, ahora → con tarjetas",
 r_note:"Estimado con los números que ingresaste.",
-dash_eyebrow:"Seguimiento de taps",dash_title:"Sabe qué días, personas del equipo y lugares traen los taps",
-dash_sub:"Cada toque se cuenta para que veas qué funciona y entrenes a tu equipo. Los números de abajo son datos de ejemplo.",
-tab_day:"Por día",tab_server:"Por persona",tab_shift:"Por lugar",sample:"Datos de ejemplo",
-k_total:"Taps esta semana",k_avg:"Promedio por fila",kt_day:"Mejor día",kt_server:"Mejor persona",kt_shift:"Mejor lugar",
-p_eyebrow:"Precios",p_title:"Elige tus tarjetas",p_sub:"La programación con tu Place ID está incluida. Los precios son por pedido.",
 pk_starter:"Starter",pk_growth:"Growth",pk_scale:"Scale",
 pk_cards:"tarjetas",pk_pop:"Más popular",
 pk_starter_d:"Una ubicación o un solo mostrador",pk_growth_d:"Una tienda, clínica, salón o restaurante con movimiento",pk_scale_d:"Espacios grandes o varias ubicaciones",
@@ -744,12 +899,14 @@ foot_tag:"Tarjetas NFC de reseñas y servicios de marketing para cualquier negoc
 }};
 
 var DASH={
+  server:{en:["Ana","Marco","Sofia","Luis","Camila"],es:["Ana","Marco","Sofía","Luis","Camila"],v:[142,118,97,76,53]},
   day:{en:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],es:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],v:[38,41,52,47,96,128,84]},
-  server:{en:["Ana","Marco","Sofia","Luis","Camila"],es:["Ana","Marco","Sofía","Luis","Camila"],v:[96,81,70,48,31]},
-  shift:{en:["Counter","Checkout","Entrance","Waiting area"],es:["Mostrador","Caja","Entrada","Sala de espera"],v:[112,86,52,34]}
+  shift:{en:["Counter","Tables","Checkout","Front desk"],es:["Mostrador","Mesas","Caja","Recepción"],v:[168,142,104,72]}
 };
+var AVC=["#0B7F76","#2563EB","#B45309","#7C3AED","#BE185D"];
+var TODAY=5,tapTotal=486,sheetRows=[],lastTapAt=null;
 
-var lang="en",tab="day",pkg="growth",lastSummary="";
+var lang="en",tab="server",lastSummary="",qty={};
 function $(s){return document.querySelector(s)}
 function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
 function t(k){return (I[lang]&&I[lang][k])||I.en[k]||k}
@@ -762,7 +919,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
-  renderPkgs();renderDash(false);calc(true);
+  renderProds();renderSheet();renderDash(false);calc(true);
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
@@ -876,61 +1033,160 @@ function calc(instant){
   tween($("#ba"),"after",now+extra,function(v){return nf(now)+" → "+nf(v)});
 }
 
-/* dashboard */
-function renderDash(animate){
-  var d=DASH[tab],labels=d[lang],v=d.v,max=Math.max.apply(null,v),total=v.reduce(function(a,b){return a+b},0);
-  var topI=v.indexOf(max);
-  $("#kTotal").textContent=nf(total);
-  $("#kAvg").textContent=nf(total/v.length);
+/* dashboard: sheet rows feed the leaderboard */
+function sum(a){return a.reduce(function(x,y){return x+y},0)}
+function initials(n){return n.charAt(0)}
+function fmtTime(d){return d.toLocaleTimeString(lang==="es"?"es-US":"en-US",{hour:"numeric",minute:"2-digit"})}
+function pickW(v){var r=Math.random()*sum(v),i=0;for(;i<v.length;i++){r-=v[i];if(r<=0)return i}return v.length-1}
+function seedSheet(){
+  var t0=new Date(2026,9,24,19,4),seq=[[0,0],[2,1],[1,2],[0,1],[3,3],[1,0]];
+  sheetRows=seq.map(function(x,k){return {n:tapTotal-seq.length+1+k,p:x[0],s:x[1],at:new Date(t0.getTime()+k*4*60000)}});
+  lastTapAt=sheetRows[sheetRows.length-1].at;
+}
+function sheetRowEl(r){
+  var row=document.createElement("div");row.className="sh-row";row.setAttribute("role","row");
+  var nm=DASH.server[lang][r.p],sp=DASH.shift[lang][r.s];
+  var c0=document.createElement("span");c0.textContent=r.n;
+  var c1=document.createElement("span");c1.textContent=fmtTime(r.at);
+  var c2=document.createElement("span");var av=document.createElement("i");av.className="av";av.style.background=AVC[r.p];av.textContent=initials(nm);
+  var tx=document.createElement("span");tx.textContent=nm;c2.appendChild(av);c2.appendChild(tx);
+  var c3=document.createElement("span");c3.textContent=sp;
+  [c0,c1,c2,c3].forEach(function(c){c.setAttribute("role","cell");row.appendChild(c)});
+  return row;
+}
+function renderSheet(){
+  var b=$("#shBody");b.innerHTML="";
+  sheetRows.forEach(function(r,i){var el=sheetRowEl(r);el.style.setProperty("--d",i);b.appendChild(el)});
+}
+function renderKpis(){
+  var d=DASH[tab],v=d.v,max=Math.max.apply(null,v);
+  $("#kTotal").textContent=nf(tapTotal);
   $("#kTopL").textContent=t("kt_"+tab);
-  $("#kTop").textContent=labels[topI];
+  $("#kTop").textContent=d[lang][v.indexOf(max)];
+  $("#kLast").textContent=lastTapAt?fmtTime(lastTapAt):"-";
+}
+function renderDash(animate){
+  var d=DASH[tab],labels=d[lang],v=d.v,max=Math.max.apply(null,v),topI=v.indexOf(max);
+  renderKpis();
   var box=$("#bars");box.innerHTML="";
   var fills=[];
   v.forEach(function(n,i){
     var r=document.createElement("div");r.className="row"+(i===topI?" top":"");
-    var nm=document.createElement("span");nm.className="nm";nm.textContent=labels[i];
+    var nm=document.createElement("span");nm.className="nm";
+    if(tab==="server"){var av=document.createElement("i");av.className="av";av.style.background=AVC[i];av.textContent=initials(labels[i]);nm.appendChild(av)}
+    var lb=document.createElement("span");lb.textContent=labels[i];nm.appendChild(lb);
+    if(i===topI){var cr=document.createElement("em");cr.className="crown";cr.textContent=t("crown");cr.style.fontStyle="normal";nm.appendChild(cr)}
     var tr=document.createElement("div");tr.className="track";
     var f=document.createElement("div");f.className="fill";tr.appendChild(f);
     var val=document.createElement("span");val.className="v";val.textContent=n;
-    r.appendChild(nm);r.appendChild(tr);r.appendChild(val);box.appendChild(r);
+    var pl=document.createElement("span");pl.className="plus";pl.textContent="+1";
+    r.appendChild(nm);r.appendChild(tr);r.appendChild(val);r.appendChild(pl);box.appendChild(r);
     fills.push([f,n/max*100]);
   });
-  requestAnimationFrame(function(){requestAnimationFrame(function(){fills.forEach(function(x){x[0].style.width=x[1]+"%"})})});
+  if(animate){requestAnimationFrame(function(){requestAnimationFrame(function(){fills.forEach(function(x){x[0].style.width=x[1]+"%"})})})}
+  else fills.forEach(function(x){x[0].style.width=x[1]+"%"});
   $$(".seg button").forEach(function(b){b.setAttribute("aria-selected",b.getAttribute("data-tab")===tab?"true":"false")});
 }
-
-/* packages */
-function renderPkgs(){
-  var box=$("#pkgs");box.innerHTML="";
-  PACKAGES.forEach(function(p){
-    var lab=document.createElement("label");lab.className="pkg";
-    if(p.popular){var b=document.createElement("span");b.className="badge";b.textContent=t("pk_pop");lab.appendChild(b)}
-    var inp=document.createElement("input");inp.type="radio";inp.name="pkg";inp.value=p.id;inp.checked=(p.id===pkg);
-    inp.addEventListener("change",function(){pkg=p.id;if(!$("#summary").hidden)buildSummary()});
-    var card=document.createElement("div");card.className="card";
-    var h=document.createElement("h3");h.textContent=t("pk_"+p.id);
-    var d=document.createElement("p");d.style.cssText="color:var(--muted);font-size:14.5px";d.textContent=t("pk_"+p.id+"_d");
-    var pr=document.createElement("div");pr.className="price";pr.textContent=money(p.price)+" ";
-    var sm=document.createElement("small");sm.textContent="· "+p.cards+" "+t("pk_cards");pr.appendChild(sm);
-    var ul=document.createElement("ul");
-    var feats=["pk_f1","pk_f2"];if(p.id==="scale")feats.push("pk_f3");
-    feats.forEach(function(k){var li=document.createElement("li");li.textContent=t(k);ul.appendChild(li)});
-    card.appendChild(h);card.appendChild(d);card.appendChild(pr);card.appendChild(ul);
-    lab.appendChild(inp);lab.appendChild(card);box.appendChild(lab);
-  });
+function newTap(){
+  var p=pickW(DASH.server.v),s=pickW(DASH.shift.v);
+  lastTapAt=new Date(lastTapAt.getTime()+(1+Math.floor(Math.random()*4))*60000);
+  tapTotal++;
+  var r={n:tapTotal,p:p,s:s,at:lastTapAt};
+  sheetRows.push(r);if(sheetRows.length>6)sheetRows.shift();
+  var b=$("#shBody"),el=sheetRowEl(r);el.classList.add("new");b.appendChild(el);
+  while(b.children.length>6)b.removeChild(b.firstChild);
+  var pipe=$("#pipe");pipe.classList.remove("go");void pipe.offsetWidth;pipe.classList.add("go");
+  setTimeout(function(){
+    DASH.server.v[p]++;DASH.day.v[TODAY]++;DASH.shift.v[s]++;
+    var idx=tab==="server"?p:tab==="shift"?s:TODAY;
+    var d=DASH[tab],v=d.v,max=Math.max.apply(null,v),topI=v.indexOf(max);
+    var rows=$$("#bars .row");
+    var prevTop=rows.findIndex?rows.findIndex(function(x){return x.classList.contains("top")}):-1;
+    if(prevTop!==topI){renderDash(false);rows=$$("#bars .row")}
+    rows.forEach(function(row,i){row.querySelector(".fill").style.width=(v[i]/max*100)+"%";row.querySelector(".v").textContent=v[i]});
+    var hit=rows[idx];if(hit){hit.classList.remove("bump");void hit.offsetWidth;hit.classList.add("bump")}
+    renderKpis();
+  },700);
 }
-function selPkg(){return PACKAGES.filter(function(p){return p.id===pkg})[0]}
+var liveTimer=null,flowVisible=false;
+function liveLoop(){
+  clearTimeout(liveTimer);
+  if(!flowVisible||document.hidden)return;
+  liveTimer=setTimeout(function(){newTap();liveLoop()},2600+Math.random()*1400);
+}
+
+/* products: cards, stands, custom */
+function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
+function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
+function renderProds(){
+  var box=$("#prods");box.innerHTML="";
+  PRODUCTS.forEach(function(p){
+    if(qty[p.id]==null)qty[p.id]=p.start||0;
+    var c=document.createElement("div");c.className="prod";c.id="pr-"+p.id;
+    var pv=document.createElement("div");pv.className="pv pv-"+p.id;pv.setAttribute("aria-hidden","true");
+    pv.innerHTML=p.id==="card"?'<div class="mc"></div>':p.id==="stand"?'<div class="st"><div class="plate"><div class="mc"></div></div><div class="base"></div></div>':'<div class="cs"><div class="mc"></div></div>';
+    var body=document.createElement("div");
+    var h=document.createElement("h3");h.textContent=t("pr_"+p.id);
+    var d=document.createElement("p");d.className="d";d.textContent=t("pr_"+p.id+"_d");
+    var tiers=document.createElement("div");tiers.className="tiers";
+    if(p.quote){var q=document.createElement("span");q.className="tier best";q.textContent=t("quote");tiers.appendChild(q)}
+    else{
+      var a=document.createElement("span");a.className="tier";a.textContent=money(p.unit)+" "+t("each");
+      var b=document.createElement("span");b.className="tier best";b.textContent=p.pack+" "+t("forw")+" "+money(p.packPrice);
+      tiers.appendChild(a);tiers.appendChild(b);
+    }
+    body.appendChild(h);body.appendChild(d);body.appendChild(tiers);
+    var qr=document.createElement("div");qr.className="qrow";
+    var st=document.createElement("div");st.className="step";st.setAttribute("role","group");st.setAttribute("aria-label",t("qty")+": "+t("pr_"+p.id));
+    var mi=document.createElement("button");mi.type="button";mi.textContent="−";mi.setAttribute("aria-label","−1");
+    var out=document.createElement("output");out.id="q-"+p.id;out.setAttribute("aria-live","polite");
+    var pl=document.createElement("button");pl.type="button";pl.textContent="+";pl.setAttribute("aria-label","+1");
+    mi.addEventListener("click",function(){if(qty[p.id]>0){qty[p.id]--;updProds()}});
+    pl.addEventListener("click",function(){if(qty[p.id]<999){qty[p.id]++;updProds()}});
+    st.appendChild(mi);st.appendChild(out);st.appendChild(pl);
+    var sub=document.createElement("div");sub.className="sub"+(p.quote?" q":"");sub.id="s-"+p.id;
+    qr.appendChild(st);qr.appendChild(sub);
+    var hint=document.createElement("p");hint.className="hint";hint.id="h-"+p.id;hint.hidden=true;
+    c.appendChild(pv);c.appendChild(body);c.appendChild(qr);c.appendChild(hint);
+    box.appendChild(c);
+  });
+  updProds();
+}
+function updProds(){
+  var total=0,anyQuote=false;
+  PRODUCTS.forEach(function(p){
+    var n=qty[p.id]||0,c=$("#pr-"+p.id);if(!c)return;
+    $("#q-"+p.id).textContent=n;
+    c.classList.toggle("has",n>0);
+    c.querySelector(".step button").disabled=n===0;
+    var sub=$("#s-"+p.id),h=$("#h-"+p.id);
+    if(p.quote){sub.textContent=n?t("quote_s"):"";if(n)anyQuote=true;h.hidden=true}
+    else{
+      var lt=lineTotal(p,n);total+=lt;sub.textContent=n?money(lt):"";
+      var rem=n%p.pack;
+      if(rem){h.textContent=fill(t("hint"),{n:p.pack-rem,p:Math.ceil(n/p.pack)*p.pack,price:money(Math.ceil(n/p.pack)*p.packPrice)});h.hidden=false}else h.hidden=true;
+    }
+  });
+  $("#totNum").textContent=money(total);
+  $("#totPlus").hidden=!anyQuote;
+  if(!$("#summary").hidden)buildSummary();
+}
+function itemCount(){return PRODUCTS.reduce(function(a,p){return a+(qty[p.id]||0)},0)}
 function buildSummary(){
-  var p=selPkg();
-  var lines=[
-    t("sum_pkg")+": "+t("pk_"+p.id)+" ("+p.cards+" "+t("pk_cards")+")",
-    t("sum_total")+": "+money(p.price),
+  var items=[],total=0,anyQuote=false;
+  PRODUCTS.forEach(function(p){
+    var n=qty[p.id]||0;if(!n)return;
+    if(p.quote){anyQuote=true;items.push("  "+t("pr_"+p.id)+" × "+n+" = "+t("quote_s"))}
+    else{var lt=lineTotal(p,n);total+=lt;items.push("  "+t("pr_"+p.id)+" × "+n+" = "+money(lt))}
+  });
+  var lines=[t("sum_items")+":"].concat(items).concat([
+    t("sum_total")+": "+money(total)+(anyQuote?" "+t("tot_plus"):""),
     t("sum_biz")+": "+$("#fBiz").value.trim(),
     t("sum_place")+": "+($("#fPlace").value.trim()||t("tbd")),
     t("sum_loc")+": "+$("#fLoc").value,
     t("sum_dash")+": "+($("#fDash").checked?t("yes"):t("no")),
     t("sum_contact")+": "+$("#fName").value.trim()+", "+$("#fPhone").value.trim()+($("#fEmail").value.trim()?", "+$("#fEmail").value.trim():"")
-  ];
+  ]);
   lastSummary=lines.join("\n");
   $("#sumText").textContent=lastSummary;
   var wa=$("#waBtn"),mail=$("#mailShow");
@@ -956,6 +1212,7 @@ document.addEventListener("DOMContentLoaded",function(){
     e.preventDefault();
     var ok=$("#fBiz").value.trim()&&$("#fName").value.trim()&&$("#fPhone").value.trim();
     var err=$("#formErr");
+    if(!itemCount()){err.textContent=t("f_err_items");err.hidden=false;return}
     if(!ok){err.textContent=t("f_err");err.hidden=false;return}
     err.hidden=true;buildSummary();
     var s=$("#summary");s.hidden=false;
@@ -984,10 +1241,20 @@ document.addEventListener("DOMContentLoaded",function(){
   var cm=$("#ctaMail");
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
+  seedSheet();
   link();applyLang();
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if("IntersectionObserver" in window){
+    var played=false;
+    new IntersectionObserver(function(es){es.forEach(function(en){
+      flowVisible=en.isIntersecting;
+      if(flowVisible&&!played){played=true;$("#flow").classList.add("play");renderDash(true)}
+      if(!reduce)liveLoop();
+    })},{threshold:.15}).observe($("#flow"));
+    document.addEventListener("visibilitychange",function(){if(!reduce)liveLoop()});
+  }
 });
 </script>
-
 
 </body>
 </html>
