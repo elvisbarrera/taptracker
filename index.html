@@ -225,7 +225,7 @@ details+details{margin-top:10px}
 summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:14px;min-height:52px;align-items:center}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font:500 24px var(--mono);color:var(--accent)}
-details[open] summary::after{content:"–"}
+details[open]>summary::after{content:"–"}
 details p{color:var(--muted);padding-bottom:16px;font-size:15px}
 .faq-list{margin-top:26px}
 
@@ -598,6 +598,18 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
 .ft-app{display:inline-flex;align-items:center;gap:9px;padding:8px 14px 8px 10px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(169,188,214,.18);color:var(--on-navy);font:600 14px var(--body)}
 .ft-app img{display:block;object-fit:contain}
 .ft-app small{font:500 12.5px var(--body);color:var(--on-navy-muted)}
+
+.lbx-t{display:flex;align-items:center;gap:12px}
+.lbx-lk{flex:none;width:30px;height:30px;border-radius:9px;background:rgba(62,224,200,.12);color:var(--accent-hi);display:grid;place-items:center}
+.lbx-lk svg{width:16px;height:16px}
+.lbx.unlocked .lbx-lk{display:none}
+.lbx-lock{display:grid;gap:8px;padding:0 20px 22px}
+.lbx-lock label{color:var(--on-navy);font-size:13px;font-weight:700}
+.lbx-lock input{background:rgba(255,255,255,.07);border-color:rgba(169,188,214,.35);color:var(--on-navy)}
+.lbx-lock.shake{animation:buzz .4s}
+.lbx-err{color:#FF9A8B;font-size:13.5px;font-weight:700}
+.lbx-body[hidden],.lbx-lock[hidden]{display:none}
+.lbx>summary::after,.lbx[open]>summary::after{content:none!important}
 </style>
 </head>
 <body>
@@ -711,8 +723,16 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
         <li><span class="who" data-i18n="who_cust"></span><h3 data-i18n="s4_t"></h3><p data-i18n="s4_d"></p></li>
       </ol>
       <details class="linkbox lbx" id="try">
-        <summary><h3 data-i18n="link_title"></h3><span class="lbx-ic" aria-hidden="true"></span></summary>
-        <div class="lbx-body">
+        <summary><span class="lbx-t"><span class="lbx-lk" id="lbxLk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span><h3 data-i18n="link_title"></h3></span><span class="lbx-ic" aria-hidden="true"></span></summary>
+        <form class="lbx-lock" id="lbxLock" novalidate>
+          <label for="lbxPw" data-i18n="lk_label"></label>
+          <div class="srch">
+            <input id="lbxPw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-ph="lk_ph">
+            <button class="btn btn-primary btn-sm" type="submit" style="background:var(--accent-hi);color:#04201C;min-height:48px" data-i18n="lk_go"></button>
+          </div>
+          <p class="lbx-err" id="lbxErr" role="alert" hidden data-i18n="lk_err"></p>
+        </form>
+        <div class="lbx-body" id="lbxBody" hidden>
         <p data-i18n="link_desc"></p>
         <div class="field">
           <label for="bizQ" data-i18n="link_label"></label>
@@ -1004,6 +1024,7 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+lk_label:"Team password",lk_ph:"Password",lk_go:"Unlock",lk_err:"Wrong password. Try again.",
 ft_auto:"automations",
 ft_works:"Works with",
 al_via:"Alerts arrive through <b>Telegram</b>, free on iPhone and Android.",al_title:"Your phone buzzes when a review lands",al_sub:"Get an alert the moment a customer taps a card or posts a new Google review, so you can thank the right person that same shift.",
@@ -1013,7 +1034,7 @@ al_p3:"<b>A daily recap at closing.</b> Taps, new reviews and your top team memb
 nt_now:"now",nt_r_t:"New Google review",nt_r1:"\u201cAna was amazing, the food came out perfect. We will be back!\u201d",nt_r2:"\u201cFast, friendly and spotless. Marco took great care of us.\u201d",
 nt_t_t:"New tap at Table 12",nt_t:"Ana's card was tapped. The review window opened.",nt_s_t:"Today's recap",nt_s:"18 taps · 6 new reviews · Top: Ana",al_d:"Saturday, October 24",
 foot_tag:"NFC review cards, a dashboard synced with Google Sheets and alerts on your phone. For any business.",ft_alerts:"Phone alerts",
-ft_h:"Put a review button on every table.",ft_p:"Cards and stands programmed with your Google listing, plus a dashboard that shows who on your team brings the reviews.",ft_b1:"See pricing",ft_b2:"Email us",ft_c1:"Product",ft_c2:"Company",ft_faq:"Questions",ft_contact:"Contact",ft_rights:"All rights reserved.",ft_legal:"Google, Google Sheets, Telegram and n8n are trademarks of their respective owners. Tap Tracker is not affiliated with or endorsed by them.",
+ft_h:"More 5-star reviews for small businesses across Texas.",ft_p:"Cards and stands programmed with your Google listing, for restaurants, barbershops, salons, clinics, shops and any business that serves people. Plus a dashboard that shows who on your team brings the reviews.",ft_b1:"See pricing",ft_b2:"Email us",ft_c1:"Product",ft_c2:"Company",ft_faq:"Questions",ft_contact:"Contact",ft_rights:"All rights reserved.",ft_legal:"Google, Google Sheets, Telegram and n8n are trademarks of their respective owners. Tap Tracker is not affiliated with or endorsed by them.",
 dock_faq:"FAQ",
 st_title:"From the table to your dashboard",st1:"Guests tap the card",st2:"Each tap is a row in Google Sheets",st3:"Your dashboard counts it",st_taps:"taps",st_dash:"Taps today",st_table:"Table 12",
 dash_eyebrow:"Tap tracking",dash_title:"See who on your team brings in the reviews",
@@ -1080,6 +1101,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+lk_label:"Contraseña del equipo",lk_ph:"Contraseña",lk_go:"Abrir",lk_err:"Contraseña incorrecta. Intenta de nuevo.",
 ft_auto:"automatizaciones",
 ft_works:"Funciona con",
 al_via:"Los avisos llegan por <b>Telegram</b>, gratis en iPhone y Android.",al_title:"Tu teléfono vibra cuando llega una reseña",al_sub:"Recibe un aviso en el momento en que un cliente toca una tarjeta o publica una reseña nueva en Google, para felicitar a la persona correcta en ese mismo turno.",
@@ -1089,7 +1111,7 @@ al_p3:"<b>Resumen diario al cierre.</b> Taps, reseñas nuevas y la mejor persona
 nt_now:"ahora",nt_r_t:"Nueva reseña en Google",nt_r1:"\u201cAna fue increíble, la comida salió perfecta. ¡Vamos a volver!\u201d",nt_r2:"\u201cRápido, amable y todo impecable. Marco nos atendió muy bien.\u201d",
 nt_t_t:"Nuevo tap en Mesa 12",nt_t:"Tocaron la tarjeta de Ana. Se abrió la ventana de reseña.",nt_s_t:"Resumen de hoy",nt_s:"18 taps · 6 reseñas nuevas · Top: Ana",al_d:"sábado, 24 de octubre",
 foot_tag:"Tarjetas NFC de reseñas, un dashboard sincronizado con Google Sheets y avisos en tu teléfono. Para cualquier negocio.",ft_alerts:"Avisos al teléfono",
-ft_h:"Pon un botón de reseñas en cada mesa.",ft_p:"Tarjetas y soportes programados con tu perfil de Google, más un dashboard que muestra quién de tu equipo trae las reseñas.",ft_b1:"Ver precios",ft_b2:"Escríbenos",ft_c1:"Producto",ft_c2:"Empresa",ft_faq:"Preguntas",ft_contact:"Contacto",ft_rights:"Todos los derechos reservados.",ft_legal:"Google, Google Sheets, Telegram y n8n son marcas registradas de sus respectivos dueños. Tap Tracker no está afiliado ni respaldado por ellos.",
+ft_h:"Más reseñas de 5 estrellas para pequeños negocios en todo Texas.",ft_p:"Tarjetas y soportes programados con tu perfil de Google, para restaurantes, barberías, salones, clínicas, tiendas y cualquier negocio que atiende gente. Más un dashboard que muestra quién de tu equipo trae las reseñas.",ft_b1:"Ver precios",ft_b2:"Escríbenos",ft_c1:"Producto",ft_c2:"Empresa",ft_faq:"Preguntas",ft_contact:"Contacto",ft_rights:"Todos los derechos reservados.",ft_legal:"Google, Google Sheets, Telegram y n8n son marcas registradas de sus respectivos dueños. Tap Tracker no está afiliado ni respaldado por ellos.",
 dock_faq:"Dudas",
 st_title:"De la mesa a tu dashboard",st1:"Los clientes tocan la tarjeta",st2:"Cada tap es una fila en Google Sheets",st3:"Tu dashboard lo cuenta",st_taps:"taps",st_dash:"Taps de hoy",st_table:"Mesa 12",
 dash_eyebrow:"Seguimiento de taps",dash_title:"Mira quién de tu equipo trae las reseñas",
@@ -1482,6 +1504,22 @@ function alTick(){
   }
 }
 
+/* soft lock for the try-your-card tool (keeps it out of casual reach; not real security) */
+var LK_HASH="ce38f8aa";
+function lkHash(v){var x=0x811c9dc5;for(var i=0;i<v.length;i++){x^=v.charCodeAt(i);x=Math.imul(x,16777619)>>>0}return x.toString(16)}
+function lkOpen(){var d=$("#try");d.classList.add("unlocked");$("#lbxLock").hidden=true;$("#lbxBody").hidden=false;try{sessionStorage.setItem("tt-lk","1")}catch(e){}}
+function lkInit(){
+  var ok=false;try{ok=sessionStorage.getItem("tt-lk")==="1"}catch(e){}
+  if(ok)lkOpen();
+  $("#try").addEventListener("toggle",function(){if(this.open&&!$("#lbxLock").hidden)setTimeout(function(){$("#lbxPw").focus()},50)});
+  $("#lbxLock").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=$("#lbxPw").value.trim().toLowerCase();
+    if(lkHash(v)===LK_HASH){$("#lbxErr").hidden=true;lkOpen();setTimeout(function(){$("#bizQ").focus()},50)}
+    else{var f=$("#lbxLock");$("#lbxErr").hidden=false;f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake");$("#lbxPw").select()}
+  });
+}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -1598,6 +1636,7 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
   seedSheet();
+  lkInit();
   if(reduceMo()){AL.step=AL.items.length}
   else if("IntersectionObserver" in window){
     new IntersectionObserver(function(es){es.forEach(function(en){AL.vis=en.isIntersecting;if(AL.vis)alTick();else clearTimeout(AL.timer)})},{threshold:.35}).observe($("#alStage"));
