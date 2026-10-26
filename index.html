@@ -425,6 +425,79 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
 @media (max-width:899px){.pipe{height:56px}@keyframes pdrop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(46px);opacity:0}}}
 .sh-body .sh-row{flex:none}
 #try{scroll-margin-top:86px}
+
+/* story: scroll-linked table -> sheet -> dashboard */
+.story{position:relative;height:340vh;height:340svh;margin-top:8px}
+.st-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:calc(env(safe-area-inset-top,0px) + 78px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 92px)}
+.st-wrap{display:grid;gap:12px;align-content:center;height:100%}
+.st-title{font-size:clamp(22px,6vw,40px);font-weight:800}
+.st-steps{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.st-steps li{font:700 12px var(--body);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 10px;transition:background .25s,color .25s,border-color .25s}
+.st-steps li.on{background:var(--navy);color:var(--accent-hi);border-color:var(--navy)}
+.st-grid{display:grid;justify-items:center;min-height:0}
+.st-table{position:relative;width:min(100%,calc(30svh + 20px));aspect-ratio:1}
+.st-table svg{width:100%;height:100%;display:block;overflow:visible}
+.st-count{position:absolute;right:-6px;bottom:4px;font:700 12px var(--body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 10px;box-shadow:var(--shadow)}
+.st-count b{font:800 14px var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.st-arrow{position:relative;width:2px;height:clamp(14px,3svh,30px);background:linear-gradient(var(--accent),rgba(11,127,118,.25))}
+.st-arrow::after{content:"";position:absolute;left:50%;bottom:-2px;width:8px;height:8px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:translateX(-50%) rotate(45deg)}
+.st-arrow i{position:absolute;left:50%;top:0;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--accent-hi);box-shadow:0 0 12px var(--accent-hi);opacity:0}
+.st-sheet{width:100%;max-width:440px;background:#fff;color:#1F2937;border:1px solid #DCE3EC;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.st-sheet .sh-top{padding:8px 12px}
+.st-sheet .sh-ico{width:26px;height:26px}
+.st-sheet .sh-ico svg{width:16px;height:16px}
+.st-rows{height:calc(4 * 26px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;font:500 12px var(--body);font-variant-numeric:tabular-nums}
+.st-row{flex:none;display:grid;grid-template-columns:34px 66px 1fr 1fr;height:26px;border-top:1px solid #E3E8EF;align-items:center}
+.st-row span{padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st-row span:first-child{text-align:center;color:#5F6B7A;background:#F8F9FA;height:100%;line-height:26px;padding:0;font-size:10.5px}
+.st-row .av{display:inline-block;width:16px;height:16px;border-radius:50%;background:#0B7F76;color:#fff;font:700 9px/16px var(--body);text-align:center;margin-right:5px;vertical-align:-3px;font-style:normal}
+.st-dash{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow);display:grid;gap:7px}
+.st-dh{font:800 13px var(--display)}
+.sb{display:grid;grid-template-columns:62px 1fr 30px;gap:8px;align-items:center;font:700 12px var(--body)}
+.sb .tr{height:10px;border-radius:5px;background:var(--bg);overflow:hidden}
+.sb .fl{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-hi))}
+.sb.lead .fl{background:linear-gradient(90deg,#E39F00,var(--gold))}
+.sb .n{font:700 12px var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+@media (min-width:900px){
+  .st-grid{grid-template-columns:minmax(0,1.05fr) 56px minmax(0,1fr) 56px minmax(0,.85fr);align-items:center;gap:0}
+  .st-table{width:100%;max-width:340px}
+  .st-arrow{width:100%;height:2px;background:linear-gradient(90deg,var(--accent),rgba(11,127,118,.25))}
+  .st-arrow::after{left:auto;right:-1px;bottom:auto;top:50%;transform:translateY(-50%) rotate(-45deg)}
+  .st-arrow i{left:0;top:50%;margin:-5px 0 0}
+  .st-rows{height:calc(6 * 30px)}
+  .st-row{height:30px}
+  .st-row span:first-child{line-height:30px}
+  .st-wrap{gap:28px}
+  .st-steps li{font-size:13px;padding:6px 12px}
+}
+@media (max-height:640px) and (max-width:899px){.st-steps{display:none}.st-rows{height:calc(3 * 26px)}}
+@media (prefers-reduced-motion: reduce){
+  .story{height:auto}
+  .st-stage{position:relative;height:auto;padding-block:40px}
+  .st-steps li{transition:none}
+}
+@media (max-width:899px){
+  .st-grid{display:flex;flex-direction:column;align-items:center}
+  .st-grid>*{flex:none}
+  .st-wrap{gap:10px}
+  .st-steps li{display:none}
+  .st-steps li.on{display:block}
+  .st-table{width:min(78%,calc(24svh + 12px))}
+  .st-rows{height:calc(3 * 26px)}
+  .st-sheet .sh-top{padding:6px 10px}
+  .st-dash{padding:8px 12px;gap:5px}
+  .st-count{right:-28px}
+}
+@media (max-width:899px){
+  .st-table{width:min(70%,calc(24svh + 6px))}
+  .st-sheet .sh-top small{display:none}
+  .st-sheet .sh-top{padding:5px 10px}
+  .st-rows{height:calc(3 * 24px)}
+  .st-row{height:24px}
+  .st-row span:first-child{line-height:24px}
+  .st-arrow{height:14px}
+  .st-title{font-size:clamp(20px,5.6vw,28px)}
+}
 </style>
 </head>
 <body>
@@ -568,6 +641,53 @@ footer{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 120px)}
     </div>
   </section>
 
+
+  <section id="story" class="story" aria-labelledby="stTitle">
+    <div class="st-stage">
+      <div class="wrap st-wrap">
+        <div class="st-head">
+          <h2 class="st-title" id="stTitle" data-i18n="st_title"></h2>
+          <ol class="st-steps">
+            <li data-i18n="st1"></li>
+            <li data-i18n="st2"></li>
+            <li data-i18n="st3"></li>
+          </ol>
+        </div>
+        <div class="st-grid">
+          <div class="st-table">
+            <svg viewBox="0 0 300 300" id="stSvg" role="img" aria-label="Round table with an NFC card">
+              <defs>
+                <radialGradient id="tbl" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4ECF5"/></radialGradient>
+              </defs>
+              <circle cx="150" cy="156" r="96" fill="#0A1A33" opacity=".10"/>
+              <circle cx="150" cy="150" r="96" fill="url(#tbl)" stroke="#C9D6E5" stroke-width="2"/>
+              <g id="stSeats"></g>
+              <circle id="stRip" cx="150" cy="150" r="30" fill="none" stroke="#3EE0C8" stroke-width="3" opacity="0"/>
+              <g transform="translate(150 150) rotate(-10)">
+                <rect x="-30" y="-19" width="60" height="38" rx="6" fill="#0A1A33" stroke="#3EE0C8" stroke-opacity=".7"/>
+                <text x="-23" y="-5" font-family="Plus Jakarta Sans,system-ui,sans-serif" font-weight="800" font-size="10" fill="#fff">TAP</text>
+                <text x="-23" y="12" font-size="7" fill="#F5B301" letter-spacing="1">★★★★★</text>
+                <circle cx="20" cy="-8" r="6.5" fill="#fff"/>
+                <text x="20" y="-5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#4285F4">G</text>
+              </g>
+              <g id="stPhones"></g>
+            </svg>
+            <p class="st-count"><b id="stCount">0</b> <span data-i18n="st_taps"></span></p>
+          </div>
+          <div class="st-arrow" aria-hidden="true"><i id="stDot1"></i></div>
+          <div class="st-sheet">
+            <div class="sh-top"><span class="sh-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M5 9.5h14M5 14.5h14M10.5 9.5V20"/></svg></span><div><b data-i18n="sh_name"></b><small>Google Sheets</small></div></div>
+            <div class="st-rows" id="stRows"></div>
+          </div>
+          <div class="st-arrow" aria-hidden="true"><i id="stDot2"></i></div>
+          <div class="st-dash">
+            <b class="st-dh" data-i18n="st_dash"></b>
+            <div id="stBars"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="demo" class="dsec">
     <div class="wrap">
@@ -732,6 +852,7 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+st_title:"From the table to your dashboard",st1:"Guests tap the card",st2:"Each tap is a row in Google Sheets",st3:"Your dashboard counts it",st_taps:"taps",st_dash:"Taps today",st_table:"Table 12",
 dash_eyebrow:"Tap tracking",dash_title:"See who on your team brings in the reviews",
 dash_sub:"Every tap lands as a new row in your Google Sheet: the time, the team member and the spot. We turn that sheet into your dashboard, so you know who to thank and who to coach. Sample data.",
 tab_day:"By day",tab_server:"By team member",tab_shift:"By spot",sample:"Sample data",
@@ -796,6 +917,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 foot_tag:"NFC review cards and marketing services for any business."
 },
 es:{
+st_title:"De la mesa a tu dashboard",st1:"Los clientes tocan la tarjeta",st2:"Cada tap es una fila en Google Sheets",st3:"Tu dashboard lo cuenta",st_taps:"taps",st_dash:"Taps de hoy",st_table:"Mesa 12",
 dash_eyebrow:"Seguimiento de taps",dash_title:"Mira quién de tu equipo trae las reseñas",
 dash_sub:"Cada tap llega como una fila nueva en tu Google Sheet: la hora, la persona del equipo y el lugar. Con esa hoja armamos tu dashboard, para que sepas a quién felicitar y a quién entrenar. Datos de ejemplo.",
 tab_day:"Por día",tab_server:"Por persona",tab_shift:"Por lugar",sample:"Datos de ejemplo",
@@ -881,7 +1003,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
-  renderProds();renderSheet();renderDash(false);
+  renderProds();renderSheet();renderDash(false);if(STORY.seats.length){STORY.last=-1;$("#stBars").innerHTML="";renderStory(reduceMo()?1:storyProgress())}
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
@@ -1045,6 +1167,96 @@ function liveLoop(){
   liveTimer=setTimeout(function(){newTap();liveLoop()},2600+Math.random()*1400);
 }
 
+/* story: everything is a pure function of scroll progress, so it plays forward and backward */
+var STORY={n:6,a:.1,b:.74,seats:[],phones:[],rows:[],last:-1};
+var GUEST=["#F59E0B","#2563EB","#BE185D","#7C3AED","#0EA5E9","#16A34A"];
+function reduceMo(){return !!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)}
+function clamp(x){return x<0?0:x>1?1:x}
+function ease(x){return 1-Math.pow(1-x,3)}
+function svgEl(tag,attrs){var e=document.createElementNS("http://www.w3.org/2000/svg",tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e}
+function buildStory(){
+  var seats=$("#stSeats"),phones=$("#stPhones");if(!seats)return;
+  seats.innerHTML="";phones.innerHTML="";STORY.seats=[];STORY.phones=[];
+  for(var i=0;i<STORY.n;i++){
+    var ang=(-90+i*60)*Math.PI/180,cx=150+Math.cos(ang)*124,cy=150+Math.sin(ang)*124,px=150+Math.cos(ang)*70,py=150+Math.sin(ang)*70;
+    var g=svgEl("g",{});
+    g.appendChild(svgEl("circle",{cx:px,cy:py,r:15,fill:"#fff",stroke:"#C9D6E5","stroke-width":2}));
+    g.appendChild(svgEl("circle",{cx:px,cy:py,r:8,fill:"#EEF3F9"}));
+    g.appendChild(svgEl("circle",{cx:cx,cy:cy,r:19,fill:GUEST[i]}));
+    g.appendChild(svgEl("circle",{cx:cx,cy:cy-4,r:7,fill:"rgba(255,255,255,.85)"}));
+    var star=svgEl("g",{transform:"translate("+(cx+14)+" "+(cy-14)+")",opacity:0});
+    star.appendChild(svgEl("circle",{r:9,fill:"#F5B301",stroke:"#fff","stroke-width":2}));
+    var tx=svgEl("text",{y:3.5,"text-anchor":"middle","font-size":10,"font-weight":700,fill:"#1B1400"});tx.textContent="★";star.appendChild(tx);
+    g.appendChild(star);seats.appendChild(g);
+    var ph=svgEl("g",{opacity:0});
+    ph.appendChild(svgEl("rect",{x:-8,y:-13,width:16,height:26,rx:3.5,fill:"#0B1B33",stroke:"#fff","stroke-width":1.5}));
+    ph.appendChild(svgEl("rect",{x:-5.5,y:-9.5,width:11,height:17,rx:1.5,fill:"#3EE0C8"}));
+    phones.appendChild(ph);
+    STORY.seats.push({x:150+Math.cos(ang)*108,y:150+Math.sin(ang)*108,star:star});STORY.phones.push(ph);
+  }
+  var t0=new Date(2026,9,24,19,2);
+  STORY.rows=[];for(var k=0;k<STORY.n;k++)STORY.rows.push({n:481+k,at:new Date(t0.getTime()+k*3*60000)});
+  STORY.last=-1;
+}
+function storyRows(count){
+  var box=$("#stRows");box.innerHTML="";
+  var nm=DASH.server[lang][0];
+  STORY.rows.slice(0,count).forEach(function(r){
+    var row=document.createElement("div");row.className="st-row";
+    var c0=document.createElement("span");c0.textContent=r.n;
+    var c1=document.createElement("span");c1.textContent=fmtTime(r.at);
+    var c2=document.createElement("span");var av=document.createElement("i");av.className="av";av.textContent=nm.charAt(0);c2.appendChild(av);c2.appendChild(document.createTextNode(nm));
+    var c3=document.createElement("span");c3.textContent=t("st_table");
+    row.appendChild(c0);row.appendChild(c1);row.appendChild(c2);row.appendChild(c3);box.appendChild(row);
+  });
+}
+function storyBars(count,p2){
+  var box=$("#stBars");
+  var names=DASH.server[lang],vals=[12+count,15,10],max=21;
+  if(!box.children.length){
+    [0,1,2].forEach(function(i){var r=document.createElement("div");r.className="sb";r.innerHTML='<span></span><div class="tr"><div class="fl"></div></div><span class="n"></span>';box.appendChild(r)});
+  }
+  Array.prototype.forEach.call(box.children,function(r,i){
+    r.children[0].textContent=names[i];
+    r.querySelector(".fl").style.width=(vals[i]/max*100)+"%";
+    r.querySelector(".n").textContent=vals[i];
+    r.classList.toggle("lead",i===0&&vals[0]>vals[1]);
+  });
+}
+function renderStory(p){
+  var span=(STORY.b-STORY.a)/STORY.n,count=0,ripple=0,dot1=-1;
+  for(var i=0;i<STORY.n;i++){
+    var lp=clamp((p-(STORY.a+i*span))/span),s=STORY.seats[i],ph=STORY.phones[i],x=s.x,y=s.y,op=0;
+    if(lp>0&&lp<1){
+      op=1;var m;
+      if(lp<.4){m=ease(lp/.4)}else if(lp<.6){m=1;ripple=Math.max(ripple,(lp-.4)/.2)}else{m=1-ease((lp-.6)/.4)}
+      x=s.x+(150-s.x)*m*.78;y=s.y+(150-s.y)*m*.78;
+      if(lp>=.5&&lp<.9)dot1=(lp-.5)/.4;
+    }
+    ph.setAttribute("transform","translate("+x.toFixed(1)+" "+y.toFixed(1)+")");ph.setAttribute("opacity",op);
+    var done=lp>=.5;if(done)count++;
+    s.star.setAttribute("opacity",done?1:0);
+  }
+  var rip=$("#stRip");
+  rip.setAttribute("r",(30+ripple*34).toFixed(1));rip.setAttribute("opacity",ripple>0&&ripple<1?(1-ripple).toFixed(2):0);
+  var d1=$("#stDot1"),d2=$("#stDot2"),wide=window.innerWidth>=900;
+  function moveDot(el,f){if(f<0||f>1){el.style.opacity=0;return}el.style.opacity=1-f*.6;var len=wide?el.parentNode.offsetWidth:el.parentNode.offsetHeight;el.style.transform=wide?"translateX("+(f*len)+"px)":"translateY("+(f*len)+"px)"}
+  moveDot(d1,dot1);
+  var p2=clamp((p-STORY.b)/.12);
+  moveDot(d2,p2>0&&p2<1?p2:-1);
+  if(count!==STORY.last){STORY.last=count;storyRows(count);$("#stCount").textContent=count}
+  storyBars(count,p2);
+  var step=p<.3?0:p<STORY.b?1:2;
+  $$(".st-steps li").forEach(function(li,i){li.classList.toggle("on",i===step)});
+}
+var storyTick=false;
+function storyProgress(){
+  var sec=$("#story");if(!sec)return 1;
+  var r=sec.getBoundingClientRect(),run=sec.offsetHeight-window.innerHeight;
+  return run>0?clamp(-r.top/run):1;
+}
+function onStoryScroll(){if(storyTick)return;storyTick=true;requestAnimationFrame(function(){storyTick=false;renderStory(storyProgress())})}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -1171,6 +1383,8 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
   seedSheet();
+  buildStory();
+  if(!reduceMo()){window.addEventListener("scroll",onStoryScroll,{passive:true});window.addEventListener("resize",onStoryScroll)}
   link();applyLang();
   var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   if("IntersectionObserver" in window){
