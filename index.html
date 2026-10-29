@@ -610,6 +610,74 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
 .lbx-err{color:#FF9A8B;font-size:13.5px;font-weight:700}
 .lbx-body[hidden],.lbx-lock[hidden]{display:none}
 .lbx>summary::after,.lbx[open]>summary::after{content:none!important}
+
+/* tools: inventory scanner + digital menus */
+.tools{padding-block:72px}
+.tool{display:grid;gap:36px;align-items:center;margin-top:48px}
+.tool-copy h3{font-size:clamp(24px,6vw,34px);font-weight:800;letter-spacing:-.02em}
+.tool-lead{color:var(--muted);margin-top:12px;font-size:16.5px;max-width:48ch}
+.tool-pts{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;max-width:48ch}
+.tool-pts li{position:relative;padding-left:28px;color:var(--muted);font-size:15.5px}
+.tool-pts li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:8px;border-left:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg)}
+.tool-pts b{color:var(--ink)}
+.tool-link{margin-top:22px;color:var(--accent)}
+.tool-stage{position:relative;display:grid;place-items:center;min-height:470px}
+.tphone{position:relative;width:236px;height:460px;border-radius:42px;background:#050C18;padding:10px;box-shadow:0 0 0 2px #22385A,0 34px 70px rgba(10,26,51,.3)}
+.tscreen{position:relative;height:100%;border-radius:33px;overflow:hidden}
+.tools.paused *{animation-play-state:paused!important}
+/* inventory camera */
+.cam{background:radial-gradient(90% 60% at 50% 40%,#2B3A4E,#0B121D 75%)}
+.mode{position:absolute;top:48px;left:50%;transform:translateX(-50%);font:700 11px var(--body);color:#04201C;background:var(--accent-hi);padding:5px 11px;border-radius:999px;white-space:nowrap;z-index:2}
+.vf{position:absolute;left:30px;right:30px;top:86px;height:220px}
+.vf>i{position:absolute;width:26px;height:26px;border:3px solid #fff;opacity:.9}
+.vf>i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-top-left-radius:8px}
+.vf>i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:8px}
+.vf>i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-bottom-left-radius:8px}
+.vf>i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:8px}
+.bottle{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;transition:opacity .4s}
+.bottle .neck{width:16px;height:52px;border-radius:5px 5px 2px 2px;background:var(--bc,#3B0D16);box-shadow:inset 3px 0 0 rgba(255,255,255,.12)}
+.bottle .body{position:relative;width:58px;height:120px;margin-top:-4px;border-radius:20px 20px 8px 8px;background:var(--bc,#3B0D16);box-shadow:inset 6px 0 0 rgba(255,255,255,.1)}
+.lbl{position:absolute;left:7px;right:7px;top:36px;height:48px;border-radius:4px;background:#F4EFE6;display:grid;place-items:center;font:800 7px/1.15 var(--display);color:#0B1B33;text-align:center;padding:2px}
+.scanl{position:absolute;left:4px;right:4px;top:8px;height:2px;background:var(--accent-hi);box-shadow:0 0 14px 3px rgba(62,224,200,.7);border-radius:2px;animation:scanmv 1.8s ease-in-out infinite alternate}
+@keyframes scanmv{to{transform:translateY(200px)}}
+.det{position:absolute;left:12px;right:12px;bottom:14px;background:#fff;border-radius:18px;padding:12px 14px;display:grid;gap:2px;color:#0B1B33;box-shadow:0 10px 26px rgba(0,0,0,.35);transform:translateY(130%);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.det.show{transform:none}
+.det small{font:700 10.5px var(--body);color:#0B7F76}
+.det b{font:800 14px/1.2 var(--display);padding-right:34px}
+.det .cnt{font:500 12px var(--body);color:#4F6179}
+.det .cnt em{font:800 13px var(--mono);font-style:normal;color:#0B1B33}
+.plus1{position:absolute;right:12px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--accent-hi);color:#04201C;font:800 12px/30px var(--mono);text-align:center}
+/* digital menu */
+.menu{background:#FBFAF7;color:#1A1A1A}
+.mh{position:absolute;inset:0 0 auto;padding:48px 14px 10px;background:linear-gradient(#FBFAF7 85%,rgba(251,250,247,0));z-index:2}
+.mh b{display:block;font:800 18px var(--display);letter-spacing:-.01em}
+.mchips{display:flex;flex-wrap:nowrap;gap:6px;margin-top:8px;overflow:hidden}
+.mchips span{flex:none;font:700 10.5px var(--body);padding:5px 9px;border-radius:999px;background:#EEE9E0;color:#4A4A4A}
+.mchips span.on{background:#0A1A33;color:#fff}
+.mscroll{position:absolute;inset:118px 0 0;overflow:hidden}
+.mlist{display:grid;gap:10px;padding:0 12px;animation:mscroll 16s linear infinite}
+@keyframes mscroll{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(-50%)}}
+.mi{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:center;background:#fff;border-radius:14px;padding:7px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.mi .ph{width:62px;height:62px;border-radius:10px;background:var(--g)}
+.mi b{display:block;font:700 12.5px/1.2 var(--body)}
+.mi small{display:block;font:500 10.5px/1.3 var(--body);color:#6B6B6B;margin-top:2px}
+.mi em{display:block;font:800 12px var(--mono);font-style:normal;margin-top:4px;color:#0B7F76}
+.mq{position:absolute;right:calc(50% - 196px);top:44px;width:92px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px;box-shadow:var(--shadow);display:grid;gap:6px;justify-items:center;transform:rotate(5deg)}
+.mq .qr{width:72px;height:72px}
+.mq .qr svg{width:100%;height:100%;display:block}
+.mq span{font:700 11px var(--body);color:var(--ink)}
+.mnfc{position:absolute;left:calc(50% - 196px);bottom:52px;width:98px;height:62px;border-radius:10px;background:linear-gradient(135deg,#16407A,#0A1A33 70%);border:1px solid rgba(62,224,200,.55);box-shadow:0 12px 26px rgba(10,26,51,.3);padding:8px 10px;color:#fff;transform:rotate(-8deg);display:flex;flex-direction:column;justify-content:space-between}
+.mnfc b{font:800 13px var(--display)}
+.mnfc span{font:700 9.5px var(--body);color:var(--accent-hi)}
+.tool-more{margin-top:52px;color:var(--muted);font-size:15px}
+.tool-more a{color:var(--accent);font-weight:700}
+@media (max-width:480px){.mq{right:2px;top:30px;width:78px;padding:7px}.mq .qr{width:60px;height:60px}.mnfc{left:2px}}
+@media (min-width:900px){
+  .tool{grid-template-columns:1fr 1fr;gap:64px;margin-top:72px}
+  .tool-rev .tool-copy{order:2}
+  .tool-stage{min-height:520px}
+}
+@media (prefers-reduced-motion: reduce){.scanl,.mlist{animation:none}.det{transition:none}}
 </style>
 </head>
 <body>
@@ -927,18 +995,64 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
     </div>
   </section>
 
-  <section id="services" style="padding-top:24px">
+  <section id="services" class="tools">
     <div class="wrap">
-      <p class="eyebrow" data-i18n="m_eyebrow"></p>
-      <h2 class="sec-title" data-i18n="m_title"></h2>
-      <p class="sec-sub" data-i18n="m_sub"></p>
-      <div class="svc">
-        <div><h3 data-i18n="m1_t"></h3><p data-i18n="m1_d"></p></div>
-        <div><h3 data-i18n="m2_t"></h3><p data-i18n="m2_d"></p></div>
-        <div><h3 data-i18n="m3_t"></h3><p data-i18n="m3_d"></p></div>
-        <div><h3 data-i18n="m4_t"></h3><p data-i18n="m4_d"></p></div>
+      <h2 class="sec-title" data-i18n="tl_title"></h2>
+      <p class="sec-sub" data-i18n="tl_sub"></p>
+
+      <div class="tool">
+        <div class="tool-copy">
+          <h3 data-i18n="inv_t"></h3>
+          <p class="tool-lead" data-i18n="inv_d"></p>
+          <ul class="tool-pts">
+            <li data-i18n-html="inv_p1"></li>
+            <li data-i18n-html="inv_p2"></li>
+            <li data-i18n-html="inv_p3"></li>
+          </ul>
+        </div>
+        <div class="tool-stage" id="invStage" aria-hidden="true">
+          <div class="tphone">
+            <div class="al-island"></div>
+            <div class="tscreen cam">
+              <span class="mode" id="invMode"></span>
+              <div class="vf"><i></i><i></i><i></i><i></i>
+                <div class="bottle" id="invBottle"><span class="neck"></span><span class="body"><span class="lbl" id="invLbl"></span></span></div>
+                <div class="scanl"></div>
+              </div>
+              <div class="det" id="invDet"><small data-i18n="inv_added"></small><b id="invName"></b><span class="cnt"><em id="invCnt"></em> <span data-i18n="inv_btl"></span></span><span class="plus1">+1</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="svc-link"><a class="btn btn-ghost" style="color:var(--accent)" href="https://covercountmedia.com" target="_blank" rel="noopener" data-i18n="m_link"></a></p>
+
+      <div class="tool tool-rev">
+        <div class="tool-copy">
+          <h3 data-i18n="mn_t"></h3>
+          <p class="tool-lead" data-i18n="mn_d"></p>
+          <ul class="tool-pts">
+            <li data-i18n-html="mn_p1"></li>
+            <li data-i18n-html="mn_p2"></li>
+            <li data-i18n-html="mn_p3"></li>
+          </ul>
+          <a class="btn btn-ghost tool-link" href="https://www.brasaousa.com/drink-menu" target="_blank" rel="noopener" data-i18n="mn_live"></a>
+        </div>
+        <div class="tool-stage" id="mnStage" aria-hidden="true">
+          <div class="tphone">
+            <div class="al-island"></div>
+            <div class="tscreen menu">
+              <div class="mh"><b data-i18n="mn_h"></b><div class="mchips"><span class="on" data-i18n="mn_c1"></span><span data-i18n="mn_c2"></span><span data-i18n="mn_c3"></span><span data-i18n="mn_c4"></span></div></div>
+              <div class="mscroll"><div class="mlist" id="mnList"></div></div>
+            </div>
+          </div>
+          <div class="mq">
+            <div class="qr"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#0A1A33" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM11 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM14 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM19 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM17 4h1v1h-1zM18 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM20 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM7 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM16 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM25 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM13 10h1v1h-1zM22 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM0 11h1v1h-1zM1 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM8 11h1v1h-1zM9 11h1v1h-1zM11 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM24 11h1v1h-1zM27 11h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM8 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM16 13h1v1h-1zM20 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM25 13h1v1h-1zM28 13h1v1h-1zM1 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM14 14h1v1h-1zM17 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM0 15h1v1h-1zM1 15h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM5 16h1v1h-1zM6 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM7 17h1v1h-1zM10 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM21 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM1 19h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM20 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM17 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM9 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM24 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM12 26h1v1h-1zM16 26h1v1h-1zM18 26h1v1h-1zM20 26h1v1h-1zM21 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM12 27h1v1h-1zM14 27h1v1h-1zM16 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM19 27h1v1h-1zM20 27h1v1h-1zM21 27h1v1h-1zM24 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM12 28h1v1h-1zM13 28h1v1h-1zM15 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1z"/></svg></div>
+            <span data-i18n="mn_scan"></span>
+          </div>
+          <div class="mnfc"><b>TAP</b><span data-i18n="mn_tap"></span></div>
+        </div>
+      </div>
+
+      <p class="tool-more"><span data-i18n="tl_more"></span> <a href="https://covercountmedia.com" target="_blank" rel="noopener" data-i18n="m_link"></a></p>
     </div>
   </section>
 
@@ -1024,6 +1138,18 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+tl_title:"More tools for your business",tl_sub:"The same team behind Tap Tracker builds the tools you use every shift. Both run on the phone you already have.",
+inv_t:"Inventory in minutes, not hours",inv_d:"Point your phone at a bottle and it lands in your inventory. No clipboards, no typing every label.",
+inv_p1:"<b>Scan the barcode.</b> The bottle is identified and counted in one second.",
+inv_p2:"<b>Scan the label or your handwritten count sheet.</b> AI reads the text and adds it for you.",
+inv_p3:"<b>Separate counts for storage and the bar,</b> ready to export to Google Sheets.",
+inv_added:"Added to inventory",inv_btl:"in stock",inv_m1:"Barcode",inv_m2:"Label text",inv_m3:"Count sheet",
+mn_t:"Digital menus your guests can tap",mn_d:"A menu with photos that opens with one tap on an NFC card or a QR scan at the table. Change a price or an item in seconds, no reprinting.",
+mn_p1:"<b>Photos for every item,</b> organized by category.",
+mn_p2:"<b>Opens by NFC or QR,</b> on any iPhone or Android, no app.",
+mn_p3:"<b>English and Spanish,</b> updated from your phone.",
+mn_live:"See a live menu",mn_h:"Drinks & desserts",mn_c1:"Cocktails",mn_c2:"Wine",mn_c3:"Spirits",mn_c4:"Desserts",mn_scan:"Scan",mn_tap:"Tap for menu",
+tl_more:"We also do photo and video, websites and SEO.",
 lk_label:"Team password",lk_ph:"Password",lk_go:"Unlock",lk_err:"Wrong password. Try again.",
 ft_auto:"automations",
 ft_works:"Works with",
@@ -1101,6 +1227,18 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+tl_title:"Más herramientas para tu negocio",tl_sub:"El mismo equipo de Tap Tracker crea las herramientas que usas en cada turno. Todo funciona con el teléfono que ya tienes.",
+inv_t:"Inventario en minutos, no en horas",inv_d:"Apunta tu teléfono a una botella y queda en tu inventario. Sin tablas de papel, sin escribir cada etiqueta.",
+inv_p1:"<b>Escanea el código de barras.</b> La botella se identifica y se cuenta en un segundo.",
+inv_p2:"<b>Escanea la etiqueta o tu hoja de conteo a mano.</b> La IA lee el texto y lo agrega por ti.",
+inv_p3:"<b>Conteos separados de bodega y barra,</b> listos para pasar a Google Sheets.",
+inv_added:"Agregado al inventario",inv_btl:"en existencia",inv_m1:"Código de barras",inv_m2:"Texto de etiqueta",inv_m3:"Hoja de conteo",
+mn_t:"Menús digitales que tus clientes tocan",mn_d:"Un menú con fotos que se abre con un toque en una tarjeta NFC o escaneando un QR en la mesa. Cambia un precio o un platillo en segundos, sin reimprimir.",
+mn_p1:"<b>Fotos de cada producto,</b> organizadas por categoría.",
+mn_p2:"<b>Se abre por NFC o QR,</b> en cualquier iPhone o Android, sin app.",
+mn_p3:"<b>En inglés y español,</b> y lo actualizas desde tu teléfono.",
+mn_live:"Ver un menú en vivo",mn_h:"Bebidas y postres",mn_c1:"Cocteles",mn_c2:"Vinos",mn_c3:"Licores",mn_c4:"Postres",mn_scan:"Escanea",mn_tap:"Toca para el menú",
+tl_more:"También hacemos foto y video, sitios web y SEO.",
 lk_label:"Contraseña del equipo",lk_ph:"Contraseña",lk_go:"Abrir",lk_err:"Contraseña incorrecta. Intenta de nuevo.",
 ft_auto:"automatizaciones",
 ft_works:"Funciona con",
@@ -1199,7 +1337,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
-  renderProds();renderSheet();alBuild();renderDash(false);if(STORY.seats.length){STORY.last=-1;$("#stBars").innerHTML="";layoutStory();renderStory(reduceMo()?1:storyProgress())}
+  renderProds();renderSheet();alBuild();mnBuild();if($("#invMode"))invShow(INV.i,reduceMo());renderDash(false);if(STORY.seats.length){STORY.last=-1;$("#stBars").innerHTML="";layoutStory();renderStory(reduceMo()?1:storyProgress())}
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
@@ -1520,6 +1658,50 @@ function lkInit(){
   });
 }
 
+/* tools: inventory scan loop + menu list */
+var INV={items:[
+  {m:"inv_m1",n:"Malbec Reserva 2021",l:"MALBEC<br>RESERVA",c:"#3B0D16",q:23},
+  {m:"inv_m2",n:"Cachaça Prata 1L",l:"CACHAÇA<br>PRATA",c:"#8FB9A8",q:11},
+  {m:"inv_m1",n:"Single Malt 12 Year",l:"SINGLE<br>MALT 12",c:"#6B3A12",q:7},
+  {m:"inv_m3",n:"Sauvignon Blanc 2023",l:"SAUVIGNON<br>BLANC",c:"#5F6B2A",q:18}
+],i:0,t:null,vis:false};
+var MENU=[
+  {n:{en:"Classic caipirinha",es:"Caipirinha clásica"},d:{en:"Cachaça, lime, sugar",es:"Cachaça, limón, azúcar"},p:"$12",g:"radial-gradient(circle at 40% 35%,#E9F7C9,#9CCB5B 55%,#4E7A24)"},
+  {n:{en:"Malbec, Mendoza",es:"Malbec, Mendoza"},d:{en:"Glass or bottle",es:"Copa o botella"},p:"$14",g:"radial-gradient(circle at 40% 35%,#C9506A,#6E1027 60%,#3A0612)"},
+  {n:{en:"Passion fruit mojito",es:"Mojito de maracuyá"},d:{en:"Rum, mint, passion fruit",es:"Ron, menta, maracuyá"},p:"$13",g:"radial-gradient(circle at 40% 35%,#FFE59A,#F2B33D 55%,#B9701B)"},
+  {n:{en:"Old fashioned",es:"Old fashioned"},d:{en:"Bourbon, bitters, orange",es:"Bourbon, amargo, naranja"},p:"$15",g:"radial-gradient(circle at 40% 35%,#F7C27A,#B5651D 55%,#5C2E0B)"},
+  {n:{en:"Papaya cream",es:"Crema de papaya"},d:{en:"With cassis liqueur",es:"Con licor de cassis"},p:"$11",g:"radial-gradient(circle at 40% 35%,#FFE3C4,#F4A261 55%,#9C4A1E)"},
+  {n:{en:"Prosecco",es:"Prosecco"},d:{en:"Italy, by the glass",es:"Italia, por copa"},p:"$11",g:"radial-gradient(circle at 40% 35%,#FFF7D6,#E8D27A 55%,#A88F2E)"}
+];
+function mnBuild(){
+  var box=$("#mnList");if(!box)return;box.innerHTML="";
+  MENU.concat(MENU).forEach(function(it){
+    var r=document.createElement("div");r.className="mi";
+    var ph=document.createElement("span");ph.className="ph";ph.style.setProperty("--g",it.g);
+    var tx=document.createElement("div");
+    var b=document.createElement("b");b.textContent=it.n[lang];var sm=document.createElement("small");sm.textContent=it.d[lang];var em=document.createElement("em");em.textContent=it.p;
+    tx.appendChild(b);tx.appendChild(sm);tx.appendChild(em);r.appendChild(ph);r.appendChild(tx);box.appendChild(r);
+  });
+}
+function invShow(k,withCard){
+  var it=INV.items[k%INV.items.length];
+  $("#invMode").textContent=t(it.m);
+  $("#invBottle").style.setProperty("--bc",it.c);
+  $("#invLbl").innerHTML=it.l;
+  $("#invName").textContent=it.n;
+  $("#invCnt").textContent=it.q+(withCard?1:0);
+  $("#invDet").classList.toggle("show",!!withCard);
+}
+function invLoop(){
+  clearTimeout(INV.t);
+  if(!INV.vis||document.hidden)return;
+  invShow(INV.i,false);
+  INV.t=setTimeout(function(){
+    invShow(INV.i,true);
+    INV.t=setTimeout(function(){$("#invDet").classList.remove("show");INV.i++;INV.t=setTimeout(invLoop,500)},2200);
+  },1900);
+}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -1636,6 +1818,12 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
   seedSheet();
+  if(!reduceMo()&&"IntersectionObserver" in window){
+    var tools=$("#services");
+    new IntersectionObserver(function(es){es.forEach(function(en){tools.classList.toggle("paused",!en.isIntersecting)})},{threshold:0}).observe(tools);
+    new IntersectionObserver(function(es){es.forEach(function(en){INV.vis=en.isIntersecting;if(INV.vis)invLoop();else clearTimeout(INV.t)})},{threshold:.35}).observe($("#invStage"));
+    document.addEventListener("visibilitychange",function(){if(!document.hidden&&INV.vis)invLoop()});
+  }
   lkInit();
   if(reduceMo()){AL.step=AL.items.length}
   else if("IntersectionObserver" in window){
