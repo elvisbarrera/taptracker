@@ -13,7 +13,7 @@ img{max-width:100%}
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 /* Layout concept: mobile-first single column. Deep navy hero with a looping NFC tap scene, light working sections (steps, calculator, dashboard, pricing). Trust comes from navy + teal + Google-review gold. */
 :root{
@@ -678,6 +678,106 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
   .tool-stage{min-height:520px}
 }
 @media (prefers-reduced-motion: reduce){.scanl,.mlist{animation:none}.det{transition:none}}
+
+/* realistic phone frame (tools) */
+.tphone{position:relative;width:252px;height:520px;border-radius:50px;padding:10px;background:linear-gradient(140deg,#5B6069 0%,#25282E 22%,#16181C 50%,#2C3036 78%,#5A5F68 100%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.22),inset 0 0 0 3px #0B0C0F,0 50px 80px -30px rgba(10,26,51,.55),0 22px 34px -20px rgba(0,0,0,.45)}
+.tphone::before{content:"";position:absolute;left:-3px;top:112px;width:3px;height:30px;border-radius:2px 0 0 2px;background:#2A2D33;box-shadow:0 46px 0 #2A2D33,0 92px 0 #2A2D33}
+.tphone::after{content:"";position:absolute;right:-3px;top:150px;width:3px;height:64px;border-radius:0 2px 2px 0;background:#2A2D33}
+.tphone>.al-island{display:none}
+.tscreen{border-radius:41px;box-shadow:0 0 0 3px #000}
+.iv-isl{position:absolute;top:11px;left:50%;width:78px;height:23px;margin-left:-39px;border-radius:14px;background:#000;z-index:6}
+.sbar{position:absolute;inset:14px 22px auto;display:flex;justify-content:space-between;align-items:center;font:600 12.5px var(--body);color:#fff;z-index:5;letter-spacing:.01em}
+.sbar.sb-ink{color:#111}
+.sic{display:inline-flex;align-items:center;gap:4px}
+.sic svg{height:9px;width:auto;fill:currentColor}
+.bat{position:relative;width:20px;height:10px;border:1.2px solid currentColor;border-radius:3px;opacity:.95}
+.bat::after{content:"";position:absolute;right:-3.5px;top:2.5px;width:1.6px;height:3.5px;border-radius:0 1px 1px 0;background:currentColor}
+.bat i{position:absolute;inset:1.2px;right:5px;border-radius:1.4px;background:currentColor}
+.hbar{position:absolute;left:50%;bottom:7px;width:96px;height:4px;margin-left:-48px;border-radius:3px;background:rgba(255,255,255,.85);z-index:6}
+.hbar.sb-ink{background:#111}
+.menu .mh{padding-top:46px}
+/* inventory app screen */
+.iv{background:#000;color:#fff}
+.iv-top{position:absolute;top:42px;left:0;right:0;display:flex;justify-content:center;z-index:4}
+.iv-seg{display:inline-flex;padding:3px;border-radius:999px;background:rgba(40,40,44,.75);font:700 11px var(--body)}
+.iv-seg span{padding:5px 12px;border-radius:999px;color:rgba(255,255,255,.75)}
+.iv-seg span.on{background:#fff;color:#111}
+.iv-view{position:absolute;left:0;right:0;top:0;bottom:118px;overflow:hidden}
+.scn{position:absolute;inset:0;opacity:0;transition:opacity .5s cubic-bezier(.16,1,.3,1)}
+.iv[data-m="0"] .scn-b,.iv[data-m="1"] .scn-s,.iv[data-m="2"] .scn-m{opacity:1}
+/* bottle scene */
+.scn-b{background:radial-gradient(120% 90% at 50% 30%,#3A2A22 0%,#1A1310 55%,#0B0807 100%)}
+.bokeh{position:absolute;inset:0;background:radial-gradient(22px 22px at 18% 22%,rgba(255,196,120,.55),transparent 70%),radial-gradient(30px 30px at 84% 16%,rgba(255,170,90,.45),transparent 70%),radial-gradient(18px 18px at 76% 44%,rgba(255,220,160,.35),transparent 70%),radial-gradient(26px 26px at 12% 58%,rgba(255,180,110,.3),transparent 70%),radial-gradient(160px 60px at 50% 100%,rgba(70,45,30,.9),transparent 70%);filter:blur(1.5px)}
+.btl{position:absolute;left:50%;top:78px;width:84px;margin-left:-42px;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 18px 18px rgba(0,0,0,.55))}
+.btl .cap{width:20px;height:34px;border-radius:4px 4px 1px 1px;background:linear-gradient(90deg,#4A0E16,#9A2233 40%,#5C1019 70%,#2E070C)}
+.btl .nk{width:22px;height:38px;background:linear-gradient(90deg,#0B0F0B,#2B3A2D 30%,#121812 60%,#050705);clip-path:polygon(4% 0,96% 0,100% 100%,0 100%)}
+.btl .bd{position:relative;width:84px;height:176px;margin-top:-2px;border-radius:38px 38px 10px 10px/30px 30px 10px 10px;background:linear-gradient(90deg,#070A07 0%,#22301F 18%,#0F160E 42%,#060806 70%,#1B2619 92%,#070A07 100%);overflow:hidden}
+.btl .bd::after{content:"";position:absolute;left:14px;top:18px;width:6px;height:140px;border-radius:4px;background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.04));filter:blur(.5px)}
+.lab{position:absolute;left:4px;right:4px;top:52px;height:92px;background:linear-gradient(90deg,#D9D0BF,#F4EEE2 25%,#F7F2E8 60%,#D6CCBA);display:grid;align-content:center;justify-items:center;gap:4px;color:#2A1D16;text-align:center}
+.lab em{font-style:normal;display:block}
+.lab .l1{font:700 6.5px/1 Georgia,serif;letter-spacing:.22em}
+.lab .l2{font:italic 700 19px/1 Georgia,serif;color:#5A1220}
+.lab .l3{font:700 6.5px/1 Georgia,serif;letter-spacing:.18em}
+.ocr{position:absolute;left:50%;border:1.5px solid var(--accent-hi);border-radius:5px;background:rgba(62,224,200,.12);opacity:0;transform:scale(1.08);transition:opacity .35s,transform .45s cubic-bezier(.16,1,.3,1)}
+.ocr i{position:absolute;left:50%;top:-20px;transform:translateX(-50%);white-space:nowrap;font:700 9.5px var(--body);font-style:normal;color:#04201C;background:var(--accent-hi);padding:2px 6px;border-radius:5px}
+.o1{top:220px;width:70px;height:14px;margin-left:-35px}
+.o2{top:234px;width:64px;height:22px;margin-left:-32px}
+.o3{top:256px;width:70px;height:13px;margin-left:-35px}
+.o1 i{top:-19px}.o3 i{top:auto;bottom:-20px}
+.o2 i{left:auto;right:-6px;top:4px;transform:translateX(100%)}
+.iv.read .ocr{opacity:1;transform:none}
+.iv.read .o2{transition-delay:.18s}.iv.read .o3{transition-delay:.36s}
+/* sheet scene */
+.scn-s{background:radial-gradient(120% 90% at 50% 40%,#6B5A48,#2E241B 75%)}
+.paper{position:absolute;left:22px;right:18px;top:78px;height:218px;background:#FBFAF6;border-radius:3px;transform:rotate(-3deg);box-shadow:0 14px 26px rgba(0,0,0,.45);padding:16px 14px;display:grid;align-content:start;gap:0;color:#1E3A6E}
+.paper .ph{font:700 9px var(--body);color:#8A8A8A;letter-spacing:.06em;padding-bottom:6px;border-bottom:1px solid #E36A6A}
+.hw{position:relative;font:600 19px/1 Caveat,cursive;padding:9px 4px 6px;border-bottom:1px solid #C9D7EE}
+.hw::after{content:"";position:absolute;inset:3px -4px;border:1.5px solid var(--accent-hi);border-radius:5px;background:rgba(62,224,200,.14);opacity:0;transition:opacity .3s}
+.iv.read .hw::after{opacity:1}
+.iv.read .w2::after{transition-delay:.25s}.iv.read .w3::after{transition-delay:.5s}.iv.read .w4::after{transition-delay:.75s}
+/* manual scene */
+.scn-m{background:#F2F2F7}
+.mform{position:absolute;left:14px;right:14px;top:80px;background:#fff;border-radius:16px;padding:14px;display:grid;gap:6px;color:#111;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.mform small{font:600 10.5px var(--body);color:#6B6B70}
+.mfield{display:flex;align-items:center;height:38px;padding:0 10px;border-radius:10px;background:#F2F2F7;font:600 14px var(--body);margin-bottom:6px}
+.caret{width:1.5px;height:17px;background:#0B7F76;margin-left:1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mqty{display:flex;align-items:center;justify-content:space-between;height:36px;margin-top:5px;padding:0 10px;border-radius:10px;background:#F2F2F7;font:700 14px var(--body)}
+.mqty b{color:#0B7F76;font-size:16px}
+.mloc{height:36px;margin-top:5px;border-radius:10px;background:#E7F4F2;color:#0B7F76;font:700 13px/36px var(--body);text-align:center}
+.msave{margin-top:10px;height:40px;border-radius:12px;background:#0A1A33;color:#fff;font:700 14px/40px var(--body);text-align:center;transition:transform .15s,background .2s}
+.iv.done .msave{background:#0B7F76}
+.iv[data-m="2"] .iv-scan{display:none}
+/* scan line + result + camera controls */
+.iv-scan{position:absolute;left:18px;right:18px;top:70px;height:2px;border-radius:2px;background:var(--accent-hi);box-shadow:0 0 16px 4px rgba(62,224,200,.6);opacity:0}
+.iv.scanning .iv-scan{opacity:1;animation:ivscan 1.4s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes ivscan{to{transform:translateY(230px)}}
+.iv-res{position:absolute;left:10px;right:10px;bottom:126px;display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:18px;background:rgba(255,255,255,.96);color:#111;box-shadow:0 12px 28px rgba(0,0,0,.35);opacity:0;transform:translateY(16px) scale(.96);transition:opacity .35s,transform .55s cubic-bezier(.16,1,.3,1);z-index:4}
+.iv.done .iv-res{opacity:1;transform:none}
+.iv-res .ok{width:30px;height:30px;border-radius:50%;background:#0B7F76;display:grid;place-items:center}
+.iv-res .ok svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.iv-res small{display:block;font:700 10px var(--body);color:#0B7F76}
+.iv-res b{display:block;font:800 13.5px/1.2 var(--display)}
+.iv-res span{display:block;font:500 11px var(--body);color:#5B6170}
+.iv-res em{font:800 13px var(--mono);font-style:normal;color:#04201C;background:var(--accent-hi);border-radius:999px;padding:4px 8px}
+.iv-modes{position:absolute;left:0;right:0;bottom:84px;display:flex;justify-content:center;gap:16px;font:700 11px var(--body);letter-spacing:.02em;color:rgba(255,255,255,.6);z-index:3}
+.iv-modes span{transition:color .3s}
+.iv[data-m="0"] .iv-modes span:nth-child(1),.iv[data-m="1"] .iv-modes span:nth-child(2),.iv[data-m="2"] .iv-modes span:nth-child(3){color:#FFD60A}
+.iv-shut{position:absolute;left:50%;bottom:20px;width:56px;height:56px;margin-left:-28px;border-radius:50%;border:3px solid #fff;display:grid;place-items:center;z-index:3}
+.iv-shut i{width:44px;height:44px;border-radius:50%;background:#fff;transition:transform .15s}
+.iv.snap .iv-shut i{transform:scale(.86)}
+.iv[data-m="2"] .iv-shut{opacity:.35}
+.iv.flash .iv-view::after{content:"";position:absolute;inset:0;background:#fff;animation:flash .35s ease-out forwards}
+@keyframes flash{from{opacity:.75}to{opacity:0}}
+.tool-stage{min-height:550px}
+@media (min-width:900px){.tool-stage{min-height:600px}}
+@media (prefers-reduced-motion: reduce){.iv.scanning .iv-scan,.caret{animation:none}.iv.flash .iv-view::after{display:none}}
+.iv[data-m="2"] .sbar{color:#111}
+.iv-res>div{min-width:0}
+.iv-res small,.iv-res span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iv-res b{font-size:13px}
+.hw{white-space:nowrap;overflow:hidden;font-size:20px}
 </style>
 </head>
 <body>
@@ -1008,18 +1108,56 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
             <li data-i18n-html="inv_p1"></li>
             <li data-i18n-html="inv_p2"></li>
             <li data-i18n-html="inv_p3"></li>
+            <li data-i18n-html="inv_p4"></li>
           </ul>
         </div>
         <div class="tool-stage" id="invStage" aria-hidden="true">
           <div class="tphone">
-            <div class="al-island"></div>
-            <div class="tscreen cam">
-              <span class="mode" id="invMode"></span>
-              <div class="vf"><i></i><i></i><i></i><i></i>
-                <div class="bottle" id="invBottle"><span class="neck"></span><span class="body"><span class="lbl" id="invLbl"></span></span></div>
-                <div class="scanl"></div>
+            <div class="tscreen iv" id="iv" data-m="0">
+              <div class="sbar"><span>9:41</span><span class="sic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.5l2.4-2.9a3.6 3.6 0 0 0-4.8 0L8 11.5zM3.3 6.1a7 7 0 0 1 9.4 0l1.6-1.9a9.6 9.6 0 0 0-12.6 0l1.6 1.9z"/></svg><span class="bat"><i></i></span></span></div>
+              <div class="iv-isl"></div>
+              <div class="iv-top"><span class="iv-seg"><span class="on" data-i18n="inv_s1"></span><span data-i18n="inv_s2"></span></span></div>
+              <div class="iv-view">
+                <div class="scn scn-b">
+                  <div class="bokeh"></div>
+                  <div class="btl">
+                    <span class="cap"></span><span class="nk"></span>
+                    <span class="bd"><span class="lab">
+                      <em class="l1">BODEGA ANDES</em>
+                      <em class="l2">Malbec</em>
+                      <em class="l3">RESERVA · 2021</em>
+                    </span></span>
+                  </div>
+                  <span class="ocr o1"><i>BODEGA ANDES</i></span>
+                  <span class="ocr o2"><i>Malbec</i></span>
+                  <span class="ocr o3"><i>Reserva 2021</i></span>
+                </div>
+                <div class="scn scn-s">
+                  <div class="paper">
+                    <b class="ph" data-i18n="inv_sh_h"></b>
+                    <span class="hw w1">Malbec Reserva &mdash; 24</span>
+                    <span class="hw w2">Cacha&ccedil;a Prata &mdash; 11</span>
+                    <span class="hw w3">Prosecco &mdash; 9</span>
+                    <span class="hw w4">Heineken &mdash; 48</span>
+                  </div>
+                </div>
+                <div class="scn scn-m">
+                  <div class="mform">
+                    <small data-i18n="inv_f1"></small>
+                    <div class="mfield"><span id="ivType"></span><i class="caret"></i></div>
+                    <div class="mrow">
+                      <div><small data-i18n="inv_f2"></small><div class="mqty"><b>&minus;</b><span id="ivQty">0</span><b>+</b></div></div>
+                      <div><small data-i18n="inv_f3"></small><div class="mloc" data-i18n="inv_s2"></div></div>
+                    </div>
+                    <div class="msave" data-i18n="inv_f4"></div>
+                  </div>
+                </div>
+                <div class="iv-scan"></div>
               </div>
-              <div class="det" id="invDet"><small data-i18n="inv_added"></small><b id="invName"></b><span class="cnt"><em id="invCnt"></em> <span data-i18n="inv_btl"></span></span><span class="plus1">+1</span></div>
+              <div class="iv-res"><span class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><small id="ivResL"></small><b id="ivResN"></b><span id="ivResD"></span></div><em id="ivResB"></em></div>
+              <div class="iv-modes"><span data-i18n="inv_m1"></span><span data-i18n="inv_m2"></span><span data-i18n="inv_m3"></span></div>
+              <div class="iv-shut"><i></i></div>
+              <div class="hbar"></div>
             </div>
           </div>
         </div>
@@ -1038,10 +1176,12 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
         </div>
         <div class="tool-stage" id="mnStage" aria-hidden="true">
           <div class="tphone">
-            <div class="al-island"></div>
             <div class="tscreen menu">
+              <div class="sbar sb-ink"><span>9:41</span><span class="sic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.5l2.4-2.9a3.6 3.6 0 0 0-4.8 0L8 11.5zM3.3 6.1a7 7 0 0 1 9.4 0l1.6-1.9a9.6 9.6 0 0 0-12.6 0l1.6 1.9z"/></svg><span class="bat"><i></i></span></span></div>
+              <div class="iv-isl"></div>
               <div class="mh"><b data-i18n="mn_h"></b><div class="mchips"><span class="on" data-i18n="mn_c1"></span><span data-i18n="mn_c2"></span><span data-i18n="mn_c3"></span><span data-i18n="mn_c4"></span></div></div>
               <div class="mscroll"><div class="mlist" id="mnList"></div></div>
+              <div class="hbar sb-ink"></div>
             </div>
           </div>
           <div class="mq">
@@ -1139,11 +1279,12 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 var I={
 en:{
 tl_title:"More tools for your business",tl_sub:"The same team behind Tap Tracker builds the tools you use every shift. Both run on the phone you already have.",
-inv_t:"Inventory in minutes, not hours",inv_d:"Point your phone at a bottle and it lands in your inventory. No clipboards, no typing every label.",
-inv_p1:"<b>Scan the barcode.</b> The bottle is identified and counted in one second.",
-inv_p2:"<b>Scan the label or your handwritten count sheet.</b> AI reads the text and adds it for you.",
-inv_p3:"<b>Separate counts for storage and the bar,</b> ready to export to Google Sheets.",
-inv_added:"Added to inventory",inv_btl:"in stock",inv_m1:"Barcode",inv_m2:"Label text",inv_m3:"Count sheet",
+inv_t:"Inventory in minutes, not hours",inv_d:"Count with the phone you already have. Point it at a bottle, snap your count sheet or type it in. Every way lands in the same inventory.",
+inv_p1:"<b>Scan the bottle.</b> Your phone reads the label text and finds the product for you.",
+inv_p2:"<b>Snap your handwritten count sheet.</b> AI reads every line and adds the quantities.",
+inv_p3:"<b>Or type it in.</b> Quick manual entry when you only need to add a few bottles.",
+inv_p4:"<b>Separate counts for storage and the bar,</b> ready to export to Google Sheets.",
+inv_added:"Added",inv_btl:"in stock",inv_m1:"BOTTLE",inv_m2:"SHEET",inv_m3:"MANUAL",inv_s1:"Storage",inv_s2:"Bar",inv_sh_h:"BAR COUNT · SAT",inv_f1:"Product",inv_f2:"Quantity",inv_f3:"Location",inv_f4:"Save",inv_sheet:"Read from your sheet",inv_sheet_n:"4 products updated",inv_sheet_d:"Malbec 24 · Cachaça 11 · Prosecco 9 · Heineken 48",inv_saved:"Saved",
 mn_t:"Digital menus your guests can tap",mn_d:"A menu with photos that opens with one tap on an NFC card or a QR scan at the table. Change a price or an item in seconds, no reprinting.",
 mn_p1:"<b>Photos for every item,</b> organized by category.",
 mn_p2:"<b>Opens by NFC or QR,</b> on any iPhone or Android, no app.",
@@ -1228,11 +1369,12 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 },
 es:{
 tl_title:"Más herramientas para tu negocio",tl_sub:"El mismo equipo de Tap Tracker crea las herramientas que usas en cada turno. Todo funciona con el teléfono que ya tienes.",
-inv_t:"Inventario en minutos, no en horas",inv_d:"Apunta tu teléfono a una botella y queda en tu inventario. Sin tablas de papel, sin escribir cada etiqueta.",
-inv_p1:"<b>Escanea el código de barras.</b> La botella se identifica y se cuenta en un segundo.",
-inv_p2:"<b>Escanea la etiqueta o tu hoja de conteo a mano.</b> La IA lee el texto y lo agrega por ti.",
-inv_p3:"<b>Conteos separados de bodega y barra,</b> listos para pasar a Google Sheets.",
-inv_added:"Agregado al inventario",inv_btl:"en existencia",inv_m1:"Código de barras",inv_m2:"Texto de etiqueta",inv_m3:"Hoja de conteo",
+inv_t:"Inventario en minutos, no en horas",inv_d:"Cuenta con el teléfono que ya tienes. Apunta a una botella, tómale foto a tu hoja de conteo o escríbelo. Todo llega al mismo inventario.",
+inv_p1:"<b>Escanea la botella.</b> Tu teléfono lee el texto de la etiqueta y encuentra el producto.",
+inv_p2:"<b>Tómale foto a tu hoja de conteo escrita a mano.</b> La IA lee cada línea y agrega las cantidades.",
+inv_p3:"<b>O escríbelo tú.</b> Captura manual rápida cuando solo agregas unas botellas.",
+inv_p4:"<b>Conteos separados de bodega y barra,</b> listos para pasar a Google Sheets.",
+inv_added:"Agregado",inv_btl:"en existencia",inv_m1:"BOTELLA",inv_m2:"HOJA",inv_m3:"MANUAL",inv_s1:"Bodega",inv_s2:"Barra",inv_sh_h:"CONTEO BARRA · SÁB",inv_f1:"Producto",inv_f2:"Cantidad",inv_f3:"Lugar",inv_f4:"Guardar",inv_sheet:"Leído de tu hoja",inv_sheet_n:"4 productos actualizados",inv_sheet_d:"Malbec 24 · Cachaça 11 · Prosecco 9 · Heineken 48",inv_saved:"Guardado",
 mn_t:"Menús digitales que tus clientes tocan",mn_d:"Un menú con fotos que se abre con un toque en una tarjeta NFC o escaneando un QR en la mesa. Cambia un precio o un platillo en segundos, sin reimprimir.",
 mn_p1:"<b>Fotos de cada producto,</b> organizadas por categoría.",
 mn_p2:"<b>Se abre por NFC o QR,</b> en cualquier iPhone o Android, sin app.",
@@ -1337,7 +1479,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
-  renderProds();renderSheet();alBuild();mnBuild();if($("#invMode"))invShow(INV.i,reduceMo());renderDash(false);if(STORY.seats.length){STORY.last=-1;$("#stBars").innerHTML="";layoutStory();renderStory(reduceMo()?1:storyProgress())}
+  renderProds();renderSheet();alBuild();mnBuild();if($("#iv")){if(reduceMo())ivSet(0,["read","done"]);else ivResult(INV.m%3)}renderDash(false);if(STORY.seats.length){STORY.last=-1;$("#stBars").innerHTML="";layoutStory();renderStory(reduceMo()?1:storyProgress())}
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
   if(!$("#summary").hidden)buildSummary();
 }
@@ -1659,12 +1801,42 @@ function lkInit(){
 }
 
 /* tools: inventory scan loop + menu list */
-var INV={items:[
-  {m:"inv_m1",n:"Malbec Reserva 2021",l:"MALBEC<br>RESERVA",c:"#3B0D16",q:23},
-  {m:"inv_m2",n:"Cachaça Prata 1L",l:"CACHAÇA<br>PRATA",c:"#8FB9A8",q:11},
-  {m:"inv_m1",n:"Single Malt 12 Year",l:"SINGLE<br>MALT 12",c:"#6B3A12",q:7},
-  {m:"inv_m3",n:"Sauvignon Blanc 2023",l:"SAUVIGNON<br>BLANC",c:"#5F6B2A",q:18}
-],i:0,t:null,vis:false};
+var INV={m:0,t:[],vis:false};
+function ivClear(){INV.t.forEach(clearTimeout);INV.t=[]}
+function ivAt(ms,fn){INV.t.push(setTimeout(fn,ms))}
+function ivResult(m){
+  var L=$("#ivResL"),N=$("#ivResN"),D=$("#ivResD"),B=$("#ivResB");
+  if(m===0){L.textContent=t("inv_added");N.textContent="Malbec Reserva 2021";D.textContent="24 "+t("inv_btl");B.textContent="+1"}
+  else if(m===1){L.textContent=t("inv_sheet");N.textContent=t("inv_sheet_n");D.textContent=t("inv_sheet_d");B.textContent="+92"}
+  else{L.textContent=t("inv_saved");N.textContent="Sauvignon Blanc 2023";D.textContent="18 "+t("inv_btl")+" · "+t("inv_s2");B.textContent="+18"}
+}
+function ivSet(m,state){
+  var el=$("#iv");if(!el)return;
+  el.setAttribute("data-m",m);
+  ["scanning","read","done","snap","flash"].forEach(function(c){el.classList.remove(c)});
+  (state||[]).forEach(function(c){el.classList.add(c)});
+  ivResult(m);
+  if(m===2){var full="Sauvignon Blanc 2023";$("#ivType").textContent=(state||[]).indexOf("done")>-1?full:"";$("#ivQty").textContent=(state||[]).indexOf("done")>-1?18:0}
+}
+function ivRun(){
+  ivClear();
+  if(!INV.vis||document.hidden)return;
+  var m=INV.m%3,el=$("#iv");
+  ivSet(m,[]);
+  if(m===2){
+    var full="Sauvignon Blanc 2023";
+    for(var c=1;c<=full.length;c++)(function(c){ivAt(400+c*55,function(){$("#ivType").textContent=full.slice(0,c)})})(c);
+    for(var q=1;q<=18;q++)(function(q){ivAt(1700+q*35,function(){$("#ivQty").textContent=q})})(q);
+    ivAt(2550,function(){el.classList.add("done")});
+  }else{
+    ivAt(300,function(){el.classList.add("scanning")});
+    ivAt(1500,function(){el.classList.add("snap","flash")});
+    ivAt(1700,function(){el.classList.remove("scanning","snap");el.classList.add("read")});
+    ivAt(2700,function(){el.classList.remove("flash");el.classList.add("done")});
+  }
+  ivAt(5200,function(){INV.m++;ivRun()});
+}
+
 var MENU=[
   {n:{en:"Classic caipirinha",es:"Caipirinha clásica"},d:{en:"Cachaça, lime, sugar",es:"Cachaça, limón, azúcar"},p:"$12",g:"radial-gradient(circle at 40% 35%,#E9F7C9,#9CCB5B 55%,#4E7A24)"},
   {n:{en:"Malbec, Mendoza",es:"Malbec, Mendoza"},d:{en:"Glass or bottle",es:"Copa o botella"},p:"$14",g:"radial-gradient(circle at 40% 35%,#C9506A,#6E1027 60%,#3A0612)"},
@@ -1821,8 +1993,8 @@ document.addEventListener("DOMContentLoaded",function(){
   if(!reduceMo()&&"IntersectionObserver" in window){
     var tools=$("#services");
     new IntersectionObserver(function(es){es.forEach(function(en){tools.classList.toggle("paused",!en.isIntersecting)})},{threshold:0}).observe(tools);
-    new IntersectionObserver(function(es){es.forEach(function(en){INV.vis=en.isIntersecting;if(INV.vis)invLoop();else clearTimeout(INV.t)})},{threshold:.35}).observe($("#invStage"));
-    document.addEventListener("visibilitychange",function(){if(!document.hidden&&INV.vis)invLoop()});
+    new IntersectionObserver(function(es){es.forEach(function(en){INV.vis=en.isIntersecting;if(INV.vis)ivRun();else ivClear()})},{threshold:.35}).observe($("#invStage"));
+    document.addEventListener("visibilitychange",function(){if(!document.hidden&&INV.vis)ivRun()});
   }
   lkInit();
   if(reduceMo()){AL.step=AL.items.length}
