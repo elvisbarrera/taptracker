@@ -962,6 +962,11 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 #webStage .bw-stack{position:static;transform:none}
 #webStage .bw-sec{top:12px;right:calc(50% - 186px)}
 @media (max-width:480px){#webStage .bw-sec{right:0;top:8px}}
+.tech{margin-top:22px}
+.tech small{display:block;font:700 12.5px var(--body);color:var(--muted);margin-bottom:10px}
+.tk-row{display:flex;flex-wrap:wrap;gap:8px}
+.tk{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font:700 13px var(--body);color:var(--ink)}
+.tk i{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font:800 10.5px var(--mono);font-style:normal;color:#fff;background:#0A1A33}
 </style>
 </head>
 <body>
@@ -1331,6 +1336,7 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
             <li data-i18n-html="web_p3"></li>
             <li data-i18n-html="web_p4"></li>
           </ul>
+          <div class="tech"><small data-i18n="web_stack"></small><div class="tk-row"><span class="tk" data-tk="html"><i>5</i>HTML</span><span class="tk" data-tk="css"><i>3</i>CSS</span><span class="tk" data-tk="js"><i>JS</i>JavaScript</span><span class="tk" data-tk="react"><i>R</i>React</span><span class="tk" data-tk="tw"><i>T</i>Tailwind CSS</span><span class="tk" data-tk="sq"><i>S</i>Squarespace</span></div></div>
           <div class="tool-acts"><a class="btn btn-primary tool-info" data-info="web" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><span data-i18n="info_btn"></span></a></div>
         </div>
         <div class="tool-stage" id="webStage" aria-hidden="true">
@@ -1445,6 +1451,7 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+web_stack:"What we build with",
 web_t:"Custom websites and online stores",web_d:"Business sites and e-commerce built for your brand and made to load fast on any phone.",
 web_p1:"<b>Small site, lean code.</b> For a one-page or small business site we use plain HTML, CSS and JavaScript: fast, light and easy to update.",
 web_p2:"<b>Bigger projects, the right stack.</b> For online stores and larger sites we build with React, JavaScript and Tailwind CSS, chosen for the project and how far it needs to grow.",
@@ -1546,6 +1553,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+web_stack:"Con qué construimos",
 web_t:"Sitios web y tiendas en línea a la medida",web_d:"Sitios de negocio y e-commerce hechos para tu marca y rápidos en cualquier teléfono.",
 web_p1:"<b>Sitio pequeño, código ligero.</b> Para una página o un sitio de negocio pequeño usamos HTML, CSS y JavaScript puro: rápido, ligero y fácil de actualizar.",
 web_p2:"<b>Proyectos grandes, la tecnología correcta.</b> Para tiendas en línea y sitios más grandes trabajamos con React, JavaScript y Tailwind CSS, según el proyecto y lo que necesite crecer.",
