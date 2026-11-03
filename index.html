@@ -976,8 +976,8 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .tk i.sqm{background:#000;font:800 12px var(--display)}
 
 /* dock hides at footer */
-.dock{transition:transform .45s cubic-bezier(.2,.9,.2,1),opacity .3s}
-.dock.dk-away{animation:none;transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none}
+.dock{transition:opacity .4s ease,visibility 0s linear 0s}
+.dock.dk-away{animation:none;transform:translateX(-50%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility 0s linear .4s}
 @media (prefers-reduced-motion: reduce){.dock{transition:opacity .2s}}
 </style>
 </head>
