@@ -976,8 +976,9 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .tk i.sqm{background:#000;font:800 12px var(--display)}
 
 /* dock hides at footer */
-.dock{transition:opacity .4s ease,visibility 0s linear 0s}
-.dock.dk-away{animation:none;transform:translateX(-50%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility 0s linear .4s}
+.dock{transition:opacity .55s cubic-bezier(.4,0,.2,1),visibility 0s linear 0s}
+.dock.dk-ready{animation:none;opacity:1}
+.dock.dk-away{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .55s cubic-bezier(.4,0,.2,1),visibility 0s linear .55s}
 @media (prefers-reduced-motion: reduce){.dock{transition:opacity .2s}}
 </style>
 </head>
@@ -2042,6 +2043,7 @@ function dkMove(){
 }
 /* hide dock while the footer is on screen */
 (function(){var d=document.querySelector(".dock"),f=document.querySelector("footer.ft");if(!d||!f||!("IntersectionObserver" in window))return;
+var rdy=function(){d.classList.add("dk-ready")};d.addEventListener("animationend",rdy,{once:true});setTimeout(rdy,1400);
 new IntersectionObserver(function(es){es.forEach(function(e){d.classList.toggle("dk-away",e.isIntersecting)})},{rootMargin:"0px 0px -40px 0px",threshold:0}).observe(f)})();
 function dkInit(){
   $$(".dock .dk").forEach(function(a){a.addEventListener("click",function(){
