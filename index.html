@@ -836,6 +836,15 @@ html{background:#06101F}
 .hero{padding-top:calc(env(safe-area-inset-top,0px) + 108px)}
 html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 @media (min-width:900px){.hero{padding-top:calc(env(safe-area-inset-top,0px) + 144px)}html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 160px)}}
+
+/* dock v3: one indicator slides to the active item */
+.dk-ind{position:absolute;top:6px;bottom:6px;left:0;width:0;border-radius:22px;background:rgba(62,224,200,.14);box-shadow:inset 0 0 0 1px rgba(62,224,200,.28),0 0 18px rgba(62,224,200,.18);opacity:0;pointer-events:none;z-index:0;transition:transform .55s cubic-bezier(.16,1,.3,1),width .55s cubic-bezier(.16,1,.3,1),opacity .3s}
+.dk{z-index:1}
+.dk.on,.dk-order.on,.dk-order.on:hover{background:none!important}
+.dk.on svg{transform:translateY(-2px)}
+.dk.pop svg{animation:dkpop .45s cubic-bezier(.16,1,.3,1)}
+@keyframes dkpop{0%{transform:scale(.82)}60%{transform:scale(1.12) translateY(-2px)}100%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion: reduce){.dk-ind{transition:opacity .2s}.dk.pop svg{animation:none}}
 </style>
 </head>
 <body>
@@ -1301,6 +1310,7 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 </footer>
 
 <nav class="dock" aria-label="Quick navigation">
+  <span class="dk-ind" aria-hidden="true"></span>
   <a class="dk" data-sec href="#how"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg><span data-i18n="dock_how"></span></a>
   <a class="dk" data-sec href="#demo"><svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg><span data-i18n="dock_demo"></span></a>
   <a class="dk dk-order" data-sec href="#pricing"><span class="orb"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M8.5 10.3c1.2 1 1.2 2.4 0 3.4M12 8.8c2.3 1.9 2.3 4.5 0 6.4"/></svg></span><span data-i18n="dock_order"></span></a>
@@ -1928,6 +1938,22 @@ function invLoop(){
   },1900);
 }
 
+/* dock: sliding indicator + light haptic tap */
+function dkMove(){
+  var d=$(".dock"),ind=d&&d.querySelector(".dk-ind");if(!ind)return;
+  var on=d.querySelector(".dk.on");
+  if(!on){ind.style.opacity=0;return}
+  ind.style.width=on.offsetWidth+"px";ind.style.transform="translateX("+on.offsetLeft+"px)";ind.style.opacity=1;
+}
+function dkInit(){
+  $$(".dock .dk").forEach(function(a){a.addEventListener("click",function(){
+    try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}
+    $$(".dock .dk").forEach(function(x){x.classList.toggle("on",x===a)});dkMove();
+    a.classList.remove("pop");void a.offsetWidth;a.classList.add("pop");
+  })});
+  window.addEventListener("resize",dkMove);
+}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -2032,7 +2058,7 @@ document.addEventListener("DOMContentLoaded",function(){
   cs.addEventListener("click",function(){copyText(lastSummary,cs,"copied","sum_copy")});
 
   if("IntersectionObserver" in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id;$$(".dk[data-sec],.nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)})}})},{rootMargin:"-45% 0px -50% 0px"});
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id;$$(".dk[data-sec],.nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)});dkMove()}})},{rootMargin:"-45% 0px -50% 0px"});
     ["how","faq","demo","pricing","services"].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
   }
   var mailHref="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
@@ -2042,6 +2068,7 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
   seedSheet();
+  dkInit();
   if(!reduceMo()&&"IntersectionObserver" in window){
     var tools=$("#services");
     new IntersectionObserver(function(es){es.forEach(function(en){tools.classList.toggle("paused",!en.isIntersecting)})},{threshold:0}).observe(tools);
