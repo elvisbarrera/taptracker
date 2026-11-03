@@ -917,6 +917,11 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .sh-g svg{width:18px;height:18px}
 .al-vi{background:none;flex:none;width:30px;height:30px}
 .al-vi img{width:30px;height:30px;display:block}
+.al-pts{gap:16px;margin-top:26px}
+.al-pts li{align-items:center;gap:16px;min-height:52px}
+.al-i{width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,#12305A,#0A1A33)}
+.al-i svg{width:25px;height:25px;stroke-width:1.8}
+.al-pts p{padding-top:0;font-size:15px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -1118,9 +1123,9 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
         <p class="sec-sub" data-i18n="al_sub"></p>
         <p class="al-via"><span class="al-vi" aria-hidden="true"><img src="data:image/webp;base64,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" alt="" width="30" height="30"></span><span data-i18n-html="al_via"></span></p>
         <ul class="al-pts">
-          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z"/></svg></span><p data-i18n-html="al_p1"></p></li>
-          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M8.5 10.3c1.2 1 1.2 2.4 0 3.4M12 8.8c2.3 1.9 2.3 4.5 0 6.4"/></svg></span><p data-i18n-html="al_p2"></p></li>
-          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg></span><p data-i18n-html="al_p3"></p></li>
+          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.5h15a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1H10l-4.5 3.5V17h-1a1 1 0 0 1-1-1V6.5a1 1 0 0 1 1-1z"/><path d="M12 7.6l1.3 2.65 2.9.42-2.1 2.05.5 2.9L12 14.25l-2.6 1.37.5-2.9-2.1-2.05 2.9-.42z"/></svg></span><p data-i18n-html="al_p1"></p></li>
+          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="10" height="18" rx="2.2"/><path d="M9 18h2"/><path d="M18 9.5a3.6 3.6 0 0 1 0 5M20.6 7.5a7 7 0 0 1 0 9"/></svg></span><p data-i18n-html="al_p2"></p></li>
+          <li><span class="al-i" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15.5" rx="2.2"/><path d="M4 10h16M8.5 3v4M15.5 3v4"/><path d="M9 15l2 2 4-4"/></svg></span><p data-i18n-html="al_p3"></p></li>
         </ul>
       </div>
       <div class="al-stage" id="alStage" aria-hidden="true">
@@ -1384,7 +1389,7 @@ tl_more:"We also do photo and video, websites and SEO.",
 lk_label:"Team password",lk_ph:"Password",lk_go:"Unlock",lk_err:"Wrong password. Try again.",
 ft_auto:"automations",
 ft_works:"Works with",
-al_via:"Alerts arrive through <b>Telegram</b>, free on iPhone and Android.",al_title:"Your phone buzzes when a review lands",al_sub:"Get an alert the moment a customer taps a card or posts a new Google review, so you can thank the right person that same shift.",
+al_via:"Alerts arrive through <b>Telegram</b> on iPhone and Android.",al_title:"Your phone buzzes when a review lands",al_sub:"Get an alert the moment a customer taps a card or posts a new Google review, so you can thank the right person that same shift.",
 al_p1:"<b>New review alerts.</b> The stars and the first words of the review, right on your lock screen.",
 al_p2:"<b>Tap alerts.</b> Which team member, which table or spot, and what time.",
 al_p3:"<b>A daily recap at closing.</b> Taps, new reviews and your top team member of the day.",
@@ -1479,7 +1484,7 @@ tl_more:"También hacemos foto y video, sitios web y SEO.",
 lk_label:"Contraseña del equipo",lk_ph:"Contraseña",lk_go:"Abrir",lk_err:"Contraseña incorrecta. Intenta de nuevo.",
 ft_auto:"automatizaciones",
 ft_works:"Funciona con",
-al_via:"Los avisos llegan por <b>Telegram</b>, gratis en iPhone y Android.",al_title:"Tu teléfono vibra cuando llega una reseña",al_sub:"Recibe un aviso en el momento en que un cliente toca una tarjeta o publica una reseña nueva en Google, para felicitar a la persona correcta en ese mismo turno.",
+al_via:"Los avisos llegan por <b>Telegram</b> en iPhone y Android.",al_title:"Tu teléfono vibra cuando llega una reseña",al_sub:"Recibe un aviso en el momento en que un cliente toca una tarjeta o publica una reseña nueva en Google, para felicitar a la persona correcta en ese mismo turno.",
 al_p1:"<b>Aviso de reseña nueva.</b> Las estrellas y las primeras palabras de la reseña, directo en tu pantalla.",
 al_p2:"<b>Aviso de cada tap.</b> Qué persona del equipo, qué mesa o lugar y a qué hora.",
 al_p3:"<b>Resumen diario al cierre.</b> Taps, reseñas nuevas y la mejor persona del día.",
