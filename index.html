@@ -922,6 +922,46 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .al-i{width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,#12305A,#0A1A33)}
 .al-i svg{width:25px;height:25px;stroke-width:1.8}
 .al-pts p{padding-top:0;font-size:15px;line-height:1.45}
+
+/* custom websites mock */
+.bw{position:relative;width:min(100%,340px);border-radius:14px;background:#fff;box-shadow:0 30px 60px -24px rgba(10,26,51,.45),0 0 0 1px rgba(10,26,51,.08);overflow:hidden}
+.bw-bar{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;background:#EEF1F6;border-bottom:1px solid #E1E6EE}
+.bw-bar>i{width:9px;height:9px;border-radius:50%;background:#D3D9E3}
+.bw-bar>i:nth-child(1){background:#FF6159}.bw-bar>i:nth-child(2){background:#FFBD2E}.bw-bar>i:nth-child(3){background:#28C941}
+.bw-url{margin-left:10px;flex:1;display:flex;align-items:center;gap:6px;height:22px;padding:0 10px;border-radius:7px;background:#fff;font:500 11px var(--body);color:#4F6179}
+.bw-lk{display:grid;color:#137333}.bw-lk svg{width:11px;height:11px}
+.bw-body{position:relative;height:250px}
+.bw-v{position:absolute;inset:0;padding:14px;display:grid;align-content:start;gap:10px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .6s cubic-bezier(.16,1,.3,1)}
+.bw[data-v="0"] .bw-site,.bw[data-v="1"] .bw-store{opacity:1;transform:none}
+.l{display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.85)}
+.l.g{background:#E3E8EF}
+.w35{width:35%}.w40{width:40%}.w50{width:50%}.w55{width:55%}.w60{width:60%}.w65{width:65%}.w70{width:70%}.w80{width:80%}
+.bws-hero{display:grid;gap:8px;padding:18px 14px;border-radius:10px;background:linear-gradient(135deg,#12305A,#0A1A33)}
+.bws-hero .w60{height:12px}
+.bws-btn{width:70px;height:20px;border-radius:6px;background:var(--accent-hi);margin-top:4px}
+.bws-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bws-row span{height:52px;border-radius:8px;background:#F1F4F8;border:1px solid #E3E8EF}
+.bwt-top{display:flex;align-items:center;justify-content:space-between}
+.bwt-top .l{background:#0A1A33;height:10px}
+.bwt-cart{position:relative;color:#0A1A33;display:grid}.bwt-cart svg{width:20px;height:20px}
+.bwt-cart em{position:absolute;right:-6px;top:-6px;min-width:15px;height:15px;border-radius:999px;background:var(--accent);color:#fff;font:700 9px/15px var(--body);text-align:center;font-style:normal}
+.bwt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bwt-grid>div{display:grid;gap:5px}
+.bwt-grid .im{height:62px;border-radius:8px;background:var(--g)}
+.bwt-grid b{font:800 11px var(--mono);color:#0B7F76}
+.bw-stack{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:6px;padding:4px;border-radius:999px;background:#0A1A33;box-shadow:0 10px 24px rgba(10,26,51,.3)}
+.bw-stack span{font:700 11px var(--body);color:var(--on-navy-muted);padding:6px 11px;border-radius:999px;white-space:nowrap;transition:background .3s,color .3s}
+.bw-stack span.on{background:var(--accent-hi);color:#04201C}
+.bw-sec{position:absolute;right:calc(50% - 190px);top:28px;display:flex;align-items:center;gap:7px;padding:7px 11px 7px 8px;border-radius:12px;background:#fff;box-shadow:0 10px 24px rgba(10,26,51,.18);transform:rotate(3deg)}
+.bw-sec span{width:22px;height:22px;border-radius:7px;background:#E6F4EA;color:#137333;display:grid;place-items:center}
+.bw-sec span svg{width:13px;height:13px}
+.bw-sec b{font:700 11.5px var(--body);color:var(--ink)}
+@media (max-width:480px){.bw-sec{right:4px;top:6px}}
+@media (prefers-reduced-motion: reduce){.bw-v{transition:none}}
+#webStage{min-height:0;display:flex;flex-direction:column;align-items:center;gap:18px;padding:34px 0 10px}
+#webStage .bw-stack{position:static;transform:none}
+#webStage .bw-sec{top:12px;right:calc(50% - 186px)}
+@media (max-width:480px){#webStage .bw-sec{right:0;top:8px}}
 </style>
 </head>
 <body>
@@ -1281,6 +1321,43 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
         </div>
       </div>
 
+      <div class="tool">
+        <div class="tool-copy">
+          <h3 data-i18n="web_t"></h3>
+          <p class="tool-lead" data-i18n="web_d"></p>
+          <ul class="tool-pts">
+            <li data-i18n-html="web_p1"></li>
+            <li data-i18n-html="web_p2"></li>
+            <li data-i18n-html="web_p3"></li>
+            <li data-i18n-html="web_p4"></li>
+          </ul>
+          <div class="tool-acts"><a class="btn btn-primary tool-info" data-info="web" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><span data-i18n="info_btn"></span></a></div>
+        </div>
+        <div class="tool-stage" id="webStage" aria-hidden="true">
+          <div class="bw" id="bw" data-v="0">
+            <div class="bw-bar"><i></i><i></i><i></i><span class="bw-url"><span class="bw-lk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span>yourbusiness.com</span></div>
+            <div class="bw-body">
+              <div class="bw-v bw-site">
+                <div class="bws-hero"><span class="l w60"></span><span class="l w40"></span><span class="bws-btn"></span></div>
+                <div class="bws-row"><span></span><span></span><span></span></div>
+                <span class="l w80 g"></span><span class="l w55 g"></span>
+              </div>
+              <div class="bw-v bw-store">
+                <div class="bwt-top"><span class="l w35"></span><span class="bwt-cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.1 11h10.4l2-7.5H6.4"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><em>2</em></span></div>
+                <div class="bwt-grid">
+                  <div><span class="im" style="--g:linear-gradient(135deg,#F4A261,#E76F51)"></span><span class="l w70 g"></span><b>$24</b></div>
+                  <div><span class="im" style="--g:linear-gradient(135deg,#2A9D8F,#264653)"></span><span class="l w55 g"></span><b>$38</b></div>
+                  <div><span class="im" style="--g:linear-gradient(135deg,#E9C46A,#F4A261)"></span><span class="l w65 g"></span><b>$19</b></div>
+                  <div><span class="im" style="--g:linear-gradient(135deg,#8AB6D6,#3D5A80)"></span><span class="l w50 g"></span><b>$42</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bw-stack"><span class="on" data-i18n="web_s1"></span><span data-i18n="web_s2"></span></div>
+          <div class="bw-sec"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span><b data-i18n="web_sec"></b></div>
+        </div>
+      </div>
+
       <p class="tool-more"><span data-i18n="tl_more"></span> <a href="https://covercountmedia.com" target="_blank" rel="noopener" data-i18n="m_link"></a></p>
     </div>
   </section>
@@ -1368,6 +1445,12 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+web_t:"Custom websites and online stores",web_d:"Business sites and e-commerce built for your brand and made to load fast on any phone.",
+web_p1:"<b>Small site, lean code.</b> For a one-page or small business site we use plain HTML, CSS and JavaScript: fast, light and easy to update.",
+web_p2:"<b>Bigger projects, the right stack.</b> For online stores and larger sites we build with React, JavaScript and Tailwind CSS, chosen for the project and how far it needs to grow.",
+web_p3:"<b>Security built in.</b> HTTPS on every site, protected forms and private keys kept off the browser.",
+web_p4:"<b>We also build on Squarespace</b> when you want to edit text and photos yourself, without code.",
+web_s1:"Business site",web_s2:"Online store",web_sec:"Secure · HTTPS",info_web_s:"Info request: Custom website",
 flow_note:"Every tap from your cards lands here, live.",
 s2_c1:"A customer taps the card",s2_c2:"A row lands in Google Sheets",s2_c3:"Your dashboard counts it",
 inv_live:"Try the live demo",
@@ -1385,7 +1468,7 @@ mn_p1:"<b>Photos for every item,</b> organized by category.",
 mn_p2:"<b>Opens by NFC or QR,</b> on any iPhone or Android, no app.",
 mn_p3:"<b>English and Spanish,</b> updated from your phone.",
 mn_live:"See a live menu",mn_h:"Drinks & desserts",mn_c1:"Cocktails",mn_c2:"Wine",mn_c3:"Spirits",mn_c4:"Desserts",mn_scan:"Scan",mn_tap:"Tap for menu",
-tl_more:"We also do photo and video, websites and SEO.",
+tl_more:"We also do photo and video and SEO.",
 lk_label:"Team password",lk_ph:"Password",lk_go:"Unlock",lk_err:"Wrong password. Try again.",
 ft_auto:"automations",
 ft_works:"Works with",
@@ -1463,6 +1546,12 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+web_t:"Sitios web y tiendas en línea a la medida",web_d:"Sitios de negocio y e-commerce hechos para tu marca y rápidos en cualquier teléfono.",
+web_p1:"<b>Sitio pequeño, código ligero.</b> Para una página o un sitio de negocio pequeño usamos HTML, CSS y JavaScript puro: rápido, ligero y fácil de actualizar.",
+web_p2:"<b>Proyectos grandes, la tecnología correcta.</b> Para tiendas en línea y sitios más grandes trabajamos con React, JavaScript y Tailwind CSS, según el proyecto y lo que necesite crecer.",
+web_p3:"<b>Seguridad incluida.</b> HTTPS en cada sitio, formularios protegidos y llaves privadas fuera del navegador.",
+web_p4:"<b>También trabajamos con Squarespace</b> cuando quieres editar textos y fotos tú mismo, sin código.",
+web_s1:"Sitio de negocio",web_s2:"Tienda en línea",web_sec:"Seguro · HTTPS",info_web_s:"Solicitud de información: Sitio web a la medida",
 flow_note:"Cada tap de tus tarjetas llega aquí, en vivo.",
 s2_c1:"El cliente toca la tarjeta",s2_c2:"Llega una fila a Google Sheets",s2_c3:"Tu dashboard lo cuenta",
 inv_live:"Probar demo en vivo",
@@ -1480,7 +1569,7 @@ mn_p1:"<b>Fotos de cada producto,</b> organizadas por categoría.",
 mn_p2:"<b>Se abre por NFC o QR,</b> en cualquier iPhone o Android, sin app.",
 mn_p3:"<b>En inglés y español,</b> y lo actualizas desde tu teléfono.",
 mn_live:"Ver un menú en vivo",mn_h:"Bebidas y postres",mn_c1:"Cocteles",mn_c2:"Vinos",mn_c3:"Licores",mn_c4:"Postres",mn_scan:"Escanea",mn_tap:"Toca para el menú",
-tl_more:"También hacemos foto y video, sitios web y SEO.",
+tl_more:"También hacemos foto, video y SEO.",
 lk_label:"Contraseña del equipo",lk_ph:"Contraseña",lk_go:"Abrir",lk_err:"Contraseña incorrecta. Intenta de nuevo.",
 ft_auto:"automatizaciones",
 ft_works:"Funciona con",
@@ -1938,6 +2027,10 @@ function dkInit(){
   window.addEventListener("resize",dkMove);
 }
 
+/* websites mock: switch between business site and store while visible */
+var BW={t:null,vis:false};
+function bwLoop(){clearTimeout(BW.t);if(!BW.vis||document.hidden)return;BW.t=setTimeout(function(){var el=$("#bw");var v=el.getAttribute("data-v")==="0"?"1":"0";el.setAttribute("data-v",v);$$(".bw-stack span").forEach(function(sp,i){sp.classList.toggle("on",String(i)===v)});bwLoop()},2800)}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -2052,6 +2145,9 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
   if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
   seedSheet();
+  if(!reduceMo()&&"IntersectionObserver" in window&&$("#webStage")){
+    new IntersectionObserver(function(es){es.forEach(function(en){BW.vis=en.isIntersecting;if(BW.vis)bwLoop();else clearTimeout(BW.t)})},{threshold:.35}).observe($("#webStage"));
+  }
   dkInit();
   if(!reduceMo()&&"IntersectionObserver" in window){
     var tools=$("#services");
