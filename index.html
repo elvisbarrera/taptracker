@@ -1005,7 +1005,7 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 @media (min-width:360px){.cm .two{grid-template-columns:1fr 1fr}}
 @media (min-width:520px){.cm-card{padding:30px 28px 26px}}
 .cm .field{margin:0}
-.cm textarea{min-height:104px;resize:vertical;line-height:1.45}
+.cm textarea{min-height:76px;resize:vertical;line-height:1.45}
 .cm-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .cm-err{margin:0;color:#C0392B;font:700 13.5px var(--body)}
 .cm-err a{color:inherit}
@@ -1024,6 +1024,16 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .sum-st.bad{color:#C0392B;font-weight:700}
 html.cm-lock{overflow:hidden}
 @media (prefers-reduced-motion: reduce){.cm-card,.cm.closing .cm-card,.cm-okico{animation:none}}
+
+.cm-opts{border:0;padding:0;margin:0;min-width:0}
+.cm-opts legend{font-size:13px;font-weight:700;margin-bottom:8px;padding:0}
+.cm-chips{display:flex;flex-wrap:wrap;gap:7px}
+.cm-chip{position:relative;cursor:pointer}
+.cm-chip input{position:absolute;opacity:0;pointer-events:none}
+.cm-chip span{display:inline-flex;align-items:center;min-height:36px;padding:0 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font:600 13.5px var(--body);color:var(--ink);transition:background .15s,border-color .15s,color .15s}
+.cm-chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.cm-chip input:checked+span::before{content:"";width:12px;height:7px;border:solid currentColor;border-width:0 0 2.2px 2.2px;transform:rotate(-45deg) translate(1px,-2px);margin-right:8px}
+.cm-chip input:focus-visible+span{outline:2px solid var(--accent-hi);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -1485,7 +1495,7 @@ html.cm-lock{overflow:hidden}
 
 <!-- Netlify Forms: static copy so the form is detected at deploy -->
 <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
-  <input type="text" name="topic"><input type="text" name="name"><input type="text" name="business"><input type="tel" name="phone"><input type="email" name="email"><input type="text" name="language"><textarea name="message"></textarea><input type="text" name="bot-field">
+  <input type="text" name="topic"><input type="text" name="name"><input type="text" name="business"><input type="tel" name="phone"><input type="email" name="email"><input type="text" name="language"><input type="text" name="interests"><textarea name="message"></textarea><input type="text" name="bot-field">
 </form>
 
 <dialog class="cm" id="cm" aria-labelledby="cmTitle">
@@ -1497,6 +1507,7 @@ html.cm-lock{overflow:hidden}
       <p class="cm-topic" id="cmTopic"></p>
       <form id="cmForm" novalidate>
         <p class="cm-hp" aria-hidden="true"><label>Leave empty<input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <fieldset class="cm-opts"><legend data-i18n="cf_int"></legend><div class="cm-chips"><label class="cm-chip"><input type="checkbox" name="interest" value="cards"><span data-i18n="cfo_cards"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="stands"><span data-i18n="cfo_stands"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="dash"><span data-i18n="cfo_dash"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="alerts"><span data-i18n="cfo_alerts"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="web"><span data-i18n="cfo_web"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="inv"><span data-i18n="cfo_inv"></span></label><label class="cm-chip"><input type="checkbox" name="interest" value="menu"><span data-i18n="cfo_menu"></span></label></div></fieldset>
         <div class="two">
           <div class="field"><label for="cmName" data-i18n="cf_name"></label><input id="cmName" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="cmBiz" data-i18n="cf_biz"></label><input id="cmBiz" name="business" type="text" autocomplete="organization"></div>
@@ -1505,7 +1516,7 @@ html.cm-lock{overflow:hidden}
           <div class="field"><label for="cmEmail" data-i18n="cf_email"></label><input id="cmEmail" name="email" type="email" autocomplete="email" inputmode="email"></div>
           <div class="field"><label for="cmPhone" data-i18n="cf_phone"></label><input id="cmPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
         </div>
-        <div class="field"><label for="cmMsg" data-i18n="cf_msg"></label><textarea id="cmMsg" name="message" rows="4" data-i18n-ph="cf_msg_ph"></textarea></div>
+        <div class="field"><label for="cmMsg" data-i18n="cf_msg"></label><textarea id="cmMsg" name="message" rows="2" data-i18n-ph="cf_msg_ph"></textarea></div>
         <p class="cm-err" id="cmErr" role="alert" hidden></p>
         <button class="btn btn-primary cm-send" type="submit" id="cmSend"><span data-i18n="cf_send"></span></button>
         <p class="cm-note" data-i18n="cf_note"></p>
@@ -1547,7 +1558,8 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
-cf_title:"Tell us about your business",cf_name:"Your name",cf_biz:"Business name",cf_email:"Email",cf_phone:"Phone",cf_msg:"How can we help?",cf_msg_ph:"Cards, stands, dashboard, a website… tell us what you need.",cf_send:"Send message",cf_sending:"Sending…",cf_note:"We'll reply by email or phone.",cf_close:"Close",cf_ok_t:"Message sent",cf_ok_d:"Thanks! We got it and will get back to you soon.",cf_done:"Done",cf_err_req:"Add your name and an email or phone so we can reply.",cf_err_mail:"That email doesn't look right.",cf_err_net:"We couldn't send it. Check your connection and try again, or",cf_err_app:"open your email app",cf_gen:"General question",ord_topic:"Order request",
+cf_int:"What are you interested in?",cfo_cards:"Review cards",cfo_stands:"Stands",cfo_dash:"Dashboard",cfo_alerts:"Phone alerts",cfo_web:"Website",cfo_inv:"Inventory app",cfo_menu:"Digital menu",
+cf_title:"Tell us about your business",cf_name:"Your name",cf_biz:"Business name",cf_email:"Email",cf_phone:"Phone",cf_msg:"Anything else? (optional)",cf_msg_ph:"Number of locations, questions, best time to call…",cf_send:"Send message",cf_sending:"Sending…",cf_note:"We'll reply by email or phone.",cf_close:"Close",cf_ok_t:"Message sent",cf_ok_d:"Thanks! We got it and will get back to you soon.",cf_done:"Done",cf_err_req:"Add your name and an email or phone so we can reply.",cf_err_mail:"That email doesn't look right.",cf_err_net:"We couldn't send it. Check your connection and try again, or",cf_err_app:"open your email app",cf_gen:"General question",ord_topic:"Order request",
 sum_sending:"Sending your request…",sum_sent:"Sent. We'll contact you soon to confirm your order.",sum_fail:"We couldn't send it. Copy the request and send it to us.",
 ft_loc:"Based in San Antonio, Texas",tl_ask:"Ask us",
 web_stack:"What we build with",
@@ -1652,7 +1664,8 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
-cf_title:"Cuéntanos de tu negocio",cf_name:"Tu nombre",cf_biz:"Nombre del negocio",cf_email:"Correo",cf_phone:"Teléfono",cf_msg:"¿En qué te ayudamos?",cf_msg_ph:"Tarjetas, stands, dashboard, un sitio web… cuéntanos qué necesitas.",cf_send:"Enviar mensaje",cf_sending:"Enviando…",cf_note:"Te contestamos por correo o teléfono.",cf_close:"Cerrar",cf_ok_t:"Mensaje enviado",cf_ok_d:"¡Gracias! Lo recibimos y te contactamos pronto.",cf_done:"Listo",cf_err_req:"Pon tu nombre y un correo o teléfono para poder contestarte.",cf_err_mail:"Ese correo no parece correcto.",cf_err_net:"No se pudo enviar. Revisa tu conexión e inténtalo otra vez, o",cf_err_app:"abre tu app de correo",cf_gen:"Pregunta general",ord_topic:"Solicitud de pedido",
+cf_int:"¿Qué te interesa?",cfo_cards:"Tarjetas de reseñas",cfo_stands:"Stands",cfo_dash:"Dashboard",cfo_alerts:"Alertas al teléfono",cfo_web:"Sitio web",cfo_inv:"App de inventario",cfo_menu:"Menú digital",
+cf_title:"Cuéntanos de tu negocio",cf_name:"Tu nombre",cf_biz:"Nombre del negocio",cf_email:"Correo",cf_phone:"Teléfono",cf_msg:"¿Algo más? (opcional)",cf_msg_ph:"Cuántas ubicaciones, dudas, mejor hora para llamarte…",cf_send:"Enviar mensaje",cf_sending:"Enviando…",cf_note:"Te contestamos por correo o teléfono.",cf_close:"Cerrar",cf_ok_t:"Mensaje enviado",cf_ok_d:"¡Gracias! Lo recibimos y te contactamos pronto.",cf_done:"Listo",cf_err_req:"Pon tu nombre y un correo o teléfono para poder contestarte.",cf_err_mail:"Ese correo no parece correcto.",cf_err_net:"No se pudo enviar. Revisa tu conexión e inténtalo otra vez, o",cf_err_app:"abre tu app de correo",cf_gen:"Pregunta general",ord_topic:"Solicitud de pedido",
 sum_sending:"Enviando tu solicitud…",sum_sent:"Enviado. Te contactamos pronto para confirmar tu pedido.",sum_fail:"No se pudo enviar. Copia la solicitud y envíanosla.",
 ft_loc:"Estamos en San Antonio, Texas",tl_ask:"Pregúntanos",
 web_stack:"Con qué construimos",
@@ -1778,7 +1791,7 @@ function applyLang(){
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
   $$("[data-i18n-aria]").forEach(function(e){e.setAttribute("aria-label",t(e.getAttribute("data-i18n-aria")))});
-  if(typeof CM!=="undefined"&&CM.topicKey&&$("#cmTopic"))$("#cmTopic").textContent=t(CM.topicKey);
+  if(typeof CM!=="undefined"&&CM.topicKey&&$("#cmTopic"))$("#cmTopic").textContent=CM.topicKey==="cf_gen"?"":t(CM.topicKey);
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
   renderProds();renderSheet();alBuild();mnBuild();$$(".tool-info").forEach(function(a){a.href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(t("info_"+a.getAttribute("data-info")+"_s"))+"&body="+encodeURIComponent(t("info_body"))});if($("#iv")){if(reduceMo())ivSet(0,["read","done"]);else ivResult(INV.m%3)}renderDash(false);if($("#s2Rows")){buildStory();renderStory(reduceMo()?1:storyProgress())}
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
@@ -2157,7 +2170,9 @@ function nfPost(data){
 function cmOpen(topicKey){
   var d=$("#cm");if(!d||typeof d.showModal!=="function")return false;
   CM.topicKey=topicKey||"cf_gen";
-  $("#cmTopic").textContent=t(CM.topicKey);
+  $("#cmTopic").textContent=CM.topicKey==="cf_gen"?"":t(CM.topicKey);
+  var pre={info_inv_s:"inv",info_mn_s:"menu",info_web_s:"web"}[CM.topicKey];
+  $$("#cmForm [name=interest]").forEach(function(c){if(pre)c.checked=c.value===pre});
   $("#cmErr").hidden=true;$("#cmOk").hidden=true;$("#cmFormWrap").hidden=false;
   d.classList.remove("closing");document.documentElement.classList.add("cm-lock");
   d.showModal();
@@ -2188,7 +2203,7 @@ function cmInit(){
     if(!name||(!em&&!ph)){err.textContent=t("cf_err_req");err.hidden=false;return}
     if(em&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent=t("cf_err_mail");err.hidden=false;return}
     err.hidden=true;btn.disabled=true;btn.firstChild.textContent=t("cf_sending");
-    var data={"bot-field":f.querySelector("[name=bot-field]").value,topic:t(CM.topicKey),name:name,business:$("#cmBiz").value.trim(),email:em,phone:ph,language:lang,message:$("#cmMsg").value.trim()};
+    var data={"bot-field":f.querySelector("[name=bot-field]").value,topic:t(CM.topicKey),name:name,business:$("#cmBiz").value.trim(),email:em,phone:ph,language:lang,interests:[].map.call(f.querySelectorAll("[name=interest]:checked"),function(c){return t("cfo_"+c.value)}).join(", "),message:$("#cmMsg").value.trim()};
     nfPost(data).then(function(){
       $("#cmFormWrap").hidden=true;$("#cmOk").hidden=false;f.reset();
       try{$("#cmDone").focus({preventScroll:true})}catch(x){}
