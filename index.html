@@ -2139,7 +2139,7 @@ function buildSummary(){
   var wa=$("#waBtn"),mail=$("#mailShow");
   var num=(CONTACT.whatsapp||"").replace(/\D/g,"");
   if(num){wa.hidden=false;wa.href="https://wa.me/"+num+"?text="+encodeURIComponent("Tap Tracker\n"+lastSummary)}else{wa.hidden=true}
-  if(CONTACT.email){mail.hidden=false;mail.textContent=CONTACT.email}else{mail.hidden=true}
+  mail.hidden=true;
 }
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -2176,7 +2176,7 @@ document.addEventListener("DOMContentLoaded",function(){
   $("#ftYear").textContent=new Date().getFullYear();
   var cm=$("#ctaMail");
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
-  if(CONTACT.email){var hm=$("#heroMail");hm.textContent=CONTACT.email;hm.hidden=false}
+
   seedSheet();
   if(!reduceMo()&&"IntersectionObserver" in window&&$("#webStage")){
     new IntersectionObserver(function(es){es.forEach(function(en){BW.vis=en.isIntersecting;if(BW.vis)bwLoop();else clearTimeout(BW.t)})},{threshold:.35}).observe($("#webStage"));
