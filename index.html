@@ -984,6 +984,46 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
 .ft-app svg{display:block;flex:none}
 
 .tk i.lg svg{width:24px;height:24px;display:block}
+
+/* contact modal (Netlify Forms) */
+.cm{padding:0;border:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;overflow:auto}
+.cm::backdrop{background:rgba(4,12,26,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.cm[open]{display:grid;place-items:center;padding:16px}
+.cm-card{position:relative;width:min(100%,480px);border-radius:22px;background:var(--surface);color:var(--ink);box-shadow:0 40px 90px -30px rgba(3,10,24,.7),0 0 0 1px var(--line);padding:26px 22px 22px;animation:cmIn .38s cubic-bezier(.2,.9,.2,1) both}
+@keyframes cmIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.cm.closing .cm-card{animation:cmOut .22s ease both}
+@keyframes cmOut{to{opacity:0;transform:translateY(10px) scale(.98)}}
+.cm-x{position:absolute;right:12px;top:12px;width:40px;height:40px;border:0;border-radius:12px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+.cm-x:hover{background:var(--bg)}
+.cm-x svg,.cm-ico svg,.cm-okico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cm-ico{width:42px;height:42px;border-radius:13px;background:rgba(62,224,200,.14);color:var(--accent);display:grid;place-items:center;margin-bottom:12px}
+.cm h2{font:800 21px/1.2 var(--display);letter-spacing:-.015em;padding-right:40px}
+.cm-topic{display:inline-block;margin:10px 0 2px;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font:700 12px var(--body);color:var(--muted)}
+.cm-topic:empty{display:none}
+.cm form{display:grid;gap:12px;margin-top:16px}
+.cm .two{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:360px){.cm .two{grid-template-columns:1fr 1fr}}
+@media (min-width:520px){.cm-card{padding:30px 28px 26px}}
+.cm .field{margin:0}
+.cm textarea{min-height:104px;resize:vertical;line-height:1.45}
+.cm-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cm-err{margin:0;color:#C0392B;font:700 13.5px var(--body)}
+.cm-err a{color:inherit}
+.cm-send{width:100%}
+.cm-send[disabled]{opacity:.7;cursor:progress}
+.cm-note{margin:0;font-size:12.5px;color:var(--muted);text-align:center}
+.cm-ok{text-align:center;padding:18px 4px 4px;display:grid;justify-items:center;gap:10px}
+.cm-ok[hidden]{display:none}
+.cm-ok h2{padding:0}
+.cm-ok p{color:var(--muted);max-width:34ch}
+.cm-ok .btn{margin-top:8px;min-width:160px}
+.cm-okico{width:56px;height:56px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;animation:cmPop .45s cubic-bezier(.2,1.4,.4,1) both}
+.cm-okico svg{width:28px;height:28px;stroke-width:2.6}
+@keyframes cmPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.sum-st.ok{color:var(--accent);font-weight:700}
+.sum-st.bad{color:#C0392B;font-weight:700}
+html.cm-lock{overflow:hidden}
+@media (prefers-reduced-motion: reduce){.cm-card,.cm.closing .cm-card,.cm-okico{animation:none}}
 </style>
 </head>
 <body>
@@ -1233,7 +1273,7 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
               <a class="btn btn-ghost btn-sm" id="waBtn" target="_blank" rel="noopener" hidden>WhatsApp</a>
               <span id="mailShow" class="note" style="margin:0;align-self:center" hidden></span>
             </div>
-            <p class="note" style="margin:0" data-i18n="sum_note"></p>
+            <p class="note sum-st" id="sumSt" style="margin:0" aria-live="polite"></p>
           </div>
         </div>
       </form>
@@ -1443,6 +1483,43 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
   </div>
 </footer>
 
+<!-- Netlify Forms: static copy so the form is detected at deploy -->
+<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="text" name="topic"><input type="text" name="name"><input type="text" name="business"><input type="tel" name="phone"><input type="email" name="email"><input type="text" name="language"><textarea name="message"></textarea><input type="text" name="bot-field">
+</form>
+
+<dialog class="cm" id="cm" aria-labelledby="cmTitle">
+  <div class="cm-card">
+    <button class="cm-x" type="button" id="cmX" data-i18n-aria="cf_close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="cm-form" id="cmFormWrap">
+      <span class="cm-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span>
+      <h2 id="cmTitle" data-i18n="cf_title"></h2>
+      <p class="cm-topic" id="cmTopic"></p>
+      <form id="cmForm" novalidate>
+        <p class="cm-hp" aria-hidden="true"><label>Leave empty<input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="two">
+          <div class="field"><label for="cmName" data-i18n="cf_name"></label><input id="cmName" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="cmBiz" data-i18n="cf_biz"></label><input id="cmBiz" name="business" type="text" autocomplete="organization"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="cmEmail" data-i18n="cf_email"></label><input id="cmEmail" name="email" type="email" autocomplete="email" inputmode="email"></div>
+          <div class="field"><label for="cmPhone" data-i18n="cf_phone"></label><input id="cmPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+        </div>
+        <div class="field"><label for="cmMsg" data-i18n="cf_msg"></label><textarea id="cmMsg" name="message" rows="4" data-i18n-ph="cf_msg_ph"></textarea></div>
+        <p class="cm-err" id="cmErr" role="alert" hidden></p>
+        <button class="btn btn-primary cm-send" type="submit" id="cmSend"><span data-i18n="cf_send"></span></button>
+        <p class="cm-note" data-i18n="cf_note"></p>
+      </form>
+    </div>
+    <div class="cm-ok" id="cmOk" hidden>
+      <span class="cm-okico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <h2 data-i18n="cf_ok_t"></h2>
+      <p data-i18n="cf_ok_d"></p>
+      <button class="btn btn-primary" type="button" id="cmDone" data-i18n="cf_done"></button>
+    </div>
+  </div>
+</dialog>
+
 <nav class="dock" aria-label="Quick navigation">
   <span class="dk-ind" aria-hidden="true"></span>
   <a class="dk" data-sec href="#how"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="6" r="2.2"/><path d="M7 18h6.5a3.5 3.5 0 0 0 0-7h-3a3.5 3.5 0 0 1 0-7H17"/></svg><span data-i18n="dock_how"></span></a>
@@ -1470,6 +1547,8 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+cf_title:"Tell us about your business",cf_name:"Your name",cf_biz:"Business name",cf_email:"Email",cf_phone:"Phone",cf_msg:"How can we help?",cf_msg_ph:"Cards, stands, dashboard, a website… tell us what you need.",cf_send:"Send message",cf_sending:"Sending…",cf_note:"We'll reply by email or phone.",cf_close:"Close",cf_ok_t:"Message sent",cf_ok_d:"Thanks! We got it and will get back to you soon.",cf_done:"Done",cf_err_req:"Add your name and an email or phone so we can reply.",cf_err_mail:"That email doesn't look right.",cf_err_net:"We couldn't send it. Check your connection and try again, or",cf_err_app:"open your email app",cf_gen:"General question",ord_topic:"Order request",
+sum_sending:"Sending your request…",sum_sent:"Sent. We'll contact you soon to confirm your order.",sum_fail:"We couldn't send it. Copy the request and send it to us.",
 ft_loc:"Based in San Antonio, Texas",tl_ask:"Ask us",
 web_stack:"What we build with",
 web_t:"Custom websites and online stores",web_d:"Business sites and e-commerce built for your brand and made to load fast on any phone.",
@@ -1573,6 +1652,8 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+cf_title:"Cuéntanos de tu negocio",cf_name:"Tu nombre",cf_biz:"Nombre del negocio",cf_email:"Correo",cf_phone:"Teléfono",cf_msg:"¿En qué te ayudamos?",cf_msg_ph:"Tarjetas, stands, dashboard, un sitio web… cuéntanos qué necesitas.",cf_send:"Enviar mensaje",cf_sending:"Enviando…",cf_note:"Te contestamos por correo o teléfono.",cf_close:"Cerrar",cf_ok_t:"Mensaje enviado",cf_ok_d:"¡Gracias! Lo recibimos y te contactamos pronto.",cf_done:"Listo",cf_err_req:"Pon tu nombre y un correo o teléfono para poder contestarte.",cf_err_mail:"Ese correo no parece correcto.",cf_err_net:"No se pudo enviar. Revisa tu conexión e inténtalo otra vez, o",cf_err_app:"abre tu app de correo",cf_gen:"Pregunta general",ord_topic:"Solicitud de pedido",
+sum_sending:"Enviando tu solicitud…",sum_sent:"Enviado. Te contactamos pronto para confirmar tu pedido.",sum_fail:"No se pudo enviar. Copia la solicitud y envíanosla.",
 ft_loc:"Estamos en San Antonio, Texas",tl_ask:"Pregúntanos",
 web_stack:"Con qué construimos",
 web_t:"Sitios web y tiendas en línea a la medida",web_d:"Sitios de negocio y e-commerce hechos para tu marca y rápidos en cualquier teléfono.",
@@ -1696,6 +1777,8 @@ function applyLang(){
   $$("[data-i18n]").forEach(function(e){e.textContent=t(e.getAttribute("data-i18n"))});
   $$("[data-i18n-html]").forEach(function(e){e.innerHTML=t(e.getAttribute("data-i18n-html"))});
   $$("[data-i18n-ph]").forEach(function(e){e.placeholder=t(e.getAttribute("data-i18n-ph"))});
+  $$("[data-i18n-aria]").forEach(function(e){e.setAttribute("aria-label",t(e.getAttribute("data-i18n-aria")))});
+  if(typeof CM!=="undefined"&&CM.topicKey&&$("#cmTopic"))$("#cmTopic").textContent=t(CM.topicKey);
   $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
   renderProds();renderSheet();alBuild();mnBuild();$$(".tool-info").forEach(function(a){a.href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(t("info_"+a.getAttribute("data-info")+"_s"))+"&body="+encodeURIComponent(t("info_body"))});if($("#iv")){if(reduceMo())ivSet(0,["read","done"]);else ivResult(INV.m%3)}renderDash(false);if($("#s2Rows")){buildStory();renderStory(reduceMo()?1:storyProgress())}
   if(selIsExample&&$("#selName")&&$("#placeId").value.trim())$("#selName").textContent=t("link_example");
@@ -2064,6 +2147,65 @@ function dkInit(){
 var BW={t:null,vis:false};
 function bwLoop(){clearTimeout(BW.t);if(!BW.vis||document.hidden)return;BW.t=setTimeout(function(){var el=$("#bw");var v=el.getAttribute("data-v")==="0"?"1":"0";el.setAttribute("data-v",v);$$(".bw-stack span").forEach(function(sp,i){sp.classList.toggle("on",String(i)===v)});bwLoop()},2800)}
 
+/* contact modal + Netlify Forms */
+var CM={topic:"",topicKey:""};
+function nfPost(data){
+  data["form-name"]="contact";
+  return fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(data).toString()})
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r});
+}
+function cmOpen(topicKey){
+  var d=$("#cm");if(!d||typeof d.showModal!=="function")return false;
+  CM.topicKey=topicKey||"cf_gen";
+  $("#cmTopic").textContent=t(CM.topicKey);
+  $("#cmErr").hidden=true;$("#cmOk").hidden=true;$("#cmFormWrap").hidden=false;
+  d.classList.remove("closing");document.documentElement.classList.add("cm-lock");
+  d.showModal();
+  if(!matchMedia("(pointer:coarse)").matches)setTimeout(function(){try{$("#cmName").focus({preventScroll:true})}catch(e){}},60);
+  return true;
+}
+function cmClose(){
+  var d=$("#cm");if(!d.open)return;
+  if(reduceMo()){d.close();return}
+  d.classList.add("closing");
+  setTimeout(function(){d.classList.remove("closing");d.close()},210);
+}
+function cmInit(){
+  var d=$("#cm");if(!d)return;
+  d.addEventListener("close",function(){document.documentElement.classList.remove("cm-lock")});
+  d.addEventListener("cancel",function(e){e.preventDefault();cmClose()});
+  d.addEventListener("click",function(e){if(e.target===d)cmClose()});
+  $("#cmX").addEventListener("click",cmClose);
+  $("#cmDone").addEventListener("click",cmClose);
+  function bind(el,key){if(!el)return;el.addEventListener("click",function(e){if(cmOpen(typeof key==="function"?key(el):key))e.preventDefault()})}
+  bind($("#ctaMail"),"cf_gen");bind($("#ftMail"),"cf_gen");bind($("#ftMail2"),"cf_gen");
+  $$(".ft-mail-dyn").forEach(function(a){bind(a,"cf_gen")});
+  $$(".tool-info").forEach(function(a){bind(a,function(el){return "info_"+el.getAttribute("data-info")+"_s"})});
+  $("#cmForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var f=e.target,err=$("#cmErr"),btn=$("#cmSend");
+    var name=$("#cmName").value.trim(),em=$("#cmEmail").value.trim(),ph=$("#cmPhone").value.trim();
+    if(!name||(!em&&!ph)){err.textContent=t("cf_err_req");err.hidden=false;return}
+    if(em&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent=t("cf_err_mail");err.hidden=false;return}
+    err.hidden=true;btn.disabled=true;btn.firstChild.textContent=t("cf_sending");
+    var data={"bot-field":f.querySelector("[name=bot-field]").value,topic:t(CM.topicKey),name:name,business:$("#cmBiz").value.trim(),email:em,phone:ph,language:lang,message:$("#cmMsg").value.trim()};
+    nfPost(data).then(function(){
+      $("#cmFormWrap").hidden=true;$("#cmOk").hidden=false;f.reset();
+      try{$("#cmDone").focus({preventScroll:true})}catch(x){}
+    }).catch(function(){
+      var mh="mailto:"+CONTACT.email+"?subject="+encodeURIComponent(t(CM.topicKey))+"&body="+encodeURIComponent([data.message,"",data.name,data.business,data.phone,data.email].filter(Boolean).join("\n"));
+      err.innerHTML="";err.appendChild(document.createTextNode(t("cf_err_net")+" "));
+      var a=document.createElement("a");a.href=mh;a.textContent=t("cf_err_app");err.appendChild(a);err.appendChild(document.createTextNode("."));err.hidden=false;
+    }).then(function(){btn.disabled=false;btn.firstChild.textContent=t("cf_send")});
+  });
+}
+function sendOrder(){
+  var st=$("#sumSt");st.className="note sum-st";st.textContent=t("sum_sending");
+  nfPost({"bot-field":"",topic:t("ord_topic"),name:$("#fName").value.trim(),business:$("#fBiz").value.trim(),email:$("#fEmail").value.trim(),phone:$("#fPhone").value.trim(),language:lang,message:lastSummary})
+    .then(function(){st.classList.add("ok");st.textContent=t("sum_sent")})
+    .catch(function(){st.classList.add("bad");st.textContent=t("sum_fail")});
+}
+
 /* products: cards, stands, custom */
 function lineTotal(p,n){if(p.quote)return 0;return Math.floor(n/p.pack)*p.packPrice+(n%p.pack)*p.unit}
 function fill(str,o){return str.replace(/\{(\w+)\}/g,function(m,k){return o[k]})}
@@ -2163,6 +2305,7 @@ document.addEventListener("DOMContentLoaded",function(){
     err.hidden=true;buildSummary();
     var s=$("#summary");s.hidden=false;
     s.scrollIntoView({behavior:"smooth",block:"center"});
+    sendOrder();
   });
   var cs=$("#copySum");cs._sel=$("#sumText");
   cs.addEventListener("click",function(){copyText(lastSummary,cs,"copied","sum_copy")});
@@ -2178,6 +2321,7 @@ document.addEventListener("DOMContentLoaded",function(){
   cm.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Tap Tracker");
 
   seedSheet();
+  cmInit();
   if(!reduceMo()&&"IntersectionObserver" in window&&$("#webStage")){
     new IntersectionObserver(function(es){es.forEach(function(en){BW.vis=en.isIntersecting;if(BW.vis)bwLoop();else clearTimeout(BW.t)})},{threshold:.35}).observe($("#webStage"));
   }
