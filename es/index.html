@@ -574,7 +574,7 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
   .ft-cta h2{grid-row:span 2}
   .ft-cta p{margin:0}
   .ft-acts{margin:0}
-  .ft-grid{grid-template-columns:2fr 1fr 1fr;padding:56px 0 48px}
+  .ft-grid{grid-template-columns:2fr 1fr 1fr 1.3fr;padding:56px 0 48px}
   .ft-brand{grid-column:auto}
   .ft-bottom{grid-template-columns:auto 1fr;gap:24px;align-items:start}
   .ft-legal{justify-self:end;text-align:right}
@@ -1511,6 +1511,16 @@ html.cm-lock{overflow:hidden}
         <a href="#services" data-i18n="nav_more">Servicios</a>
         <a href="#" id="ftMail2" data-i18n="ft_contact">Contacto</a>
       </nav>
+      <nav class="ft-col" aria-labelledby="ftc3">
+        <h3 id="ftc3" data-i18n="ft_c3">Conoce más</h3>
+        <a href="/nfc-review-cards/" data-i18n="lp_cards">Tarjetas NFC de reseñas</a>
+        <a href="/nfc-review-stands/" data-i18n="lp_stands">Soportes NFC de reseñas</a>
+        <a href="/review-tracking-dashboard/" data-i18n="lp_dash">Dashboard de reseñas</a>
+        <a href="/digital-menus/" data-i18n="lp_menu">Menús digitales</a>
+        <a href="/restaurant-inventory-app/" data-i18n="lp_inv">App de inventario</a>
+        <a href="/website-design-san-antonio/" data-i18n="lp_web">Sitios web en San Antonio</a>
+        <a href="/guides/how-to-get-more-google-reviews/" data-i18n="lp_guide">Guía: más reseñas en Google</a>
+      </nav>
     </div>
     <div class="ft-bottom">
       <p>© <span id="ftYear">2026</span> Tap Tracker. <span data-i18n="ft_rights">Todos los derechos reservados.</span></p>
@@ -1584,6 +1594,7 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+ft_c3:"Learn more",lp_cards:"NFC review cards",lp_stands:"NFC review stands",lp_dash:"Review tracking dashboard",lp_menu:"Digital menus",lp_inv:"Restaurant inventory app",lp_web:"Website design in San Antonio",lp_guide:"Guide: get more Google reviews",
 cf_int:"What are you interested in?",cfo_cards:"Review cards",cfo_stands:"Stands",cfo_dash:"Dashboard",cfo_alerts:"Phone alerts",cfo_web:"Website",cfo_inv:"Inventory app",cfo_menu:"Digital menu",
 cf_title:"Tell us about your business",cf_name:"Your name",cf_biz:"Business name",cf_email:"Email",cf_phone:"Phone",cf_msg:"Anything else? (optional)",cf_msg_ph:"Number of locations, questions, best time to call…",cf_send:"Send message",cf_sending:"Sending…",cf_note:"We'll reply by email or phone.",cf_close:"Close",cf_ok_t:"Message sent",cf_ok_d:"Thanks! We got it and will get back to you soon.",cf_done:"Done",cf_err_req:"Add your name and an email or phone so we can reply.",cf_err_mail:"That email doesn't look right.",cf_err_net:"We couldn't send it. Check your connection and try again, or",cf_err_app:"open your email app",cf_gen:"General question",ord_topic:"Order request",
 sum_sending:"Sending your request…",sum_sent:"Sent. We'll contact you soon to confirm your order.",sum_fail:"We couldn't send it. Copy the request and send it to us.",
@@ -1690,6 +1701,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+ft_c3:"Conoce más",lp_cards:"Tarjetas NFC de reseñas",lp_stands:"Soportes NFC de reseñas",lp_dash:"Dashboard de reseñas",lp_menu:"Menús digitales",lp_inv:"App de inventario",lp_web:"Sitios web en San Antonio",lp_guide:"Guía: más reseñas en Google",
 cf_int:"¿Qué te interesa?",cfo_cards:"Tarjetas de reseñas",cfo_stands:"Stands",cfo_dash:"Dashboard",cfo_alerts:"Alertas al teléfono",cfo_web:"Sitio web",cfo_inv:"App de inventario",cfo_menu:"Menú digital",
 cf_title:"Cuéntanos de tu negocio",cf_name:"Tu nombre",cf_biz:"Nombre del negocio",cf_email:"Correo",cf_phone:"Teléfono",cf_msg:"¿Algo más? (opcional)",cf_msg_ph:"Cuántas ubicaciones, dudas, mejor hora para llamarte…",cf_send:"Enviar mensaje",cf_sending:"Enviando…",cf_note:"Te contestamos por correo o teléfono.",cf_close:"Cerrar",cf_ok_t:"Mensaje enviado",cf_ok_d:"¡Gracias! Lo recibimos y te contactamos pronto.",cf_done:"Listo",cf_err_req:"Pon tu nombre y un correo o teléfono para poder contestarte.",cf_err_mail:"Ese correo no parece correcto.",cf_err_net:"No se pudo enviar. Revisa tu conexión e inténtalo otra vez, o",cf_err_app:"abre tu app de correo",cf_gen:"Pregunta general",ord_topic:"Solicitud de pedido",
 sum_sending:"Enviando tu solicitud…",sum_sent:"Enviado. Te contactamos pronto para confirmar tu pedido.",sum_fail:"No se pudo enviar. Copia la solicitud y envíanosla.",
@@ -2199,7 +2211,7 @@ function cmOpen(topicKey){
   var d=$("#cm");if(!d||typeof d.showModal!=="function")return false;
   CM.topicKey=topicKey||"cf_gen";
   $("#cmTopic").textContent=CM.topicKey==="cf_gen"?"":t(CM.topicKey);
-  var pre={info_inv_s:"inv",info_mn_s:"menu",info_web_s:"web"}[CM.topicKey];
+  var pre={info_inv_s:"inv",info_mn_s:"menu",info_web_s:"web"}[CM.topicKey]||CM.pre;CM.pre="";
   $$("#cmForm [name=interest]").forEach(function(c){if(pre)c.checked=c.value===pre});
   $("#cmErr").hidden=true;$("#cmOk").hidden=true;$("#cmFormWrap").hidden=false;
   d.classList.remove("closing");document.documentElement.classList.add("cm-lock");
@@ -2370,6 +2382,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   seedSheet();
   cmInit();
+  (function(){var m=/[?&]contact=([a-z]+)/.exec(location.search);if(!m)return;CM.pre=m[1];setTimeout(function(){cmOpen("cf_gen")},350);try{history.replaceState(null,"",location.pathname)}catch(e){}})();
   if(!reduceMo()&&"IntersectionObserver" in window&&$("#webStage")){
     new IntersectionObserver(function(es){es.forEach(function(en){BW.vis=en.isIntersecting;if(BW.vis)bwLoop();else clearTimeout(BW.t)})},{threshold:.35}).observe($("#webStage"));
   }
