@@ -910,6 +910,9 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
   .s2-cap{display:none;grid-row:3;grid-column:1/-1!important;font-size:13.5px}
   .s2-cap.on{display:block}
 }
+.flow-note{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:8px 14px 8px 10px;border-radius:999px;background:rgba(62,224,200,.1);border:1px solid rgba(62,224,200,.3);color:var(--on-navy);font:600 14px var(--body)}
+.fn-card{flex:none;width:26px;height:17px;border-radius:4px;background:linear-gradient(135deg,#16407A,#0A1A33 70%);border:1px solid rgba(62,224,200,.7);transform:rotate(-8deg)}
+.flow-note+.flow{margin-top:20px}
 </style>
 </head>
 <body>
@@ -1059,38 +1062,12 @@ html.ipad .hero{padding-top:calc(env(safe-area-inset-top,0px) + 124px)}
   </section>
 
 
-  <section id="story" class="story2" aria-labelledby="stTitle">
-    <div class="wrap">
-      <h2 class="sec-title" id="stTitle" data-i18n="st_title"></h2>
-      <div class="s2" id="s2" aria-hidden="true">
-        <div class="s2-col s2-tap">
-          <div class="s2-stage">
-            <span class="s2-rip" id="s2Rip"></span>
-            <div class="mc s2-card"></div>
-            <div class="s2-ph" id="s2Ph"><i></i></div>
-          </div>
-        </div>
-        <div class="s2-link"><i id="s2D1"></i></div>
-        <div class="s2-col s2-sheet">
-          <div class="s2-hd"><span class="s2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M5 9.5h14M5 14.5h14M10.5 9.5V20"/></svg></span><b>Sheets</b><em id="s2N">0</em></div>
-          <div class="s2-rows" id="s2Rows"></div>
-        </div>
-        <div class="s2-link l2"><i id="s2D2"></i></div>
-        <div class="s2-col s2-dash">
-          <div class="s2-hd dk2"><span class="s2-ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 20v-8M12 20V4M19 20v-5"/></svg></span><b>Dashboard</b></div>
-          <div class="s2-bars" id="s2Bars"></div>
-        </div>
-        <p class="s2-cap c1" data-i18n="s2_c1"></p>
-        <p class="s2-cap c2" data-i18n="s2_c2"></p>
-        <p class="s2-cap c3" data-i18n="s2_c3"></p>
-      </div>
-    </div>
-  </section>
 
   <section id="demo" class="dsec">
     <div class="wrap">
       <h2 class="sec-title" data-i18n="dash_title"></h2>
       <p class="sec-sub" data-i18n="dash_sub"></p>
+      <p class="flow-note"><span class="fn-card" aria-hidden="true"></span><span data-i18n="flow_note"></span></p>
       <div class="flow" id="flow">
         <div class="sheetp">
           <div class="sh-top">
@@ -1382,6 +1359,7 @@ var EX_ID="ChIJN1t_tDeuEmsRUsoyG83frY4";
 
 var I={
 en:{
+flow_note:"Every tap from your cards lands here, live.",
 s2_c1:"A customer taps the card",s2_c2:"A row lands in Google Sheets",s2_c3:"Your dashboard counts it",
 inv_live:"Try the live demo",
 map_search:"Search here",
@@ -1476,6 +1454,7 @@ q4:"Is it okay to offer something for a review?",a4:"No. Google's policies prohi
 
 },
 es:{
+flow_note:"Cada tap de tus tarjetas llega aquí, en vivo.",
 s2_c1:"El cliente toca la tarjeta",s2_c2:"Llega una fila a Google Sheets",s2_c3:"Tu dashboard lo cuenta",
 inv_live:"Probar demo en vivo",
 map_search:"Buscar aquí",
