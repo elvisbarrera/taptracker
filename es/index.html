@@ -719,13 +719,13 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
 .msc::after{content:"";position:absolute;left:14%;right:14%;bottom:-2%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(10,26,51,.22),transparent);z-index:-1}
 .msc-p{display:block;will-change:transform}
 .msc img{display:block;width:100%;height:auto;-webkit-user-drag:none}
-.tool-copy.has-msc .msc{position:relative;float:right;width:38%;max-width:200px;margin:-6px 0 10px 14px;shape-outside:margin-box}
-.tool-copy.has-msc{display:flow-root}
-.tool-copy.has-msc .msc-bvr{max-width:220px}
-@media (min-width:560px){.tool-copy.has-msc .msc{width:30%;max-width:230px}.tool-copy.has-msc .msc-bvr{max-width:250px}}
-.miss-band.has-msc{flex-wrap:wrap;position:relative}
+.tool-copy.has-msc .msc{position:relative;display:block;width:min(64%,240px);margin:0 auto 28px}
+.tool-copy.has-msc .msc-bvr{width:min(70%,264px)}
+@media (min-width:560px){.tool-copy.has-msc .msc{width:250px;margin-left:-6px}.tool-copy.has-msc .msc-bvr{width:276px}}
+.miss-band.has-msc{flex-wrap:wrap;position:relative;margin-bottom:32px}
 .miss-band.has-msc>div{flex:1 1 260px}
-.msc-fox{position:relative;width:150px;margin:6px 0 -31px auto;flex:none;order:3}
+.msc-fox{position:relative;width:min(52%,190px);margin:20px auto -31px;flex:none;order:3}
+@media (max-width:899px){.tool{margin-top:64px}}
 @media (min-width:720px){
   .miss-band.has-msc{flex-wrap:nowrap;min-height:240px;padding:56px 230px 30px 0}
   .msc-fox{position:absolute;right:0;bottom:-1px;width:196px;margin:0}
@@ -733,9 +733,8 @@ footer.ft a:focus-visible{outline-color:var(--accent-hi)}
 @media (min-width:900px){
   .miss-band.has-msc{min-height:260px;padding-right:250px}
   .msc-fox{width:214px}
-  .tool-copy.has-msc{display:flex;flex-direction:column}
-  .tool-copy.has-msc .msc{order:9;float:none;width:236px;max-width:none;margin:40px 0 0;align-self:flex-start}
-  .tool-copy.has-msc.msc-end .msc{align-self:flex-end;width:262px;margin-right:8px}
+  .tool-copy.has-msc .msc{width:216px;margin:0 0 32px -6px}
+  .tool-copy.has-msc .msc-bvr{width:244px}
 }
 @media (prefers-reduced-motion:no-preference){
   .msc img{animation:ftmBob 5.4s ease-in-out infinite;transform-origin:50% 100%}
