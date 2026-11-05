@@ -1072,11 +1072,29 @@ html.cm-lock{overflow:hidden}
 .ft-legal a{color:var(--on-navy-muted)}
 
 /* footer mascots: stand on the CTA divider */
-.ft-mascots{position:relative;margin:36px auto -48px;max-width:640px;pointer-events:none;user-select:none}
+.ft-mascots{position:relative;aspect-ratio:938/463;margin:36px auto -48px;max-width:640px;pointer-events:none;user-select:none;clip-path:inset(-30% -12% 0 -12%)}
 .ft-mascots::before{content:"";position:absolute;inset:18% 6% 0;background:radial-gradient(ellipse at 50% 80%,rgba(62,224,200,.16),transparent 68%);z-index:0}
-.ft-mascots img{position:relative;z-index:1;display:block;width:100%;height:auto}
+.ftm{position:absolute;display:block}
+.ftm img{display:block;width:100%;height:auto}
+.ftm-dog{left:0;top:8.42%;width:30.17%;z-index:1}
+.ftm-fox{left:29.32%;top:0;width:41.68%;z-index:2}
+.ftm-bvr{left:67.16%;top:10.15%;width:32.84%;z-index:1}
+.ftm-ring{position:absolute;z-index:3;width:19%;aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(62,224,200,.75);box-shadow:0 0 12px rgba(62,224,200,.35);opacity:0;transform:translate(-50%,-50%) scale(.5)}
+.ftm-ring.r1{left:20.3%;top:73%}.ftm-ring.r2{left:40.5%;top:67.6%}.ftm-ring.r3{left:85.8%;top:71.9%}
 @media (min-width:900px){.ft-mascots{grid-column:1/-1;justify-self:center;width:100%;margin:28px auto -64px}}
-@media (prefers-reduced-motion:no-preference){.ft-mascots img{transition:transform .6s cubic-bezier(.2,.9,.2,1)}}
+@media (prefers-reduced-motion:no-preference){
+.ftm img{animation:ftmBob 5.2s ease-in-out infinite}
+.ftm-fox img{animation-duration:4.6s;animation-delay:-1.4s}
+.ftm-bvr img{animation-duration:5.8s;animation-delay:-2.9s}
+.ftm-ring{animation:ftmRing 4.5s cubic-bezier(.16,1,.3,1) infinite}
+.ftm-ring.r2{animation-delay:1.5s}.ftm-ring.r3{animation-delay:3s}
+.ft-mascots.ftm-pre .ftm{transform:translateY(16%);opacity:0}
+.ft-mascots.ftm-pre .ftm-ring{animation:none}
+.ft-mascots.ftm-in .ftm{transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .5s ease-out}
+.ft-mascots.ftm-in .ftm-fox{transition-delay:.12s}.ft-mascots.ftm-in .ftm-bvr{transition-delay:.24s}
+}
+@keyframes ftmBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.4%)}}
+@keyframes ftmRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}8%{opacity:.7}55%,100%{opacity:0;transform:translate(-50%,-50%) scale(1.45)}}
 </style>
 <script>window.TT_PAGE_LANG="en"</script>
 </head>
@@ -1501,7 +1519,10 @@ html.cm-lock{overflow:hidden}
         <a class="btn ft-b2" id="ftMail" href="mailto:info@taptrackertx.com?subject=Tap%20Tracker"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><span data-i18n="ft_b2">Email us</span></a>
       </div>
       <figure class="ft-mascots">
-        <img src="https://taptrackertx.com/tap-tracker-mascots.webp?v=2" srcset="https://taptrackertx.com/tap-tracker-mascots-640.webp?v=2 640w, https://taptrackertx.com/tap-tracker-mascots.webp?v=2 938w" sizes="(min-width: 760px) 640px, 92vw" width="938" height="463" loading="lazy" decoding="async" data-i18n-alt="ft_mascots_alt" alt="Tap Tracker mascots holding NFC Google review cards">
+        <span class="ftm ftm-dog"><img src="https://taptrackertx.com/tap-tracker-dog.webp" width="283" height="423" loading="lazy" decoding="async" data-i18n-alt="ft_mascots_alt" alt="Tap Tracker mascots holding NFC Google review cards"></span>
+        <span class="ftm ftm-fox"><img src="https://taptrackertx.com/tap-tracker-fox.webp" width="391" height="462" loading="lazy" decoding="async" alt=""></span>
+        <span class="ftm ftm-bvr"><img src="https://taptrackertx.com/tap-tracker-beaver.webp" width="308" height="415" loading="lazy" decoding="async" alt=""></span>
+        <span class="ftm-ring r1" aria-hidden="true"></span><span class="ftm-ring r2" aria-hidden="true"></span><span class="ftm-ring r3" aria-hidden="true"></span>
       </figure>
     </div>
     <div class="ft-grid">
@@ -2210,6 +2231,8 @@ function dkMove(){
   ind.style.width=on.offsetWidth+"px";ind.style.transform="translateX("+on.offsetLeft+"px)";ind.style.opacity=1;
 }
 /* hide dock while the footer is on screen */
+(function(){var f=document.querySelector(".ft-mascots");if(!f||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(f.getBoundingClientRect().top<innerHeight)return;f.classList.add("ftm-pre");
+new IntersectionObserver(function(es,o){if(es[0].isIntersecting){f.classList.add("ftm-in");f.classList.remove("ftm-pre");o.disconnect()}},{threshold:.3}).observe(f)})();
 (function(){var d=document.querySelector(".dock"),f=document.querySelector("footer.ft");if(!d||!f||!("IntersectionObserver" in window))return;
 var rdy=function(){d.classList.add("dk-ready")};d.addEventListener("animationend",rdy,{once:true});setTimeout(rdy,1400);
 new IntersectionObserver(function(es){es.forEach(function(e){d.classList.toggle("dk-away",e.isIntersecting)})},{rootMargin:"0px 0px -40px 0px",threshold:0}).observe(f)})();
